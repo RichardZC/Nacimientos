@@ -26,6 +26,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Plantilla", "Plantilla\", "
 		SlnRelativePath = "Plantilla\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE", "BE\BE.csproj", "{A93B78C7-4A1B-4FBB-A8AE-3E264325B6C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA", "DA\DA.csproj", "{1E5674ED-E9F7-42AD-B111-73FF06EA9530}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{67537695-489A-4D2A-8862-EEDAB00A33EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +46,18 @@ Global
 		{6D85265E-6650-46EE-B033-41AA61236E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D85265E-6650-46EE-B033-41AA61236E0D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D85265E-6650-46EE-B033-41AA61236E0D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A93B78C7-4A1B-4FBB-A8AE-3E264325B6C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93B78C7-4A1B-4FBB-A8AE-3E264325B6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93B78C7-4A1B-4FBB-A8AE-3E264325B6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93B78C7-4A1B-4FBB-A8AE-3E264325B6C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5674ED-E9F7-42AD-B111-73FF06EA9530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5674ED-E9F7-42AD-B111-73FF06EA9530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5674ED-E9F7-42AD-B111-73FF06EA9530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5674ED-E9F7-42AD-B111-73FF06EA9530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67537695-489A-4D2A-8862-EEDAB00A33EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67537695-489A-4D2A-8862-EEDAB00A33EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67537695-489A-4D2A-8862-EEDAB00A33EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67537695-489A-4D2A-8862-EEDAB00A33EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
