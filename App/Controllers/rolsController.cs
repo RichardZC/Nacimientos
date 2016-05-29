@@ -11,17 +11,17 @@ using BE;
 
 namespace App.Controllers
 {
-    public class rolController : Controller
+    public class rolsController : Controller
     {
         private AppContext db = new AppContext();
 
-        // GET: rol
+        // GET: rols
         public ActionResult Index()
         {
             return View(db.rols.ToList());
         }
 
-        // GET: rol/Details/5
+        // GET: rols/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -36,13 +36,13 @@ namespace App.Controllers
             return View(rol);
         }
 
-        // GET: rol/Create
+        // GET: rols/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: rol/Create
+        // POST: rols/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -59,7 +59,7 @@ namespace App.Controllers
             return View(rol);
         }
 
-        // GET: rol/Edit/5
+        // GET: rols/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -74,7 +74,7 @@ namespace App.Controllers
             return View(rol);
         }
 
-        // POST: rol/Edit/5
+        // POST: rols/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -90,7 +90,7 @@ namespace App.Controllers
             return View(rol);
         }
 
-        // GET: rol/Delete/5
+        // GET: rols/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -105,7 +105,7 @@ namespace App.Controllers
             return View(rol);
         }
 
-        // POST: rol/Delete/5
+        // POST: rols/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

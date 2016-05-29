@@ -15,12 +15,14 @@ namespace App.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public AppContext() : base("name=AppContext")
+        public AppContext() : base("name=nacEntities")
         {
         }
 
         public System.Data.Entity.DbSet<BE.persona> personas { get; set; }
 
         public System.Data.Entity.DbSet<BE.rol> rols { get; set; }
+
+       
     }
 }

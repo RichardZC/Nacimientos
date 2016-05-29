@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.Security;
 using System.Web.Mvc;
 
 namespace App.Controllers
@@ -12,19 +12,36 @@ namespace App.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
+        [AllowAnonymous]
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View("Login");
         }
 
-        public ActionResult Contact()
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Autenticar()
         {
-            ViewBag.Message = "Your contact page.";
+            string login = Request.Form["username"].Trim();
+            string pass = Request.Form["password"].Trim();
+            bool remenber = false;
+            if (Request.Form.Count>2)          
+                remenber = true;                       
+            
+            if (true)
+            {
+                FormsAuthentication.SetAuthCookie(login, remenber);
 
-            return View();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Login", new { mensaje = "Usuario o Clave Incorrecto" });
+        }
+        [AllowAnonymous]
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
+            return RedirectToAction("Login");
         }
     }
 }
