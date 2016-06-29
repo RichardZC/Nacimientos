@@ -1,0 +1,167 @@
+﻿
+<div class="section">
+    <div class="row">
+        <div class="col s12 m4 l4">
+            <div class="card-panel">
+                <h4 class="header2">Reporte de Nacimientos</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>Libro Inicio</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosNacIni")
+                            </div>
+                            <div class="input-field col s3">
+                                <label>Libro Fin</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosNacFin")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button id="btnRptNacPdf" class="btn cyan waves-effect waves-light left" type="button" name="action">
+                                    REPORTE PDF
+                                    <i class="mdi-content-send right"></i>
+                                </button>
+                                <button id="btnRptNacExcel" class="btn cyan waves-effect waves-light right" type="button" name="action">
+                                    REPORTE EXCEL
+                                    <i class="mdi-content-send right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+   
+        <div class="col s12 m4 l4">
+            <div class="card-panel">
+                <h4 class="header2">Reporte de Defunciones</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>Libro Inicio</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosDefIni")
+                            </div>
+                            <div class="input-field col s3">
+                                <label>Libro Fin</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosDefFin")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button id="btnRptDefPdf" class="btn cyan waves-effect waves-light left" type="button" name="action">
+                                    REPORTE PDF
+                                    <i class="mdi-content-send right"></i>
+                                </button>
+                                <button id="btnRptDefExcel" class="btn cyan waves-effect waves-light right" type="button" name="action">
+                                    REPORTE EXCEL
+                                    <i class="mdi-content-send right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m4 l4">
+            <div class="card-panel">
+                <h4 class="header2">Reporte de Matrimonios</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>Libro Inicio</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosMatIni")
+                            </div>
+                            <div class="input-field col s3">
+                                <label>Libro Fin</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosMatFin")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button id="btnRptMatPdf" class="btn cyan waves-effect waves-light left" type="button" name="action">
+                                    REPORTE PDF
+                                    <i class="mdi-content-send right"></i>
+                                </button>
+                                <button id="btnRptMatExcel" class="btn cyan waves-effect waves-light right" type="button" name="action">
+                                    REPORTE EXCEL
+                                    <i class="mdi-content-send right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#btnRptNacPdf").click(function () {
+                event.preventDefault();
+                verReporteNac('PDF');
+                return false;
+            });
+            $("#btnRptNacExcel").click(function () {
+                event.preventDefault();
+                verReporteNac('Excel');
+                return false;
+            });
+
+            $("#btnRptDefPdf").click(function () {
+                event.preventDefault();
+                verReporteDef('PDF');
+                return false;
+            });
+            $("#btnRptDefExcel").click(function () {
+                event.preventDefault();
+                verReporteDef('Excel');
+                return false;
+            });
+
+            $("#btnRptMatPdf").click(function () {
+                event.preventDefault();
+                verReporteMat('PDF');
+                return false;
+            });
+            $("#btnRptMatExcel").click(function () {
+                event.preventDefault();
+                verReporteMat('Excel');
+                return false;
+            });
+
+        });
+
+        function verReporteNac(tipoReporte) {
+            var ruta = '@Url.Action("ReporteNacimiento", "Informe")' + '?pNroLibroIni=' + $('#LibrosNacIni').val() + '&pNroLibroFin=' + $('#LibrosNacFin').val() + '&pTipoReporte=' + tipoReporte;
+            window.open(ruta);
+        }
+        function verReporteDef(tipoReporte) {
+            var ruta = '@Url.Action("ReporteDefuncion", "Informe")' + '?pNroLibroIni=' + $('#LibrosDefIni').val() + '&pNroLibroFin=' + $('#LibrosDefFin').val() + '&pTipoReporte=' + tipoReporte;
+            window.open(ruta);
+        }
+        function verReporteMat(tipoReporte) {
+            var ruta = '@Url.Action("ReporteMatrimonio", "Informe")' + '?pNroLibroIni=' + $('#LibrosMatIni').val() + '&pNroLibroFin=' + $('#LibrosMatFin').val() + '&pTipoReporte=' + tipoReporte;
+            window.open(ruta);
+        }
+    </script>
+}
