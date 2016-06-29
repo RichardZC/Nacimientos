@@ -1,0 +1,21 @@
+﻿@model List<BE.nacimiento_anexo>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        @if (@ViewBag.editar)
+        {
+            <div class="col s11 m11">
+                <iframe src="~/Actas/Nacimiento/@item.url" style="width:100%;height:400px;" frameborder="0"></iframe>
+            </div>
+            <div class="col s1 m1 center">
+                <a onclick="EliminarAnexo(@item.Nacimiento_AnexoId)" class="btn-floating waves-effect waves-light "><i class="mdi-content-clear"></i></a>
+                <p>Eliminar</p>
+            </div>
+        }
+        else
+        {
+            <iframe src="~/Actas/Nacimiento/@item.url" style="width:100%;height:400px;" frameborder="0"></iframe>
+        }
+    </div>
+}

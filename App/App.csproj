@@ -56,6 +56,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -135,13 +147,28 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DefuncionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformeController.cs" />
+    <Compile Include="Controllers\MatrimonioController.cs" />
+    <Compile Include="Controllers\NacimientoController.cs" />
     <Compile Include="Controllers\rolsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AppContext.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporte\dsMatrimonio.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMatrimonio.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte\dsNacimiento.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsNacimiento.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -195,7 +222,9 @@
     <Content Include="images\img6.jpg" />
     <Content Include="images\img7.jpg" />
     <Content Include="images\img8.jpg" />
+    <Content Include="images\login-logo.jpg" />
     <Content Include="images\login-logo.png" />
+    <Content Include="images\male.gif" />
     <Content Include="images\map-marker.png" />
     <Content Include="images\materialize-logo.png" />
     <Content Include="images\office.jpg" />
@@ -251,6 +280,7 @@
     <Content Include="js\plugins\jquery-cookies\jquery.cookies.min.js" />
     <Content Include="js\plugins\jquery-validation\additional-methods.min.js" />
     <Content Include="js\plugins\jquery-validation\jquery.validate.min.js" />
+    <Content Include="js\plugins\jquery.form.min.js" />
     <Content Include="js\plugins\jquery.nestable\jquery.nestable.js" />
     <Content Include="js\plugins\jquery.nestable\nestable.css" />
     <Content Include="js\plugins\jsgrid\css\jsgrid-theme.min.css" />
@@ -312,6 +342,28 @@
     <Content Include="js\plugins\translator\translate-en.json" />
     <Content Include="js\plugins\translator\translate-es.json" />
     <Content Include="js\plugins\translator\translate-fr.json" />
+    <Content Include="Reporte\dsNacimiento.xsc">
+      <DependentUpon>dsNacimiento.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reporte\dsMatrimonio.xsc">
+      <DependentUpon>dsMatrimonio.xsd</DependentUpon>
+    </Content>
+    <None Include="Reporte\dsMatrimonio.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsMatrimonio.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reporte\dsMatrimonio.xss">
+      <DependentUpon>dsMatrimonio.xsd</DependentUpon>
+    </Content>
+    <None Include="Reporte\dsNacimiento.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsNacimiento.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reporte\dsNacimiento.xss">
+      <DependentUpon>dsNacimiento.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -344,6 +396,19 @@
     <Content Include="Views\rols\Edit.cshtml" />
     <Content Include="Views\rols\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Nacimiento\Index.cshtml" />
+    <Content Include="Views\Nacimiento\Buscar.cshtml" />
+    <Content Include="Views\Nacimiento\Mantener.cshtml" />
+    <Content Include="Views\Nacimiento\MostrarAnexos.cshtml" />
+    <Content Include="Views\Defuncion\Index.cshtml" />
+    <Content Include="Views\Defuncion\Buscar.cshtml" />
+    <Content Include="Views\Defuncion\Mantener.cshtml" />
+    <Content Include="Views\Defuncion\MostrarAnexos.cshtml" />
+    <Content Include="Views\Matrimonio\Index.cshtml" />
+    <Content Include="Views\Matrimonio\Buscar.cshtml" />
+    <Content Include="Views\Matrimonio\Mantener.cshtml" />
+    <Content Include="Views\Matrimonio\MostrarAnexos.cshtml" />
+    <Content Include="Views\Informe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -365,6 +430,21 @@
       <Project>{67537695-489a-4d2a-8862-eedab00a33ee}</Project>
       <Name>BL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reporte\rptNacimiento.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reporte\rptDefuncion.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reporte\rptMatrimonio.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

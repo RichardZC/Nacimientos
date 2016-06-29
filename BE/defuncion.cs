@@ -12,27 +12,23 @@ namespace BE
     using System;
     using System.Collections.Generic;
     
-    public partial class persona
+    public partial class defuncion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public persona()
+        public defuncion()
         {
-            this.usuario = new HashSet<usuario>();
+            this.defuncion_anexo = new HashSet<defuncion_anexo>();
         }
     
-        public int PersonaId { get; set; }
-        public string Nombres { get; set; }
-        public string Paterno { get; set; }
-        public string Materno { get; set; }
-        public string NombreCompleto { get; set; }
-        public string DNI { get; set; }
-        public string Celular { get; set; }
-        public string Correo { get; set; }
+        public int DefuncionId { get; set; }
+        public string ApellidoNombre { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public int NroActa { get; set; }
+        public int NroLibro { get; set; }
         public string Sexo { get; set; }
-        public Nullable<System.DateTime> FechaNacimiento { get; set; }
-        public string Partida { get; set; }
+        public string Url { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<usuario> usuario { get; set; }
+        public virtual ICollection<defuncion_anexo> defuncion_anexo { get; set; }
     }
 }

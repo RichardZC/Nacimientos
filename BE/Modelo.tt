@@ -2,10 +2,9 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
  output extension=".cs"#><#
 
+ 
 
-
-
-
+ 
 const string inputFile = @"..\DA\Modelo.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);

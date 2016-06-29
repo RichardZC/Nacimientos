@@ -5,6 +5,66 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BDModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="defuncion">
+          <Key>
+            <PropertyRef Name="DefuncionId" />
+          </Key>
+          <Property Name="DefuncionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApellidoNombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="NroActa" Type="int" Nullable="false" />
+          <Property Name="NroLibro" Type="int" Nullable="false" />
+          <Property Name="Sexo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="defuncion_anexo">
+          <Key>
+            <PropertyRef Name="Defuncion_AnexoId" />
+          </Key>
+          <Property Name="Defuncion_AnexoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DefuncionId" Type="int" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="matrimonio">
+          <Key>
+            <PropertyRef Name="MatrimonioId" />
+          </Key>
+          <Property Name="MatrimonioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApellidoNombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Conyugue" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NroActa" Type="int" Nullable="false" />
+          <Property Name="NroLibro" Type="int" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="matrimonio_anexo">
+          <Key>
+            <PropertyRef Name="Matrimonio_AnexoId" />
+          </Key>
+          <Property Name="Matrimonio_AnexoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatrimonioId" Type="int" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="nacimiento">
+          <Key>
+            <PropertyRef Name="NacimientoId" />
+          </Key>
+          <Property Name="NacimientoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApellidoNombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Sexo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="NroActa" Type="int" Nullable="false" />
+          <Property Name="NroLibro" Type="int" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="nacimiento_anexo">
+          <Key>
+            <PropertyRef Name="Nacimiento_AnexoId" />
+          </Key>
+          <Property Name="Nacimiento_AnexoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NacimientoId" Type="int" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="persona">
           <Key>
             <PropertyRef Name="PersonaId" />
@@ -19,6 +79,7 @@
           <Property Name="Correo" Type="varchar" MaxLength="100" />
           <Property Name="Sexo" Type="enum" />
           <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Partida" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="rol">
           <Key>
@@ -32,7 +93,7 @@
             <PropertyRef Name="UsuarioId" />
           </Key>
           <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonaId" Type="int" Nullable="false" />
+          <Property Name="PersonaId" Type="int" />
           <Property Name="Nombre" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Clave" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
@@ -45,8 +106,50 @@
           <Property Name="UsuarioId" Type="int" Nullable="false" />
           <Property Name="RolId" Type="char" MaxLength="3" Nullable="false" />
         </EntityType>
+        <Association Name="defuncion_anexo_ibfk_1">
+          <End Role="defuncion" Type="Self.defuncion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="defuncion_anexo" Type="Self.defuncion_anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="defuncion">
+              <PropertyRef Name="DefuncionId" />
+            </Principal>
+            <Dependent Role="defuncion_anexo">
+              <PropertyRef Name="DefuncionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="matrimonio_anexo_ibfk_1">
+          <End Role="matrimonio" Type="Self.matrimonio" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="matrimonio_anexo" Type="Self.matrimonio_anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="matrimonio">
+              <PropertyRef Name="MatrimonioId" />
+            </Principal>
+            <Dependent Role="matrimonio_anexo">
+              <PropertyRef Name="MatrimonioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="nacimiento_anexo_ibfk_1">
+          <End Role="nacimiento" Type="Self.nacimiento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="nacimiento_anexo" Type="Self.nacimiento_anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nacimiento">
+              <PropertyRef Name="NacimientoId" />
+            </Principal>
+            <Dependent Role="nacimiento_anexo">
+              <PropertyRef Name="NacimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="usuario_ibfk_1">
-          <End Role="persona" Type="Self.persona" Multiplicity="1" />
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
           <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="persona">
@@ -82,10 +185,28 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BDModelStoreContainer">
+          <EntitySet Name="defuncion" EntityType="Self.defuncion" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="defuncion_anexo" EntityType="Self.defuncion_anexo" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="matrimonio" EntityType="Self.matrimonio" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="matrimonio_anexo" EntityType="Self.matrimonio_anexo" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="nacimiento" EntityType="Self.nacimiento" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="nacimiento_anexo" EntityType="Self.nacimiento_anexo" Schema="nac" store:Type="Tables" />
           <EntitySet Name="persona" EntityType="Self.persona" Schema="nac" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario_rol" EntityType="Self.usuario_rol" Schema="nac" store:Type="Tables" />
+          <AssociationSet Name="defuncion_anexo_ibfk_1" Association="Self.defuncion_anexo_ibfk_1">
+            <End Role="defuncion" EntitySet="defuncion" />
+            <End Role="defuncion_anexo" EntitySet="defuncion_anexo" />
+          </AssociationSet>
+          <AssociationSet Name="matrimonio_anexo_ibfk_1" Association="Self.matrimonio_anexo_ibfk_1">
+            <End Role="matrimonio" EntitySet="matrimonio" />
+            <End Role="matrimonio_anexo" EntitySet="matrimonio_anexo" />
+          </AssociationSet>
+          <AssociationSet Name="nacimiento_anexo_ibfk_1" Association="Self.nacimiento_anexo_ibfk_1">
+            <End Role="nacimiento" EntitySet="nacimiento" />
+            <End Role="nacimiento_anexo" EntitySet="nacimiento_anexo" />
+          </AssociationSet>
           <AssociationSet Name="usuario_ibfk_1" Association="Self.usuario_ibfk_1">
             <End Role="persona" EntitySet="persona" />
             <End Role="usuario" EntitySet="usuario" />
@@ -115,6 +236,24 @@
             <End Role="usuario" EntitySet="usuario" />
             <End Role="rol" EntitySet="rol" />
           </AssociationSet>
+          <EntitySet Name="nacimiento_anexo" EntityType="BDModel.nacimiento_anexo" />
+          <EntitySet Name="nacimiento" EntityType="BDModel.nacimiento" />
+          <AssociationSet Name="nacimiento_anexo_ibfk_1" Association="BDModel.nacimiento_anexo_ibfk_1">
+            <End Role="nacimiento" EntitySet="nacimiento" />
+            <End Role="nacimiento_anexo" EntitySet="nacimiento_anexo" />
+          </AssociationSet>
+          <EntitySet Name="defuncion" EntityType="BDModel.defuncion" />
+          <EntitySet Name="defuncion_anexo" EntityType="BDModel.defuncion_anexo" />
+          <AssociationSet Name="defuncion_anexo_ibfk_1" Association="BDModel.defuncion_anexo_ibfk_1">
+            <End Role="defuncion" EntitySet="defuncion" />
+            <End Role="defuncion_anexo" EntitySet="defuncion_anexo" />
+          </AssociationSet>
+          <EntitySet Name="matrimonio" EntityType="BDModel.matrimonio" />
+          <EntitySet Name="matrimonio_anexo" EntityType="BDModel.matrimonio_anexo" />
+          <AssociationSet Name="matrimonio_anexo_ibfk_1" Association="BDModel.matrimonio_anexo_ibfk_1">
+            <End Role="matrimonio" EntitySet="matrimonio" />
+            <End Role="matrimonio_anexo" EntitySet="matrimonio_anexo" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="persona">
           <Key>
@@ -130,6 +269,7 @@
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Sexo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" />
+          <Property Name="Partida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="usuario" Relationship="BDModel.usuario_ibfk_1" FromRole="persona" ToRole="usuario" />
         </EntityType>
         <EntityType Name="rol">
@@ -145,7 +285,7 @@
             <PropertyRef Name="UsuarioId" />
           </Key>
           <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <Property Name="PersonaId" Type="Int32" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="Clave" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
@@ -153,7 +293,7 @@
           <NavigationProperty Name="rol" Relationship="BDModel.usuario_rol" FromRole="usuario" ToRole="rol" />
         </EntityType>
         <Association Name="usuario_ibfk_1">
-          <End Type="BDModel.persona" Role="persona" Multiplicity="1" />
+          <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
           <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="persona">
@@ -168,6 +308,114 @@
           <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
           <End Type="BDModel.rol" Role="rol" Multiplicity="*" />
         </Association>
+        <EntityType Name="nacimiento_anexo">
+          <Key>
+            <PropertyRef Name="Nacimiento_AnexoId" />
+          </Key>
+          <Property Name="Nacimiento_AnexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NacimientoId" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="nacimiento" Relationship="BDModel.nacimiento_anexo_ibfk_1" FromRole="nacimiento_anexo" ToRole="nacimiento" />
+        </EntityType>
+        <EntityType Name="nacimiento">
+          <Key>
+            <PropertyRef Name="NacimientoId" />
+          </Key>
+          <Property Name="NacimientoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApellidoNombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Sexo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="NroActa" Type="Int32" Nullable="false" />
+          <Property Name="NroLibro" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="nacimiento_anexo" Relationship="BDModel.nacimiento_anexo_ibfk_1" FromRole="nacimiento" ToRole="nacimiento_anexo" />
+        </EntityType>
+        <Association Name="nacimiento_anexo_ibfk_1">
+          <End Type="BDModel.nacimiento" Role="nacimiento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BDModel.nacimiento_anexo" Role="nacimiento_anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nacimiento">
+              <PropertyRef Name="NacimientoId" />
+            </Principal>
+            <Dependent Role="nacimiento_anexo">
+              <PropertyRef Name="NacimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="defuncion">
+          <Key>
+            <PropertyRef Name="DefuncionId" />
+          </Key>
+          <Property Name="DefuncionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApellidoNombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="NroActa" Type="Int32" Nullable="false" />
+          <Property Name="NroLibro" Type="Int32" Nullable="false" />
+          <Property Name="Sexo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="defuncion_anexo" Relationship="BDModel.defuncion_anexo_ibfk_1" FromRole="defuncion" ToRole="defuncion_anexo" />
+        </EntityType>
+        <EntityType Name="defuncion_anexo">
+          <Key>
+            <PropertyRef Name="Defuncion_AnexoId" />
+          </Key>
+          <Property Name="Defuncion_AnexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DefuncionId" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="defuncion" Relationship="BDModel.defuncion_anexo_ibfk_1" FromRole="defuncion_anexo" ToRole="defuncion" />
+        </EntityType>
+        <Association Name="defuncion_anexo_ibfk_1">
+          <End Type="BDModel.defuncion" Role="defuncion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BDModel.defuncion_anexo" Role="defuncion_anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="defuncion">
+              <PropertyRef Name="DefuncionId" />
+            </Principal>
+            <Dependent Role="defuncion_anexo">
+              <PropertyRef Name="DefuncionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="matrimonio">
+          <Key>
+            <PropertyRef Name="MatrimonioId" />
+          </Key>
+          <Property Name="MatrimonioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApellidoNombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Conyugue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NroActa" Type="Int32" Nullable="false" />
+          <Property Name="NroLibro" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="matrimonio_anexo" Relationship="BDModel.matrimonio_anexo_ibfk_1" FromRole="matrimonio" ToRole="matrimonio_anexo" />
+        </EntityType>
+        <EntityType Name="matrimonio_anexo">
+          <Key>
+            <PropertyRef Name="Matrimonio_AnexoId" />
+          </Key>
+          <Property Name="Matrimonio_AnexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatrimonioId" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="matrimonio" Relationship="BDModel.matrimonio_anexo_ibfk_1" FromRole="matrimonio_anexo" ToRole="matrimonio" />
+        </EntityType>
+        <Association Name="matrimonio_anexo_ibfk_1">
+          <End Type="BDModel.matrimonio" Role="matrimonio" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BDModel.matrimonio_anexo" Role="matrimonio_anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="matrimonio">
+              <PropertyRef Name="MatrimonioId" />
+            </Principal>
+            <Dependent Role="matrimonio_anexo">
+              <PropertyRef Name="MatrimonioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -177,6 +425,7 @@
           <EntitySetMapping Name="persona">
             <EntityTypeMapping TypeName="BDModel.persona">
               <MappingFragment StoreEntitySet="persona">
+                <ScalarProperty Name="Partida" ColumnName="Partida" />
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
                 <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
@@ -217,7 +466,73 @@
               <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="nacimiento_anexo">
+            <EntityTypeMapping TypeName="BDModel.nacimiento_anexo">
+              <MappingFragment StoreEntitySet="nacimiento_anexo">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="NacimientoId" ColumnName="NacimientoId" />
+                <ScalarProperty Name="Nacimiento_AnexoId" ColumnName="Nacimiento_AnexoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nacimiento">
+            <EntityTypeMapping TypeName="BDModel.nacimiento">
+              <MappingFragment StoreEntitySet="nacimiento">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="NroLibro" ColumnName="NroLibro" />
+                <ScalarProperty Name="NroActa" ColumnName="NroActa" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
+                <ScalarProperty Name="NacimientoId" ColumnName="NacimientoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="defuncion">
+            <EntityTypeMapping TypeName="BDModel.defuncion">
+              <MappingFragment StoreEntitySet="defuncion">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="NroLibro" ColumnName="NroLibro" />
+                <ScalarProperty Name="NroActa" ColumnName="NroActa" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
+                <ScalarProperty Name="DefuncionId" ColumnName="DefuncionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="defuncion_anexo">
+            <EntityTypeMapping TypeName="BDModel.defuncion_anexo">
+              <MappingFragment StoreEntitySet="defuncion_anexo">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="DefuncionId" ColumnName="DefuncionId" />
+                <ScalarProperty Name="Defuncion_AnexoId" ColumnName="Defuncion_AnexoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="matrimonio">
+            <EntityTypeMapping TypeName="BDModel.matrimonio">
+              <MappingFragment StoreEntitySet="matrimonio">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="NroLibro" ColumnName="NroLibro" />
+                <ScalarProperty Name="NroActa" ColumnName="NroActa" />
+                <ScalarProperty Name="Conyugue" ColumnName="Conyugue" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
+                <ScalarProperty Name="MatrimonioId" ColumnName="MatrimonioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="matrimonio_anexo">
+            <EntityTypeMapping TypeName="BDModel.matrimonio_anexo">
+              <MappingFragment StoreEntitySet="matrimonio_anexo">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="MatrimonioId" ColumnName="MatrimonioId" />
+                <ScalarProperty Name="Matrimonio_AnexoId" ColumnName="Matrimonio_AnexoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
