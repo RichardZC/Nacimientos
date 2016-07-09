@@ -17,6 +17,26 @@ namespace BL
                     .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
             }
         }
+        public static List<ReporteNac> Nacimientos(DateTime pFechaIni, DateTime pFechaFin)
+        {
+            using (var db = new nacEntities())
+            {
+                return db.nacimiento
+                    .Where(x => x.Fecha >= pFechaIni && x.Fecha <= pFechaFin)
+                    .Select(x => new ReporteNac { ApellidoNombre = x.ApellidoNombre, Fecha = x.Fecha, Sexo = x.Sexo, NroLibro = x.NroLibro, NroActa = x.NroActa })
+                    .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
+            }
+        }
+        public static List<ReporteNac> NacimientosxRegistro(DateTime pFechaIni, DateTime pFechaFin)
+        {
+            using (var db = new nacEntities())
+            {
+                return db.nacimiento
+                    .Where(x => x.Registro >= pFechaIni && x.Registro <= pFechaFin)
+                    .Select(x => new ReporteNac { ApellidoNombre = x.ApellidoNombre, Fecha = x.Fecha, Sexo = x.Sexo, NroLibro = x.NroLibro, NroActa = x.NroActa })
+                    .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
+            }
+        }
 
         public static List<ReporteDef> Defunciones(int pLibroIni, int pLibroFin)
         {
@@ -28,12 +48,53 @@ namespace BL
                     .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
             }
         }
+        public static List<ReporteDef> Defunciones(DateTime pDefIni, DateTime pDefFin)
+        {
+            using (var db = new nacEntities())
+            {
+                return db.defuncion
+                    .Where(x => x.Fecha >= pDefIni && x.Fecha <= pDefFin)
+                    .Select(x => new ReporteDef { ApellidoNombre = x.ApellidoNombre, Fecha = x.Fecha, Sexo = x.Sexo, NroLibro = x.NroLibro, NroActa = x.NroActa })
+                    .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
+            }
+        }
+        public static List<ReporteDef> DefuncionesxRegistro(DateTime pDefIni, DateTime pDefFin)
+        {
+            using (var db = new nacEntities())
+            {
+                return db.defuncion
+                    .Where(x => x.Registro >= pDefIni && x.Registro <= pDefFin)
+                    .Select(x => new ReporteDef { ApellidoNombre = x.ApellidoNombre, Fecha = x.Fecha, Sexo = x.Sexo, NroLibro = x.NroLibro, NroActa = x.NroActa })
+                    .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
+            }
+        }
+
         public static List<ReporteMat> Matrimonios(int pLibroIni, int pLibroFin)
         {
             using (var db = new nacEntities())
             {
                 return db.matrimonio
                     .Where(x => x.NroLibro >= pLibroIni && x.NroLibro <= pLibroFin)
+                    .Select(x => new ReporteMat { ApellidoNombre = x.ApellidoNombre, Conyugue = x.Conyugue, Fecha = x.Fecha, NroLibro = x.NroLibro, NroActa = x.NroActa })
+                    .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
+            }
+        }
+        public static List<ReporteMat> Matrimonios(DateTime pFechaIni, DateTime pFechaFin)
+        {
+            using (var db = new nacEntities())
+            {
+                return db.matrimonio
+                    .Where(x => x.Fecha >= pFechaIni && x.Fecha <= pFechaFin)
+                    .Select(x => new ReporteMat { ApellidoNombre = x.ApellidoNombre, Conyugue = x.Conyugue, Fecha = x.Fecha, NroLibro = x.NroLibro, NroActa = x.NroActa })
+                    .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
+            }
+        }
+        public static List<ReporteMat> MatrimoniosxRegistro(DateTime pFechaIni, DateTime pFechaFin)
+        {
+            using (var db = new nacEntities())
+            {
+                return db.matrimonio
+                    .Where(x => x.Registro >= pFechaIni && x.Registro <= pFechaFin)
                     .Select(x => new ReporteMat { ApellidoNombre = x.ApellidoNombre, Conyugue = x.Conyugue, Fecha = x.Fecha, NroLibro = x.NroLibro, NroActa = x.NroActa })
                     .OrderBy(x => x.NroLibro).ThenBy(x => x.NroActa).ToList();
             }

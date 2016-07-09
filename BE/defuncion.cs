@@ -23,10 +23,11 @@ namespace BE
         public int DefuncionId { get; set; }
         public string ApellidoNombre { get; set; }
         public System.DateTime Fecha { get; set; }
+        public string Sexo { get; set; }
         public int NroActa { get; set; }
         public int NroLibro { get; set; }
-        public string Sexo { get; set; }
         public string Url { get; set; }
+        public Nullable<System.DateTime> Registro { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<defuncion_anexo> defuncion_anexo { get; set; }

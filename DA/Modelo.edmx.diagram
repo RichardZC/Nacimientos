@@ -11,14 +11,14 @@
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_rol" />
         <EntityTypeShape EntityType="BDModel.nacimiento_anexo" Width="1.5" PointX="7" PointY="1.375" />
-        <EntityTypeShape EntityType="BDModel.nacimiento" Width="1.5" PointX="4.75" PointY="0.875" />
-        <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
-        <EntityTypeShape EntityType="BDModel.defuncion" Width="1.5" PointX="9" PointY="1.125" />
         <EntityTypeShape EntityType="BDModel.defuncion_anexo" Width="1.5" PointX="11.25" PointY="1.5" />
-        <AssociationConnector Association="BDModel.defuncion_anexo_ibfk_1" />
-        <EntityTypeShape EntityType="BDModel.matrimonio" Width="1.5" PointX="5.25" PointY="4" />
         <EntityTypeShape EntityType="BDModel.matrimonio_anexo" Width="1.5" PointX="7.375" PointY="4.125" />
+        <EntityTypeShape EntityType="BDModel.defuncion" Width="1.5" PointX="9" PointY="2.25" />
+        <AssociationConnector Association="BDModel.defuncion_anexo_ibfk_1" />
+        <EntityTypeShape EntityType="BDModel.matrimonio" Width="1.5" PointX="5.125" PointY="11.625" />
+        <EntityTypeShape EntityType="BDModel.nacimiento" Width="1.5" PointX="4.75" PointY="7.875" />
         <AssociationConnector Association="BDModel.matrimonio_anexo_ibfk_1" />
+        <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

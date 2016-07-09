@@ -21,7 +21,7 @@
                         <div class="col s9 m9 l9 hide-on-med-and-down">
                             <form class="row">
                                 <div class="input-field">
-                                    <input id="btnb" type="text" placeholder="Buscar Ciudadano">
+                                    <input id="btnb" type="text" placeholder="Buscar Ciudadano" autofocus>
                                     <label for="btnb">
                                         <i class="mdi-action-search"></i>
                                     </label>
@@ -87,7 +87,7 @@
                     type: 'GET',
                     dataType : 'json',
                     url: '@Url.Action("Eliminar", "Matrimonio")',
-                    data: { pDefuncionId: $("#hdMatrimonioId").val() },
+                    data: { pMatrimonioId: $("#hdMatrimonioId").val() },
                     success: function (res) {
                         swal({ title: "Eliminado!", text: "El registro ha sido eliminado.", type: "success", timer: 2000 }, function () {
                             window.location = '@Url.Action("Index", "Matrimonio")';

@@ -621,7 +621,7 @@
   <Width>7.84167in</Width>
   <Page>
     <PageHeader>
-      <Height>2.32833cm</Height>
+      <Height>2.41187cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -726,26 +726,14 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="LibroIni">
+        <Textbox Name="Filtro">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Del Libro </Value>
-                  <Style />
-                </TextRun>
-                <TextRun>
-                  <Value>=Parameters!LibroIni.Value</Value>
-                  <Style />
-                </TextRun>
-                <TextRun>
-                  <Value> al </Value>
-                  <Style />
-                </TextRun>
-                <TextRun>
-                  <Value>=Parameters!LibroFin.Value</Value>
+                  <Value>=Parameters!Filtro.Value</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -754,10 +742,10 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <rd:DefaultName>LibroIni</rd:DefaultName>
-          <Top>1.64987cm</Top>
+          <rd:DefaultName>Filtro</rd:DefaultName>
+          <Top>1.71662cm</Top>
           <Height>0.6cm</Height>
-          <Width>19.91783cm</Width>
+          <Width>19.91782cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -885,12 +873,9 @@
     </DataSet>
   </DataSets>
   <ReportParameters>
-    <ReportParameter Name="LibroIni">
-      <DataType>Integer</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="LibroFin">
-      <DataType>Integer</DataType>
+    <ReportParameter Name="Filtro">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

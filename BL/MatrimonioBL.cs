@@ -32,16 +32,24 @@ namespace BL
             using (var db = new nacEntities())
             {
                 if (string.IsNullOrEmpty(clave))
-                    return db.matrimonio.Include("matrimonio_anexo").OrderByDescending(x => x.MatrimonioId).Take(10).ToList();
+                    return db.matrimonio.Include("matrimonio_anexo").OrderByDescending(x => x.MatrimonioId).Take(15).ToList();
 
                 int libro = 0;
                 if (int.TryParse(clave, out libro))
-                    return db.matrimonio.Include("matrimonio_anexo").Where(x => x.NroLibro == libro).OrderByDescending(x => x.NroLibro).ToList();
+                    return db.matrimonio.Include("matrimonio_anexo").Where(x => x.NroLibro == libro).OrderBy(x => x.Url).ToList();
 
-                if (lista.Length == 2)
+                if (lista.Length == 2) {
+                    int acta = 0;
+                    if (int.TryParse(s1, out libro) && int.TryParse(s2, out acta))
+                    {
+                        return db.matrimonio.Include("matrimonio_anexo")
+                        .Where(x => x.NroLibro == libro && x.NroActa == acta)
+                        .OrderByDescending(x => x.MatrimonioId).Take(15).ToList();
+                    }
                     return db.matrimonio.Include("matrimonio_anexo")
                         .Where(x => (x.ApellidoNombre.Contains(s1) && x.ApellidoNombre.Contains(s2)) || (x.Conyugue.Contains(s1) && x.Conyugue.Contains(s2)))
                         .OrderByDescending(x => x.MatrimonioId).Take(15).ToList();
+                }
                 if (lista.Length == 3)
                     return db.matrimonio.Include("matrimonio_anexo")
                         .Where(x => (x.ApellidoNombre.Contains(s1) && x.ApellidoNombre.Contains(s2) && x.ApellidoNombre.Contains(s3)) || (x.Conyugue.Contains(s1) && x.Conyugue.Contains(s2) && x.Conyugue.Contains(s3)))

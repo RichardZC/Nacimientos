@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BL
 {
-    public class DefuncionBL:Repositorio<defuncion>
+    public class DefuncionBL : Repositorio<defuncion>
     {
         public static List<int> ObtenerUltimoLibro()
         {
@@ -32,14 +32,21 @@ namespace BL
             using (var db = new nacEntities())
             {
                 if (string.IsNullOrEmpty(clave))
-                    return db.defuncion.Include("defuncion_anexo").OrderByDescending(x => x.DefuncionId).Take(10).ToList();
+                    return db.defuncion.Include("defuncion_anexo").OrderByDescending(x => x.DefuncionId).Take(15).ToList();
 
                 int libro = 0;
                 if (int.TryParse(clave, out libro))
-                    return db.defuncion.Include("defuncion_anexo").Where(x => x.NroLibro == libro).OrderByDescending(x => x.NroLibro).ToList();
+                    return db.defuncion.Include("defuncion_anexo").Where(x => x.NroLibro == libro).OrderBy(x => x.Url).ToList();
 
                 if (lista.Length == 2)
+                {
+                    int acta = 0;
+                    if (int.TryParse(s1, out libro) && int.TryParse(s2, out acta))
+                    {
+                        return db.defuncion.Include("defuncion_anexo").Where(x => x.NroLibro==libro && x.NroActa==acta).OrderByDescending(x => x.DefuncionId).Take(15).ToList();
+                    }
                     return db.defuncion.Include("defuncion_anexo").Where(x => x.ApellidoNombre.Contains(s1) && x.ApellidoNombre.Contains(s2)).OrderByDescending(x => x.DefuncionId).Take(15).ToList();
+                }
                 if (lista.Length == 3)
                     return db.defuncion.Include("defuncion_anexo").Where(x => x.ApellidoNombre.Contains(s1) && x.ApellidoNombre.Contains(s2) && x.ApellidoNombre.Contains(s3)).OrderByDescending(x => x.DefuncionId).Take(15).ToList();
                 if (lista.Length == 4)

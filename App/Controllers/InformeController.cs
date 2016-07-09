@@ -33,43 +33,79 @@ namespace App.Controllers
 
         #region "ReportViewer"
 
-        public ActionResult ReporteNacimiento(int pNroLibroIni, int pNroLibroFin, string pTipoReporte = "PDF")
+        public ActionResult ReporteNacimiento(string pInicio, string pFin, int opcion, string pTipoReporte = "PDF")
         {
-            var data = ReporteBL.Nacimientos(pNroLibroIni, pNroLibroFin);
+            List<ReporteNac> data = null;
+            string filtro = string.Empty;
+            switch (opcion)
+            {
+                case 1:
+                    data = ReporteBL.Nacimientos(int.Parse(pInicio), int.Parse(pFin));
+                    filtro = "Del Libro " + pInicio + " al Libro " + pFin; break;
+                case 2:
+                    data = ReporteBL.Nacimientos(DateTime.Parse(pInicio), DateTime.Parse(pFin));
+                    filtro = "De la Fecha Nacimiento " + pInicio + " al " + pFin; break;
+                case 3:
+                    data = ReporteBL.NacimientosxRegistro(DateTime.Parse(pInicio), DateTime.Parse(pFin));
+                    filtro = "De la Fecha Registro " + pInicio + " al " + pFin; break;
+            }
+
             var rd = new ReportDataSource("dsNacimiento", data);
 
             var parametros = new List<ReportParameter>
                                  {
-                                     new ReportParameter("LibroIni", pNroLibroIni.ToString()),
-                                     new ReportParameter("LibroFin", pNroLibroFin.ToString())
+                                     new ReportParameter("Filtro", filtro)
                                  };
             
             return Reporte(pTipoReporte, "rptNacimiento.rdlc", rd, "A4Vertical0.25", parametros);
         }
 
-        public ActionResult ReporteDefuncion(int pNroLibroIni, int pNroLibroFin, string pTipoReporte = "PDF")
+        public ActionResult ReporteDefuncion(string pInicio, string pFin,int opcion, string pTipoReporte = "PDF")
         {
-            var data = ReporteBL.Defunciones(pNroLibroIni, pNroLibroFin);
+            List<ReporteDef> data = null;
+            string filtro = string.Empty;
+            switch (opcion)
+            {
+                case 1: data = ReporteBL.Defunciones(int.Parse(pInicio), int.Parse(pFin));
+                    filtro = "Del Libro " + pInicio + " al Libro " + pFin;  break;
+                case 2: data = ReporteBL.Defunciones(DateTime.Parse(pInicio), DateTime.Parse(pFin));
+                    filtro = "De la Fecha Defuncion " + pInicio + " al " + pFin; break;
+                case 3: data = ReporteBL.DefuncionesxRegistro(DateTime.Parse(pInicio), DateTime.Parse(pFin));
+                    filtro = "De la Fecha Registro " + pInicio + " al " + pFin; break;
+            }
+
             var rd = new ReportDataSource("dsNacimiento", data);
 
             var parametros = new List<ReportParameter>
                                  {
-                                     new ReportParameter("LibroIni", pNroLibroIni.ToString()),
-                                     new ReportParameter("LibroFin", pNroLibroFin.ToString())
+                                     new ReportParameter("Filtro", filtro)                                     
                                  };
-            
+
             return Reporte(pTipoReporte, "rptDefuncion.rdlc", rd, "A4Vertical0.25", parametros);
         }
 
-        public ActionResult ReporteMatrimonio(int pNroLibroIni, int pNroLibroFin, string pTipoReporte = "PDF")
+        public ActionResult ReporteMatrimonio(string pInicio, string pFin, int opcion, string pTipoReporte = "PDF")
         {
-            var data = ReporteBL.Matrimonios(pNroLibroIni, pNroLibroFin);
+            List<ReporteMat> data = null;
+            string filtro = string.Empty;
+            switch (opcion)
+            {
+                case 1:
+                    data = ReporteBL.Matrimonios(int.Parse(pInicio), int.Parse(pFin));
+                    filtro = "Del Libro " + pInicio + " al Libro " + pFin; break;
+                case 2:
+                    data = ReporteBL.Matrimonios(DateTime.Parse(pInicio), DateTime.Parse(pFin));
+                    filtro = "De la Fecha Matrimonio " + pInicio + " al " + pFin; break;
+                case 3:
+                    data = ReporteBL.MatrimoniosxRegistro(DateTime.Parse(pInicio), DateTime.Parse(pFin));
+                    filtro = "De la Fecha Registro " + pInicio + " al " + pFin; break;
+            }
+        
             var rd = new ReportDataSource("dsMatrimonio", data);
 
             var parametros = new List<ReportParameter>
                                  {
-                                     new ReportParameter("LibroIni", pNroLibroIni.ToString()),
-                                     new ReportParameter("LibroFin", pNroLibroFin.ToString())
+                                     new ReportParameter("Filtro", filtro)
                                  };
 
             return Reporte(pTipoReporte, "rptMatrimonio.rdlc", rd, "A4Vertical0.25", parametros);

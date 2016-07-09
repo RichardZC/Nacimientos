@@ -12,7 +12,7 @@ namespace App.Controllers
 {
     public class NacimientoController : Controller
     {
-        private const string RUTA_BASE= "~/Actas/Nacimiento/";
+        private const string RUTA_BASE = "~/Actas/Nacimiento/";
         public ActionResult Index()
         {
             return View();
@@ -43,38 +43,43 @@ namespace App.Controllers
         public JsonResult Guardar(nacimiento nac)
         {
             var res = new ResponseModel { respuesta = true };
+            nac.ApellidoNombre = nac.ApellidoNombre.ToUpper();
 
-            if (nac.NacimientoId == 0) {
-                nac.Url = string.Empty; 
+            if (nac.NacimientoId == 0)
+            {
+                nac.Url = string.Empty;
                 NacimientoBL.Crear(nac);
             }
             else
-            {                
-                if (NacimientoBL.Contar(x => x.NroLibro == nac.NroLibro && x.NroActa == nac.NroActa && x.NacimientoId != nac.NacimientoId) >0)
+            {
+                if (NacimientoBL.Contar(x => x.NroLibro == nac.NroLibro && x.NroActa == nac.NroActa && x.NacimientoId != nac.NacimientoId) > 0)
                 {
                     res.respuesta = false;
-                    res.error="ERROR: Ya existe el acta " + nac.NroActa + " del libro " + nac.NroLibro + ". INGRESE OTRA NUMERACIÓN!";
+                    res.error = "ERROR: Ya existe el acta " + nac.NroActa + " del libro " + nac.NroLibro + ". INGRESE OTRA NUMERACIÓN!";
                     return Json(res);
                 }
 
                 var ant = NacimientoBL.Obtener(x => x.NacimientoId == nac.NacimientoId, includeProperties: "nacimiento_anexo");
-                if (ant.NroLibro!=nac.NroLibro || ant.NroActa != nac.NroActa)
+                if (ant.NroLibro != nac.NroLibro || ant.NroActa != nac.NroActa)
                 {
-                    string rutaAnt = Path.Combine(Server.MapPath(RUTA_BASE), ant.Url);
-                    string libro = "L" + nac.NroLibro.ToString();
-                    string acta = nac.NroActa.ToString() + ".pdf";
-                    string rutaLibro = Path.Combine(Server.MapPath(RUTA_BASE), libro);
-                    nac.Url = libro + "/" + acta;
+                    if (ant.Url.Length > 0)
+                    {
+                        string rutaAnt = Path.Combine(Server.MapPath(RUTA_BASE), ant.Url);
+                        string libro = "L" + nac.NroLibro.ToString();
+                        string acta = nac.NroActa.ToString() + ".pdf";
+                        string rutaLibro = Path.Combine(Server.MapPath(RUTA_BASE), libro);
+                        nac.Url = libro + "/" + acta;
 
-                    if (!Directory.Exists(rutaLibro))
-                        Directory.CreateDirectory(rutaLibro);
+                        if (!Directory.Exists(rutaLibro))
+                            Directory.CreateDirectory(rutaLibro);
 
-                    string adjunto = Path.Combine(rutaLibro, acta);
-                    if (System.IO.File.Exists(adjunto))
-                        System.IO.File.Delete(adjunto);
-                    
-                    if (System.IO.File.Exists(rutaAnt))
-                        System.IO.File.Move(rutaAnt, adjunto);
+                        string adjunto = Path.Combine(rutaLibro, acta);
+                        if (System.IO.File.Exists(adjunto))
+                            System.IO.File.Delete(adjunto);
+
+                        if (System.IO.File.Exists(rutaAnt))
+                            System.IO.File.Move(rutaAnt, adjunto);
+                    }
 
                     foreach (var item in ant.nacimiento_anexo)
                     {
@@ -84,9 +89,9 @@ namespace App.Controllers
                         if (System.IO.File.Exists(ruta_acta_anterior))
                             System.IO.File.Move(ruta_acta_anterior, Server.MapPath(RUTA_BASE + acta_nueva));
 
-                       item.url = acta_nueva;
-                       NacimientoAnexoBL.Actualizar(item);
-                       res.flag = true;
+                        item.url = acta_nueva;
+                        NacimientoAnexoBL.Actualizar(item);
+                        res.flag = true;
                     }
 
                 }
@@ -95,7 +100,7 @@ namespace App.Controllers
                 NacimientoBL.Actualizar(nac);
             }
 
-            res.valor= nac.NacimientoId.ToString();
+            res.valor = nac.NacimientoId.ToString();
             return Json(res);
         }
 
@@ -130,11 +135,11 @@ namespace App.Controllers
                     System.IO.File.Delete(adjunto);
 
                 documento.SaveAs(adjunto);
-                
-                nac.Url = libro +  "/" + acta;
+
+                nac.Url = libro + "/" + acta;
                 NacimientoBL.Actualizar(nac);
-                
-                rpt.valor = RUTA_BASE.Substring(2, RUTA_BASE.Length-2) + nac.Url;
+
+                rpt.valor = RUTA_BASE.Substring(2, RUTA_BASE.Length - 2) + nac.Url;
             }
             else
             {
@@ -145,7 +150,8 @@ namespace App.Controllers
             return Json(rpt);
         }
 
-        public JsonResult Eliminar(int pNacimientoId) {
+        public JsonResult Eliminar(int pNacimientoId)
+        {
             var nac = NacimientoBL.Obtener(x => x.NacimientoId == pNacimientoId, includeProperties: "nacimiento_anexo");
             string ruta = Path.Combine(Server.MapPath(RUTA_BASE), "L" + nac.NroLibro.ToString(), nac.NroActa.ToString() + ".pdf");
             if (System.IO.File.Exists(ruta))
@@ -159,13 +165,13 @@ namespace App.Controllers
 
             NacimientoBL.Eliminar(pNacimientoId);
 
-            return Json(true,JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult MostrarAnexos(int pNacimientoId, bool editar)
         {
             ViewBag.editar = editar;
-            return PartialView(NacimientoAnexoBL.Listar(x=>x.NacimientoId== pNacimientoId));
+            return PartialView(NacimientoAnexoBL.Listar(x => x.NacimientoId == pNacimientoId));
         }
         [HttpPost]
         public JsonResult Anexo(int NacimientoId, HttpPostedFileBase documento)
@@ -202,7 +208,7 @@ namespace App.Controllers
                 documento.SaveAs(adjunto);
 
                 anexo.url = libro + "/" + acta;
-                NacimientoAnexoBL.Actualizar(anexo);        
+                NacimientoAnexoBL.Actualizar(anexo);
             }
             else
             {
@@ -220,7 +226,7 @@ namespace App.Controllers
                 System.IO.File.Delete(Server.MapPath(RUTA_BASE + anexo.url));
 
             var img = NacimientoAnexoBL.Eliminar(id);
-            
+
             return Json(true);
         }
 

@@ -22,11 +22,12 @@ namespace BE
     
         public int MatrimonioId { get; set; }
         public string ApellidoNombre { get; set; }
-        public System.DateTime Fecha { get; set; }
         public string Conyugue { get; set; }
+        public System.DateTime Fecha { get; set; }
         public int NroActa { get; set; }
         public int NroLibro { get; set; }
         public string Url { get; set; }
+        public Nullable<System.DateTime> Registro { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<matrimonio_anexo> matrimonio_anexo { get; set; }

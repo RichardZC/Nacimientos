@@ -43,7 +43,7 @@ namespace App.Controllers
         public JsonResult Guardar(defuncion def)
         {
             var res = new ResponseModel { respuesta = true };
-
+            def.ApellidoNombre = def.ApellidoNombre.ToUpper();
             if (def.DefuncionId == 0)
             {
                 def.Url = string.Empty;
@@ -61,22 +61,24 @@ namespace App.Controllers
                 var ant = DefuncionBL.Obtener(x => x.DefuncionId == def.DefuncionId, includeProperties: "defuncion_anexo");
                 if (ant.NroLibro != def.NroLibro || ant.NroActa != def.NroActa)
                 {
-                    string rutaAnt = Path.Combine(Server.MapPath(RUTA_BASE), ant.Url);
-                    string libro = "L" + def.NroLibro.ToString();
-                    string acta = def.NroActa.ToString() + ".pdf";
-                    string rutaLibro = Path.Combine(Server.MapPath(RUTA_BASE), libro);
-                    def.Url = libro + "/" + acta;
+                    if (ant.Url.Length > 0)
+                    {
+                        string rutaAnt = Path.Combine(Server.MapPath(RUTA_BASE), ant.Url);
+                        string libro = "L" + def.NroLibro.ToString();
+                        string acta = def.NroActa.ToString() + ".pdf";
+                        string rutaLibro = Path.Combine(Server.MapPath(RUTA_BASE), libro);
+                        def.Url = libro + "/" + acta;
 
-                    if (!Directory.Exists(rutaLibro))
-                        Directory.CreateDirectory(rutaLibro);
+                        if (!Directory.Exists(rutaLibro))
+                            Directory.CreateDirectory(rutaLibro);
 
-                    string adjunto = Path.Combine(rutaLibro, acta);
-                    if (System.IO.File.Exists(adjunto))
-                        System.IO.File.Delete(adjunto);
+                        string adjunto = Path.Combine(rutaLibro, acta);
+                        if (System.IO.File.Exists(adjunto))
+                            System.IO.File.Delete(adjunto);
 
-                    if (System.IO.File.Exists(rutaAnt))
-                        System.IO.File.Move(rutaAnt, adjunto);
-
+                        if (System.IO.File.Exists(rutaAnt))
+                            System.IO.File.Move(rutaAnt, adjunto);
+                    }
                     foreach (var item in ant.defuncion_anexo)
                     {
                         string acta_nueva = "L" + def.NroLibro + "/" + def.NroActa + "_" + item.Defuncion_AnexoId + Path.GetExtension(item.url);

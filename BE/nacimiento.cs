@@ -27,6 +27,7 @@ namespace BE
         public int NroActa { get; set; }
         public int NroLibro { get; set; }
         public string Url { get; set; }
+        public Nullable<System.DateTime> Registro { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<nacimiento_anexo> nacimiento_anexo { get; set; }
