@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -103,21 +105,21 @@ namespace BL
         {
             using (var db = new nacEntities())
             {
-                return db.nacimiento.Select(x => x.NroLibro).Distinct().Select(x => new ItemCombo { id = x, value = x.ToString() }).ToList();
+                return db.nacimiento.Select(x => x.NroLibro).Distinct().AsEnumerable().Select(x => new ItemCombo { id = x, value = x.ToString() }).ToList();
             }
         }
         public static List<ItemCombo> LibrosDefuncion()
         {
             using (var db = new nacEntities())
             {
-                return db.defuncion.Select(x => x.NroLibro).Distinct().Select(x => new ItemCombo { id = x, value = x.ToString() }).ToList();
+                return db.defuncion.Select(x => x.NroLibro).Distinct().AsEnumerable().Select(x => new ItemCombo { id = x, value = x.ToString() }).ToList();
             }
         }
         public static List<ItemCombo> LibrosMatrimonio()
         {
             using (var db = new nacEntities())
             {
-                return db.matrimonio.Select(x => x.NroLibro).Distinct().Select(x => new ItemCombo { id = x, value = x.ToString() }).ToList();
+                return db.matrimonio.Select(x => x.NroLibro).Distinct().AsEnumerable().Select(x => new ItemCombo { id = x, value = x.ToString() }).ToList();
             }
         }
     }

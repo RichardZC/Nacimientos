@@ -1,0 +1,248 @@
+﻿
+<div class="section">
+    <div class="row">
+        <div class="col s12 m6 l4">
+            <div class="card-panel">
+                <h4 class="header2">Reporte de Nacimientos</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <select id="dboOpcioNac">
+                            <option value="1">Por Libro</option>
+                            <option value="2">Por Fecha Nacimiento</option>
+                            <option value="3">Por Fecha Registro</option>
+                        </select>
+                        <div class="row nacimiento" id="divLibroNac">
+                            <div class="input-field col s3">
+                                <label>Libro Inicio</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosNacIni")
+                            </div>
+                            <div class="input-field col s3">
+                                <label>Libro Fin</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosNacFin")
+                            </div>
+                        </div>
+                        <div class="row nacimiento" style="display:none" id="divFechaNac">
+                            <div class="input-field col s6">
+                                <input id="fechaIniNac" type="date" class="datepicker" value="@DateTime.Now.ToShortDateString()">
+                                <label for="fechaIniNac">Fecha Inicio</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="fechaFinNac" type="date" class="datepicker" value="@DateTime.Now.ToShortDateString()">
+                                <label for="fechaFinNac">Fecha Fin</label>
+                            </div>
+                        </div>
+
+                        <button id="btnRptNacPdf" class="btn cyan waves-effect waves-light left" type="button" name="action">
+                            PDF
+                            <i class="mdi-content-send right"></i>
+                        </button>
+                        <button id="btnRptNacExcel" class="btn cyan waves-effect waves-light right" type="button" name="action">
+                            EXCEL
+                            <i class="mdi-content-send right"></i>
+                        </button>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card-panel">
+                <h4 class="header2">Reporte de Matrimonios</h4>
+                <div class="row">
+                    <select id="dboOpcioMat">
+                        <option value="1">Por Libro</option>
+                        <option value="2">Por Fecha Matrimonio</option>
+                        <option value="3">Por Fecha Registro</option>
+                    </select>
+
+                    <form class="col s12">
+                        <div class="row matrimonio" id="divLibroMat">
+                            <div class="input-field col s3">
+                                <label>Libro Inicio</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosMatIni")
+                            </div>
+                            <div class="input-field col s3">
+                                <label>Libro Fin</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosMatFin")
+                            </div>
+                        </div>
+
+                        <div class="row matrimonio" style="display:none" id="divFechaMat">
+                            <div class="input-field col s6">
+                                <input id="fechaIniMat" type="date" class="datepicker" value="@DateTime.Now.ToShortDateString()">
+                                <label for="fechaIniMat">Fecha Inicio</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="fechaFinMat" type="date" class="datepicker" value="@DateTime.Now.ToShortDateString()">
+                                <label for="fechaFinMat">Fecha Fin</label>
+                            </div>
+                        </div>
+
+                        <button id="btnRptMatPdf" class="btn cyan waves-effect waves-light left" type="button" name="action">
+                            PDF
+                            <i class="mdi-content-send right"></i>
+                        </button>
+                        <button id="btnRptMatExcel" class="btn cyan waves-effect waves-light right" type="button" name="action">
+                            EXCEL
+                            <i class="mdi-content-send right"></i>
+                        </button>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card-panel section">
+                <h4 class="header2">Reporte de Defunciones</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <select id="dboOpcionDef">
+                            <option value="1">Por Libro</option>
+                            <option value="2">Por Fecha Defuncion</option>
+                            <option value="3">Por Fecha Registro</option>
+                        </select>
+
+                        <div class="row defuncion" id="divLibroDef">
+                            <div class="input-field col s3">
+                                <label>Libro Inicio</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosDefIni")
+                            </div>
+                            <div class="input-field col s3">
+                                <label>Libro Fin</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.DropDownList("LibrosDefFin")
+                            </div>
+                        </div>
+                        <div class="row defuncion" style="display:none" id="divFechaDef">
+                            <div class="input-field col s6">
+                                <input id="fechaIniDef" type="date" class="datepicker" value="@DateTime.Now.ToShortDateString()">
+                                <label for="fechaIniDef">Fecha Inicio</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="fechaFinDef" type="date" class="datepicker" value="@DateTime.Now.ToShortDateString()">
+                                <label for="fechaFinDef">Fecha Fin</label>
+                            </div>
+                        </div>
+
+
+                        <button id="btnRptDefPdf" class="btn cyan waves-effect waves-light left" type="button" name="action">
+                            PDF
+                            <i class="mdi-content-send right"></i>
+                        </button>
+                        <button id="btnRptDefExcel" class="btn cyan waves-effect waves-light right" type="button" name="action">
+                            EXCEL
+                            <i class="mdi-content-send right"></i>
+                        </button>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#dboOpcionDef").change(function () {
+                $(".defuncion").hide();
+                if ($(this).val() == 1) $("#divLibroDef").show();
+                if ($(this).val() == 2) $("#divFechaDef").show();
+                if ($(this).val() == 3) $("#divFechaDef").show();
+            });
+            $("#dboOpcioNac").change(function () {
+                $(".nacimiento").hide();
+                if ($(this).val() == 1) $("#divLibroNac").show();
+                if ($(this).val() == 2) $("#divFechaNac").show();
+                if ($(this).val() == 3) $("#divFechaNac").show();
+            });
+            $("#dboOpcioMat").change(function () {
+                $(".matrimonio").hide();
+                if ($(this).val() == 1) $("#divLibroMat").show();
+                if ($(this).val() == 2) $("#divFechaMat").show();
+                if ($(this).val() == 3) $("#divFechaMat").show();
+            });
+
+            $("#btnRptNacPdf").click(function () {
+                event.preventDefault();
+                verReporteNac('PDF');
+                return false;
+            });
+            $("#btnRptNacExcel").click(function () {
+                event.preventDefault();
+                verReporteNac('Excel');
+                return false;
+            });
+
+            $("#btnRptDefPdf").click(function () {
+                event.preventDefault();
+                verReporteDef('PDF');
+                return false;
+            });
+            $("#btnRptDefExcel").click(function () {
+                event.preventDefault();
+                verReporteDef('Excel');
+                return false;
+            });
+
+            $("#btnRptMatPdf").click(function () {
+                event.preventDefault();
+                verReporteMat('PDF');
+                return false;
+            });
+            $("#btnRptMatExcel").click(function () {
+                event.preventDefault();
+                verReporteMat('Excel');
+                return false;
+            });
+
+        });
+
+        function verReporteNac(tipoReporte, opcion) {
+            var ruta;
+            var opcion = $("#dboOpcioNac").val();
+            switch (opcion) {
+                case "1": ruta = '@Url.Action("ReporteNacimiento", "Informe")' + '?pInicio=' + $('#LibrosNacIni').val() + '&pFin=' + $('#LibrosNacFin').val() + '&opcion=' + opcion + '&pTipoReporte=' + tipoReporte; break;
+                case "2":
+                case "3": ruta = '@Url.Action("ReporteNacimiento", "Informe")' + '?pInicio=' + $('#fechaIniNac').val() + '&pFin=' + $('#fechaFinNac').val() + '&opcion=' + opcion + '&pTipoReporte=' + tipoReporte; break;
+            }
+            window.open(ruta);
+        }
+        function verReporteDef(tipoReporte) {
+            var ruta;
+            var opcion = $("#dboOpcionDef").val();
+            switch (opcion) {
+                case "1": ruta = '@Url.Action("ReporteDefuncion", "Informe")' + '?pInicio=' + $('#LibrosDefIni').val() + '&pFin=' + $('#LibrosDefFin').val() + '&opcion=' + opcion + '&pTipoReporte=' + tipoReporte; break;
+                case "2":
+                case "3": ruta = '@Url.Action("ReporteDefuncion", "Informe")' + '?pInicio=' + $('#fechaIniDef').val() + '&pFin=' + $('#fechaFinDef').val() + '&opcion=' + opcion + '&pTipoReporte=' + tipoReporte; break;
+            }
+
+            window.open(ruta);
+        }
+        function verReporteMat(tipoReporte, opcion) {
+            var ruta;
+            var opcion = $("#dboOpcioMat").val();
+            switch (opcion) {
+                case "1": ruta = '@Url.Action("ReporteMatrimonio", "Informe")' + '?pInicio=' + $('#LibrosMatIni').val() + '&pFin=' + $('#LibrosMatFin').val() + '&opcion=' + opcion + '&pTipoReporte=' + tipoReporte; break;
+                case "2":
+                case "3": ruta = '@Url.Action("ReporteMatrimonio", "Informe")' + '?pInicio=' + $('#fechaIniMat').val() + '&pFin=' + $('#fechaFinMat').val() + '&opcion=' + opcion + '&pTipoReporte=' + tipoReporte; break;
+            }
+            window.open(ruta);
+        }
+    </script>
+}

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsMatrimonio" targetNamespace="http://tempuri.org/dsMatrimonio.xsd" xmlns:mstns="http://tempuri.org/dsMatrimonio.xsd" xmlns="http://tempuri.org/dsMatrimonio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsMatrimonio" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsMatrimonio" msprop:Generator_UserDSName="dsMatrimonio">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="matrimonio" msprop:Generator_TableClassName="matrimonioDataTable" msprop:Generator_TableVarName="tablematrimonio" msprop:Generator_TablePropName="matrimonio" msprop:Generator_RowDeletingName="matrimonioRowDeleting" msprop:Generator_RowChangingName="matrimonioRowChanging" msprop:Generator_RowEvHandlerName="matrimonioRowChangeEventHandler" msprop:Generator_RowDeletedName="matrimonioRowDeleted" msprop:Generator_UserTableName="matrimonio" msprop:Generator_RowChangedName="matrimonioRowChanged" msprop:Generator_RowEvArgName="matrimonioRowChangeEvent" msprop:Generator_RowClassName="matrimonioRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ApellidoNombre" msprop:Generator_ColumnVarNameInTable="columnApellidoNombre" msprop:Generator_ColumnPropNameInRow="ApellidoNombre" msprop:Generator_ColumnPropNameInTable="ApellidoNombreColumn" msprop:Generator_UserColumnName="ApellidoNombre" type="xs:string" minOccurs="0" />
+              <xs:element name="Conyugue" msprop:Generator_ColumnVarNameInTable="columnConyugue" msprop:Generator_ColumnPropNameInRow="Conyugue" msprop:Generator_ColumnPropNameInTable="ConyugueColumn" msprop:Generator_UserColumnName="Conyugue" type="xs:string" minOccurs="0" />
+              <xs:element name="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NroLibro" msprop:Generator_ColumnVarNameInTable="columnNroLibro" msprop:Generator_ColumnPropNameInRow="NroLibro" msprop:Generator_ColumnPropNameInTable="NroLibroColumn" msprop:Generator_UserColumnName="NroLibro" type="xs:int" minOccurs="0" />
+              <xs:element name="NroActa" msprop:Generator_ColumnVarNameInTable="columnNroActa" msprop:Generator_ColumnPropNameInRow="NroActa" msprop:Generator_ColumnPropNameInTable="NroActaColumn" msprop:Generator_UserColumnName="NroActa" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

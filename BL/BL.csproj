@@ -74,6 +74,10 @@
       <Project>{a93b78c7-4a1b-4fbb-a8ae-3e264325b6c8}</Project>
       <Name>BE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Comun\Comun.csproj">
+      <Project>{4a5b3c89-de18-4215-9423-8f433ab75225}</Project>
+      <Name>Comun</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DA\DA.csproj">
       <Project>{ed7e18a0-4df7-4527-8835-c026c24ba445}</Project>
       <Name>DA</Name>

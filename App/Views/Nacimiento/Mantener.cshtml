@@ -57,7 +57,7 @@
                             <div class="input-field col s6">
                                 <i class="mdi-editor-insert-invitation prefix"></i>
                                 <label for="Fecha">Fecha Nacimiento*</label>
-                                <input id="Fecha" name="Fecha" type="date" data-error=".errorTxt4" class="datepicker required"
+                                <input id="Fecha" name="Fecha" type="text" data-error=".errorTxt4" class="datepicker required"
                                        value="@Model.Fecha.ToShortDateString()">
                                 <div class="errorTxt4"></div>
                             </div>
@@ -173,7 +173,8 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-        $(function () {
+        $(function () {          
+
             @if (Model.NacimientoId > 0)
             {
                 <text>CargarAnexos();</text>
