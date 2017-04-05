@@ -3,7 +3,6 @@
  output extension=".cs"#><#
 
  
-
  
 const string inputFile = @"..\DA\Modelo.edmx";
 var textTransform = DynamicTextTransformation.Create(this);

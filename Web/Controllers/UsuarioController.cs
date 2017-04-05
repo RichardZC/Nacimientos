@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace Web.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            return View();
+            return View(UsuarioBL.Listar(includeProperties:"persona"));
         }
     }
 }

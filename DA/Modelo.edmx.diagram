@@ -5,11 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f2834f4da9424f5e8510abbdfea2bac0" Name="Diagram1">
-        <EntityTypeShape EntityType="BDModel.persona" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="BDModel.rol" Width="1.5" PointX="2.875" PointY="4.625" />
-        <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="3" PointY="1.5" />
-        <AssociationConnector Association="BDModel.usuario_ibfk_1" />
-        <AssociationConnector Association="BDModel.usuario_rol" />
         <EntityTypeShape EntityType="BDModel.nacimiento_anexo" Width="1.5" PointX="7" PointY="1.375" />
         <EntityTypeShape EntityType="BDModel.defuncion_anexo" Width="1.5" PointX="11.25" PointY="1.5" />
         <EntityTypeShape EntityType="BDModel.matrimonio_anexo" Width="1.5" PointX="7.375" PointY="4.125" />
@@ -19,6 +15,11 @@
         <EntityTypeShape EntityType="BDModel.nacimiento" Width="1.5" PointX="4.75" PointY="7.875" />
         <AssociationConnector Association="BDModel.matrimonio_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
+        <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="3.75" PointY="0.875" />
+        <EntityTypeShape EntityType="BDModel.persona" Width="1.5" PointX="1.5" PointY="0.75" />
+        <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="0.75" PointY="5.25" />
+        <AssociationConnector Association="BDModel.usuario_ibfk_1" />
+        <AssociationConnector Association="BDModel.usuario_rol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

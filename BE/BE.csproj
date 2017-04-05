@@ -66,6 +66,9 @@
     <Compile Include="matrimonio_anexo.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="menu.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Modelo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

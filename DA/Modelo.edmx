@@ -47,6 +47,13 @@
           <Property Name="MatrimonioId" Type="int" Nullable="false" />
           <Property Name="url" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denominacion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="nacimiento">
           <Key>
             <PropertyRef Name="NacimientoId" />
@@ -192,6 +199,7 @@
           <EntitySet Name="defuncion_anexo" EntityType="Self.defuncion_anexo" Schema="nac" store:Type="Tables" />
           <EntitySet Name="matrimonio" EntityType="Self.matrimonio" Schema="nac" store:Type="Tables" />
           <EntitySet Name="matrimonio_anexo" EntityType="Self.matrimonio_anexo" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="menu" EntityType="Self.menu" Schema="nac" store:Type="Tables" />
           <EntitySet Name="nacimiento" EntityType="Self.nacimiento" Schema="nac" store:Type="Tables" />
           <EntitySet Name="nacimiento_anexo" EntityType="Self.nacimiento_anexo" Schema="nac" store:Type="Tables" />
           <EntitySet Name="persona" EntityType="Self.persona" Schema="nac" store:Type="Tables" />
@@ -228,17 +236,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="nacEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="persona" EntityType="BDModel.persona" />
           <EntitySet Name="rol" EntityType="BDModel.rol" />
-          <EntitySet Name="usuario" EntityType="BDModel.usuario" />
-          <AssociationSet Name="usuario_ibfk_1" Association="BDModel.usuario_ibfk_1">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
-          <AssociationSet Name="usuario_rol" Association="BDModel.usuario_rol">
-            <End Role="usuario" EntitySet="usuario" />
-            <End Role="rol" EntitySet="rol" />
-          </AssociationSet>
           <EntitySet Name="nacimiento_anexo" EntityType="BDModel.nacimiento_anexo" />
           <EntitySet Name="defuncion_anexo" EntityType="BDModel.defuncion_anexo" />
           <EntitySet Name="matrimonio_anexo" EntityType="BDModel.matrimonio_anexo" />
@@ -257,24 +255,18 @@
             <End Role="nacimiento" EntitySet="nacimiento" />
             <End Role="nacimiento_anexo" EntitySet="nacimiento_anexo" />
           </AssociationSet>
+          <EntitySet Name="menu" EntityType="BDModel.menu" />
+          <EntitySet Name="persona" EntityType="BDModel.persona" />
+          <EntitySet Name="usuario" EntityType="BDModel.usuario" />
+          <AssociationSet Name="usuario_ibfk_1" Association="BDModel.usuario_ibfk_1">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_rol" Association="BDModel.usuario_rol">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="rol" EntitySet="rol" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="persona">
-          <Key>
-            <PropertyRef Name="PersonaId" />
-          </Key>
-          <Property Name="PersonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombres" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="Paterno" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="Materno" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="NombreCompleto" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="DNI" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Celular" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Sexo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
-          <Property Name="FechaNacimiento" Type="DateTime" />
-          <Property Name="Partida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuario" Relationship="BDModel.usuario_ibfk_1" FromRole="persona" ToRole="usuario" />
-        </EntityType>
         <EntityType Name="rol">
           <Key>
             <PropertyRef Name="RolId" />
@@ -283,34 +275,6 @@
           <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="usuario" Relationship="BDModel.usuario_rol" FromRole="rol" ToRole="usuario" />
         </EntityType>
-        <EntityType Name="usuario">
-          <Key>
-            <PropertyRef Name="UsuarioId" />
-          </Key>
-          <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonaId" Type="Int32" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="Clave" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="persona" Relationship="BDModel.usuario_ibfk_1" FromRole="usuario" ToRole="persona" />
-          <NavigationProperty Name="rol" Relationship="BDModel.usuario_rol" FromRole="usuario" ToRole="rol" />
-        </EntityType>
-        <Association Name="usuario_ibfk_1">
-          <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
-          <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="usuario_rol">
-          <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
-          <End Type="BDModel.rol" Role="rol" Multiplicity="*" />
-        </Association>
         <EntityType Name="nacimiento_anexo">
           <Key>
             <PropertyRef Name="Nacimiento_AnexoId" />
@@ -422,29 +386,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="persona">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Paterno" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Materno" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCompleto" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DNI" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sexo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" />
+          <Property Name="Partida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario" Relationship="BDModel.usuario_ibfk_1" FromRole="persona" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int32" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="persona" Relationship="BDModel.usuario_ibfk_1" FromRole="usuario" ToRole="persona" />
+          <NavigationProperty Name="rol" Relationship="BDModel.usuario_rol" FromRole="usuario" ToRole="rol" />
+        </EntityType>
+        <Association Name="usuario_ibfk_1">
+          <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
+          <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_rol">
+          <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
+          <End Type="BDModel.rol" Role="rol" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BDModelStoreContainer" CdmEntityContainer="nacEntities">
-          <EntitySetMapping Name="persona">
-            <EntityTypeMapping TypeName="BDModel.persona">
-              <MappingFragment StoreEntitySet="persona">
-                <ScalarProperty Name="Partida" ColumnName="Partida" />
-                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="Celular" ColumnName="Celular" />
-                <ScalarProperty Name="DNI" ColumnName="DNI" />
-                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
-                <ScalarProperty Name="Materno" ColumnName="Materno" />
-                <ScalarProperty Name="Paterno" ColumnName="Paterno" />
-                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="rol">
             <EntityTypeMapping TypeName="BDModel.rol">
               <MappingFragment StoreEntitySet="rol">
@@ -453,25 +452,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="usuario">
-            <EntityTypeMapping TypeName="BDModel.usuario">
-              <MappingFragment StoreEntitySet="usuario">
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="usuario_rol" TypeName="BDModel.usuario_rol" StoreEntitySet="usuario_rol">
-            <EndProperty Name="rol">
-              <ScalarProperty Name="RolId" ColumnName="RolId" />
-            </EndProperty>
-            <EndProperty Name="usuario">
-              <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="nacimiento_anexo">
             <EntityTypeMapping TypeName="BDModel.nacimiento_anexo">
               <MappingFragment StoreEntitySet="nacimiento_anexo">
@@ -541,6 +521,50 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="menu">
+            <EntityTypeMapping TypeName="BDModel.menu">
+              <MappingFragment StoreEntitySet="menu">
+                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="persona">
+            <EntityTypeMapping TypeName="BDModel.persona">
+              <MappingFragment StoreEntitySet="persona">
+                <ScalarProperty Name="Partida" ColumnName="Partida" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="Materno" ColumnName="Materno" />
+                <ScalarProperty Name="Paterno" ColumnName="Paterno" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="BDModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="usuario_rol" TypeName="BDModel.usuario_rol" StoreEntitySet="usuario_rol">
+            <EndProperty Name="rol">
+              <ScalarProperty Name="RolId" ColumnName="RolId" />
+            </EndProperty>
+            <EndProperty Name="usuario">
+              <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

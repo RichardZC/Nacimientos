@@ -25,14 +25,15 @@ namespace BE
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<persona> persona { get; set; }
         public virtual DbSet<rol> rol { get; set; }
-        public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<nacimiento_anexo> nacimiento_anexo { get; set; }
         public virtual DbSet<defuncion_anexo> defuncion_anexo { get; set; }
         public virtual DbSet<matrimonio_anexo> matrimonio_anexo { get; set; }
         public virtual DbSet<defuncion> defuncion { get; set; }
         public virtual DbSet<matrimonio> matrimonio { get; set; }
         public virtual DbSet<nacimiento> nacimiento { get; set; }
+        public virtual DbSet<menu> menu { get; set; }
+        public virtual DbSet<persona> persona { get; set; }
+        public virtual DbSet<usuario> usuario { get; set; }
     }
 }
