@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,11 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Listar()
+        {
+            return Json(UsuarioBL.Listar(),JsonRequestBehavior.AllowGet);
         }
     }
 }
