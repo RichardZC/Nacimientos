@@ -14,5 +14,10 @@ namespace Web.Controllers
         {
             return View(UsuarioBL.Listar(includeProperties:"persona"));
         }
+
+        public ActionResult Listar()
+        {
+            return Json(UsuarioBL.Listar(),JsonRequestBehavior.AllowGet);
+        }
     }
 }
