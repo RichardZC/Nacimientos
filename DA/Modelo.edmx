@@ -47,13 +47,6 @@
           <Property Name="MatrimonioId" Type="int" Nullable="false" />
           <Property Name="url" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <EntityType Name="menu">
-          <Key>
-            <PropertyRef Name="MenuId" />
-          </Key>
-          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Denominacion" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="nacimiento">
           <Key>
             <PropertyRef Name="NacimientoId" />
@@ -74,6 +67,13 @@
           <Property Name="Nacimiento_AnexoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NacimientoId" Type="int" Nullable="false" />
           <Property Name="url" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oficina">
+          <Key>
+            <PropertyRef Name="OficinaId" />
+          </Key>
+          <Property Name="OficinaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denominacion" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="persona">
           <Key>
@@ -199,9 +199,9 @@
           <EntitySet Name="defuncion_anexo" EntityType="Self.defuncion_anexo" Schema="nac" store:Type="Tables" />
           <EntitySet Name="matrimonio" EntityType="Self.matrimonio" Schema="nac" store:Type="Tables" />
           <EntitySet Name="matrimonio_anexo" EntityType="Self.matrimonio_anexo" Schema="nac" store:Type="Tables" />
-          <EntitySet Name="menu" EntityType="Self.menu" Schema="nac" store:Type="Tables" />
           <EntitySet Name="nacimiento" EntityType="Self.nacimiento" Schema="nac" store:Type="Tables" />
           <EntitySet Name="nacimiento_anexo" EntityType="Self.nacimiento_anexo" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="oficina" EntityType="Self.oficina" Schema="nac" store:Type="Tables" />
           <EntitySet Name="persona" EntityType="Self.persona" Schema="nac" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="nac" store:Type="Tables" />
@@ -255,7 +255,6 @@
             <End Role="nacimiento" EntitySet="nacimiento" />
             <End Role="nacimiento_anexo" EntitySet="nacimiento_anexo" />
           </AssociationSet>
-          <EntitySet Name="menu" EntityType="BDModel.menu" />
           <EntitySet Name="persona" EntityType="BDModel.persona" />
           <EntitySet Name="usuario" EntityType="BDModel.usuario" />
           <AssociationSet Name="usuario_ibfk_1" Association="BDModel.usuario_ibfk_1">
@@ -266,6 +265,7 @@
             <End Role="usuario" EntitySet="usuario" />
             <End Role="rol" EntitySet="rol" />
           </AssociationSet>
+          <EntitySet Name="oficina" EntityType="BDModel.oficina" />
         </EntityContainer>
         <EntityType Name="rol">
           <Key>
@@ -386,13 +386,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="menu">
-          <Key>
-            <PropertyRef Name="MenuId" />
-          </Key>
-          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="persona">
           <Key>
             <PropertyRef Name="PersonaId" />
@@ -438,6 +431,13 @@
           <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
           <End Type="BDModel.rol" Role="rol" Multiplicity="*" />
         </Association>
+        <EntityType Name="oficina">
+          <Key>
+            <PropertyRef Name="OficinaId" />
+          </Key>
+          <Property Name="OficinaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -521,14 +521,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="menu">
-            <EntityTypeMapping TypeName="BDModel.menu">
-              <MappingFragment StoreEntitySet="menu">
-                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="persona">
             <EntityTypeMapping TypeName="BDModel.persona">
               <MappingFragment StoreEntitySet="persona">
@@ -565,6 +557,14 @@
               <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="oficina">
+            <EntityTypeMapping TypeName="BDModel.oficina">
+              <MappingFragment StoreEntitySet="oficina">
+                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
+                <ScalarProperty Name="OficinaId" ColumnName="OficinaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

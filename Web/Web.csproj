@@ -268,7 +268,7 @@
     <Compile Include="Controllers\NacimientoController.cs" />
     <Compile Include="Controllers\OficinaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Filters\AdminFilter.cs" />
+    <Compile Include="Views\Login\Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

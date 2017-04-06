@@ -12,9 +12,11 @@ namespace BE
     using System;
     using System.Collections.Generic;
     
-    public partial class menu
+    public partial class oficina
     {
-        public int MenuId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+
+        public int OficinaId { get; set; }
         public string Denominacion { get; set; }
     }
 }
