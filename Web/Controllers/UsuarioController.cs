@@ -23,5 +23,13 @@ namespace Web.Controllers
             
             return View(UsuarioBL.Obtener(id));
         }
+
+        public ActionResult parcial()
+        {
+            UsuarioBL.ActualizarParcial(new BE.usuario { UsuarioId = 1,Nombre="xxxx", Clave = "887788" }, x => x.Clave, x => x.Nombre);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

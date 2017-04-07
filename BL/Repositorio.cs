@@ -5,6 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using BE;
+using System.Data.Entity.Migrations;
 
 namespace BL
 {
@@ -134,7 +135,25 @@ namespace BL
             }
             return null;
         }
-
+        public static T1 Guardar(T1 entity)
+        {
+            using (var db = new nacEntities())
+            {
+                db.Set<T1>().AddOrUpdate(entity);
+                if (db.SaveChanges() > 0)
+                    return entity;
+            }
+            return null;
+        }
+        public static void Guardar(List<T1> entities)
+        {
+            using (var db = new nacEntities())
+            {
+                foreach (var e in entities)
+                    db.Set<T1>().AddOrUpdate(e);
+                db.SaveChanges();
+            }
+        }
         public static void Actualizar(DbContext dbContext, T1 entity)
         {
             DbEntityEntry dbEntityEntry = dbContext.Entry(entity);
@@ -159,7 +178,23 @@ namespace BL
             }
             return false;
         }
+        public static void ActualizarParcial(T1 entity, params Expression<Func<T1, object>>[] properties)
+        {
+            using (var db = new nacEntities())
+            {
+                db.Configuration.ValidateOnSaveEnabled = false;
 
+                var entry = db.Entry(entity);
+                if (entry.State == EntityState.Detached)
+                    db.Set<T1>().Attach(entity);
+
+                if (properties != null)
+                    foreach (var p in properties)
+                        entry.Property(p).IsModified = true;
+
+                db.SaveChanges();
+            }
+        }
         public static void Eliminar(DbContext dbContext, T1 entity)
         {
             DbEntityEntry dbEntityEntry = dbContext.Entry(entity);
