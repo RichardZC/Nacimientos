@@ -1,4 +1,5 @@
-﻿using BL;
+﻿using BE;
+using BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,10 @@ namespace Web.Controllers
         {
             return View(OficinaBL.Listar()  );
         }
-
-
+        [HttpPost]
+        public JsonResult Guardar(oficina o) {
+            OficinaBL.Guardar(o);
+            return Json(true);
+        }
     }
 }

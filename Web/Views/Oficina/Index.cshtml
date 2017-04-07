@@ -14,31 +14,11 @@
                                     <a href="#!" class="email-menu"><i class="mdi-navigation-menu"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="email-type">OFICINAS</a>
-                                </li>
-                                <li class="right">
-                                    <!--navegador-->
-                                    
-
-                                </li>
+                                    <a class="email-type">OFICINAS</a>
+                                </li>                               
                             </ul>
                         </div>
-                        <div class="col s12 m7 l7 hide-on-med-and-down">
-                            <ul class="right">
-                                <li>
-
-                                </li>
-                                <li>
-
-                                </li>
-                                <li>
-
-                                </li>
-                                <li>
-                                    
-                                </li>
-                            </ul>
-                        </div>
+                        
 
                     </div>
                 </nav>
@@ -50,18 +30,9 @@
                         @foreach (var item in Model)
                         {
                             <li class="collection-item avatar email-unread"
-                                ondblclick="MostrarEditar(@item.OficinaId);">
-                                <!--mostrar con doble clik-->
-                                @* class="circle light-blue" Substring(0, 1) captura el primer caracter en un circulo*@
+                                ondblclick="MostrarEditar(@item.OficinaId,'@item.Denominacion');">
                                 <span class="circle light-blue">@item.Denominacion.Substring(0, 1)</span>
-
                                 <span class="email-title">@item.Denominacion</span>
-                                @*<p class="truncate grey-text ultra-small">@item.persona.DNI - @item.persona.NombreCompleto</p>*@
-
-                                @*<a class="secondary-content email-time">
-                                    <span class="blue-text ultra-small">cel: @item.persona.Celular</span>
-                                </a>*@
-
                             </li>
                         }
 
@@ -73,39 +44,32 @@
 
         <!-- agregar oficina -->
         <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-            <a class="btn-floating btn-large red modal-trigger" href="#modal1">
+            <a class="oficina_add btn btn-floating btn-large red modal-trigger" href="#modal1">
                 <i class="mdi-editor-border-color"></i>
             </a>
-            <p class="ultra-small">AGREGAR OFICINA</p>
         </div>
 
 
 
         <!-- ventana emergente -->
-        <div id="modal1" class="modal" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 222.609px;">
+        <div id="modal1" class="modal " style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 222.609px;">
             <div class="modal-content">
                 <nav class="red">
                     <div class="nav-wrapper">
                         <div class="left col s12 m5 l5">
                             <ul>
                                 <li>
-                                    <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-hardware-keyboard-backspace"></i></a>
+                                    <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="email-type">Retornar</a>
+                                    <a href="#!" class="email-type">Oficinas</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col s12 m7 l7 hide-on-med-and-down">
                             <ul class="right">
                                 <li>
-                                    <a href="#!"><i class="mdi-editor-attach-file"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#!"><i class="modal-action modal-close  mdi-content-send"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#!"><i class="mdi-navigation-more-vert"></i></a>
+                                    <a onclick="Guardar()"><i class="modal-action modal-close  mdi-content-save"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -116,31 +80,13 @@
             <div class="model-email-content">
                 <div class="row">
                     <form class="col s12">
-                        <!--<div class="row">
-                          <div class="input-field col s12">
-                            <input id="from_email" type="email" class="validate">
-                            <label for="from_email">From</label>
-                          </div>
-                        </div> -->
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="to_email" type="email" class="validate">
-                                <label for="to_email">To</label>
+                                <input id="txtOficina" type="email" class="validate" autofocus>
+                                <label for="txtOficina">Oficina</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="subject" type="text" class="validate">
-                                <label for="subject">Subject</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <textarea id="compose" class="materialize-textarea" length="500"></textarea>
-                                <label for="compose">Compose email</label>
-                                <span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
             </div>
@@ -148,3 +94,39 @@
     </div>
 
 </div>
+@section scripts{
+    <script>
+        $(function () {
+            
+            
+            
+            
+
+
+        });
+
+        function Guardar() {
+
+            $.post('@Url.Action("Guardar","Oficina")', {
+                OficinaId: $("#txtOficina").data("OficinaId"),
+                Denominacion: $("#txtOficina").val()
+            }, function (r) {
+                //Materialize.toast('Se Guardó Correctamente!', 4000);
+                window.location.reload();
+            });
+           
+        }
+
+        function MostrarEditar(oficinaid, denominacion) {
+            $("#txtOficina").data("OficinaId", oficinaid);
+            $("#txtOficina").val(denominacion);
+            $(".oficina_add").trigger("click");
+        }
+
+        function limpiar() {
+            $("#txtOficina").val("").data("OficinaId", 0);
+
+        }
+        
+    </script>
+}
