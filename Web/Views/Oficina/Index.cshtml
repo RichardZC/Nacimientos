@@ -18,12 +18,7 @@
                                 </li>
                                 <li class="right">
                                     <!--navegador-->
-                                    <div class="input-field">
-                                        <input id="btnb" type="text" placeholder="Buscar Oficinas" autofocus>
-                                        <label for="btnb">
-                                            <i class="mdi-action-search"></i>
-                                        </label>
-                                    </div>
+                                    
 
                                 </li>
                             </ul>
@@ -40,7 +35,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="#!"><i class="mdi-navigation-more-vert"></i></a>
+                                    
                                 </li>
                             </ul>
                         </div>
@@ -57,7 +52,7 @@
                             <li class="collection-item avatar email-unread"
                                 ondblclick="MostrarEditar(@item.OficinaId);">
                                 <!--mostrar con doble clik-->
-
+                                @* class="circle light-blue" Substring(0, 1) captura el primer caracter en un circulo*@
                                 <span class="circle light-blue">@item.Denominacion.Substring(0, 1)</span>
 
                                 <span class="email-title">@item.Denominacion</span>
