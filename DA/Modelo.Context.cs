@@ -32,8 +32,8 @@ namespace BE
         public virtual DbSet<defuncion> defuncion { get; set; }
         public virtual DbSet<matrimonio> matrimonio { get; set; }
         public virtual DbSet<nacimiento> nacimiento { get; set; }
-        public virtual DbSet<menu> menu { get; set; }
         public virtual DbSet<persona> persona { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<oficina> oficina { get; set; }
     }
 }

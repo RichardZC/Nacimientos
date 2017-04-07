@@ -60,6 +60,7 @@
     <Compile Include="MatrimonioBL.cs" />
     <Compile Include="NacimientoAnexoBL.cs" />
     <Compile Include="NacimientoBL.cs" />
+    <Compile Include="OficinaBL.cs" />
     <Compile Include="PersonaBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReporteBL.cs" />

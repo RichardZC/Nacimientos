@@ -15,11 +15,11 @@
         <EntityTypeShape EntityType="BDModel.nacimiento" Width="1.5" PointX="4.75" PointY="7.875" />
         <AssociationConnector Association="BDModel.matrimonio_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
-        <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="3.75" PointY="0.875" />
         <EntityTypeShape EntityType="BDModel.persona" Width="1.5" PointX="1.5" PointY="0.75" />
         <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="0.75" PointY="5.25" />
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_rol" />
+        <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
