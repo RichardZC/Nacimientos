@@ -44,7 +44,7 @@
 
         <!-- agregar oficina -->
         <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-            <a class="oficina_add btn btn-floating btn-large red modal-trigger" href="#modal1">
+            <a onclick="Nuevo();" data-target="modal1" class="oficina_add modal-trigger btn btn-floating btn-large red" >
                 <i class="mdi-editor-border-color"></i>
             </a>
         </div>
@@ -97,16 +97,9 @@
 @section scripts{
     <script>
         $(function () {
-            
-            
-            
-            
-
-
         });
 
         function Guardar() {
-
             $.post('@Url.Action("Guardar","Oficina")', {
                 OficinaId: $("#txtOficina").data("OficinaId"),
                 Denominacion: $("#txtOficina").val()
@@ -120,12 +113,13 @@
         function MostrarEditar(oficinaid, denominacion) {
             $("#txtOficina").data("OficinaId", oficinaid);
             $("#txtOficina").val(denominacion);
-            $(".oficina_add").trigger("click");
+            //$(".oficina_add").trigger("click");
+            $('#modal1').modal('open');
         }
 
-        function limpiar() {
+        function Nuevo() {
             $("#txtOficina").val("").data("OficinaId", 0);
-
+            $('.modal-trigger').leanModal();
         }
         
     </script>

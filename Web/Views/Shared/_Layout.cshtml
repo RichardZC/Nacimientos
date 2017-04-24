@@ -1,6 +1,8 @@
 ﻿@{
     string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
     var usuario = BL.UsuarioBL.Obtener(Comun.SessionHelper.GetUser());
+
+    bool login = usuario == null || controlador == "login" ? true : false;
 }
 <!DOCTYPE html>
 <html lang="es-pe">
@@ -31,9 +33,9 @@
 
 </head>
 
-<body class='@if (controlador == "login") {<text>cyan</text> }'>
+<body class='@if (login) {<text>cyan</text> }'>
 
-    @if (controlador != "login")
+    @if (login==false)
     {
 
     <header id="header" class="page-topbar">
@@ -82,7 +84,7 @@
                                         <a href="#"><i class="mdi-action-lock-outline"></i> Bloqueo</a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action(" Logout", "Login" )"><i class="mdi-hardware-keyboard-tab"></i> Salir</a>
+                                        <a href="@Url.Action("Logout", "Login" )"><i class="mdi-hardware-keyboard-tab"></i> Salir</a>
                                     </li>
                                 </ul>
 
