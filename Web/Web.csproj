@@ -126,6 +126,7 @@
     <Content Include="css\layouts\style-fullscreen.css" />
     <Content Include="css\layouts\style-horizontal.css" />
     <Content Include="css\materialize.min.css" />
+    <Content Include="css\miEstilo.css" />
     <Content Include="css\plugins\media-hover-effects.css" />
     <Content Include="css\style.min.css" />
     <Content Include="font\material-design-icons\Material-Design-Icons.svg" />

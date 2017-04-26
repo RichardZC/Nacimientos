@@ -108,6 +108,14 @@
           <Property Name="Clave" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="usuario_oficina">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+            <PropertyRef Name="OficinaId" />
+          </Key>
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="OficinaId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="usuario_rol">
           <Key>
             <PropertyRef Name="UsuarioId" />
@@ -127,6 +135,30 @@
             </Principal>
             <Dependent Role="defuncion_anexo">
               <PropertyRef Name="DefuncionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuOfi_oficina">
+          <End Role="oficina" Type="Self.oficina" Multiplicity="1" />
+          <End Role="usuario_oficina" Type="Self.usuario_oficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oficina">
+              <PropertyRef Name="OficinaId" />
+            </Principal>
+            <Dependent Role="usuario_oficina">
+              <PropertyRef Name="OficinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuOfi_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="usuario_oficina" Type="Self.usuario_oficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="usuario_oficina">
+              <PropertyRef Name="UsuarioId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -205,10 +237,19 @@
           <EntitySet Name="persona" EntityType="Self.persona" Schema="nac" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="nac" store:Type="Tables" />
+          <EntitySet Name="usuario_oficina" EntityType="Self.usuario_oficina" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario_rol" EntityType="Self.usuario_rol" Schema="nac" store:Type="Tables" />
           <AssociationSet Name="defuncion_anexo_ibfk_1" Association="Self.defuncion_anexo_ibfk_1">
             <End Role="defuncion" EntitySet="defuncion" />
             <End Role="defuncion_anexo" EntitySet="defuncion_anexo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuOfi_oficina" Association="Self.fk_usuOfi_oficina">
+            <End Role="oficina" EntitySet="oficina" />
+            <End Role="usuario_oficina" EntitySet="usuario_oficina" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuOfi_usuario" Association="Self.fk_usuOfi_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuario_oficina" EntitySet="usuario_oficina" />
           </AssociationSet>
           <AssociationSet Name="matrimonio_anexo_ibfk_1" Association="Self.matrimonio_anexo_ibfk_1">
             <End Role="matrimonio" EntitySet="matrimonio" />
@@ -266,6 +307,10 @@
             <End Role="rol" EntitySet="rol" />
           </AssociationSet>
           <EntitySet Name="oficina" EntityType="BDModel.oficina" />
+          <AssociationSet Name="usuario_oficina" Association="BDModel.usuario_oficina">
+            <End Role="oficina" EntitySet="oficina" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="rol">
           <Key>
@@ -414,6 +459,7 @@
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="persona" Relationship="BDModel.usuario_ibfk_1" FromRole="usuario" ToRole="persona" />
           <NavigationProperty Name="rol" Relationship="BDModel.usuario_rol" FromRole="usuario" ToRole="rol" />
+          <NavigationProperty Name="oficina" Relationship="BDModel.usuario_oficina" FromRole="usuario" ToRole="oficina" />
         </EntityType>
         <Association Name="usuario_ibfk_1">
           <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
@@ -437,7 +483,12 @@
           </Key>
           <Property Name="OficinaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario" Relationship="BDModel.usuario_oficina" FromRole="oficina" ToRole="usuario" />
         </EntityType>
+        <Association Name="usuario_oficina">
+          <End Type="BDModel.oficina" Role="oficina" Multiplicity="*" />
+          <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -565,6 +616,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="usuario_oficina" TypeName="BDModel.usuario_oficina" StoreEntitySet="usuario_oficina">
+            <EndProperty Name="usuario">
+              <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+            </EndProperty>
+            <EndProperty Name="oficina">
+              <ScalarProperty Name="OficinaId" ColumnName="OficinaId" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

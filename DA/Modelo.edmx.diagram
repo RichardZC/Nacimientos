@@ -19,7 +19,8 @@
         <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="0.75" PointY="5.25" />
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_rol" />
-        <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="2.25" PointY="8.5" />
+        <AssociationConnector Association="BDModel.usuario_oficina" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

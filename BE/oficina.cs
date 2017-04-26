@@ -15,8 +15,15 @@ namespace BE
     public partial class oficina
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-
+        public oficina()
+        {
+            this.usuario = new HashSet<usuario>();
+        }
+    
         public int OficinaId { get; set; }
         public string Denominacion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usuario> usuario { get; set; }
     }
 }

@@ -58,6 +58,8 @@
     <Compile Include="ItemCombo.cs" />
     <Compile Include="MatrimonioAnexoBL.cs" />
     <Compile Include="MatrimonioBL.cs" />
+    <Compile Include="Modelo\Oficinas.cs" />
+    <Compile Include="Modelo\Roles.cs" />
     <Compile Include="NacimientoAnexoBL.cs" />
     <Compile Include="NacimientoBL.cs" />
     <Compile Include="OficinaBL.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Reporte\ReporteMat.cs" />
     <Compile Include="Repositorio.cs" />
     <Compile Include="Reporte\ReporteNac.cs" />
+    <Compile Include="RolBL.cs" />
     <Compile Include="UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>

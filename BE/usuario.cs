@@ -11,23 +11,26 @@ namespace BE
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
             this.rol = new HashSet<rol>();
+            this.oficina = new HashSet<oficina>();
         }
-
+    
         public int UsuarioId { get; set; }
         public Nullable<int> PersonaId { get; set; }
         public string Nombre { get; set; }
         public string Clave { get; set; }
         public bool Activo { get; set; }
-
+    
         public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rol> rol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<oficina> oficina { get; set; }
     }
 }

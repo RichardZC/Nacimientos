@@ -1,39 +1,130 @@
 ﻿
-@model BE.usuario
+@model Web.Controllers.UsuarioController.MantenerUsuario
+
 
 <div class="row">
-    <div class="col s12 m12 l12">
-        <div class="card-panel">
-            <div class="row">
-                <form class="col s12">
-                    <h4 class="header2">Inline form</h4>
-                    <div class="row">
-                        <div class="input-field col s12 m4 l4">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <input id="icon_prefix" type="text" class="validate" value="@Model.Nombre">
-                            <label for="icon_prefix" class="">First Name</label>
-                        </div>
-                        <div class="col s12 m4 l4">
-                            <!-- Switch -->
-                            <div class="switch">
-                                Enabled :
-                                <label>
-                                    Off
-                                    <input type="checkbox" checked>
-                                    <span class="lever"></span> On
-                                </label>
-                            </div>
-                            
-                        </div>
-                        <div class="input-field col s12 m4 l4">
-                            <div class="input-field col s12">
-                                <button class="btn cyan waves-effect waves-light" type="submit" name="action"><i class="mdi-action-lock-open"></i> Login</button>
-                            </div>
-                        </div>
+    <div class="col s12 m6 l6">
+        <div id="profile-card" class="card">
+            <ul id="task-card" class="collection with-header">
+                <li class="collection-header cyan ">
+
+                    <a ng-click="GuardarUsuario()" tooltipped data-position="left" data-delay="50" data-tooltip="Guardar Usuario"
+                       class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text">
+                        <i class="mdi-content-save"></i>
+                    </a>
+
+                    <div class="bannerUsuario">
+                        <h5 class="task-card-title ">
+                            @Model.Usuario.persona.NombreCompleto
+                        </h5>
                     </div>
-                </form>
+
+                </li>
+            </ul>
+            <div class="MyCard-content encerrar">
+                <img src="~/images/avatar.jpg" alt="" class="circle responsive-img activator card-profile-MyImage">
+
+                <ul id="profile-page-about-details">
+                    <li class="collection-item">
+                        <div class="row">
+                            <div class="col s5 grey-text darken-1"><i class="mdi-notification-phone-in-talk"></i> Celular</div>
+                            <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.Celular</div>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <div class="row">
+                            <div class="col s5 grey-text darken-1"><i class="mdi-maps-location-history"></i> DNI</div>
+                            <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.DNI</div>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <div class="row">
+                            <div class="col s5 grey-text darken-1"><i class="mdi-communication-email"></i> Correo</div>
+                            <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.Correo</div>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <div class="row">
+                            <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Dirección </div>
+                            <div class="col s7 grey-text text-darken-4 right-align"></div>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <div class="input-field col s6">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input id="first_name2" type="text" class="validate valid" value="@Model.Usuario.Nombre">
+                    <label class="active" for="first_name2">Usuario</label>
+                </div>
+
+
+
+                <div class="input-field col s6 ">
+
+                    <input type="checkbox" class="filled-in " id="filled-in-box" @if (Model.Usuario.Activo) { <text> checked</text>} />
+
+                    <label for="filled-in-box">Usuario activo</label>
+
+
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <a ng-click="ReiniciarContrasenia()" tooltipped data-position="left" data-delay="50" data-tooltip="Reiniciar contraseña"
+                           class="btn btn-floating waves-effect waves-light cyan right "><i class="mdi-navigation-refresh"></i></a>
+                    </div>
+                </div>
+
             </div>
+
         </div>
     </div>
-</div>
 
+
+    <!--PARA VER ROLES-->
+
+    <div class="col s12 m6 l6">
+        <ul id="task-card" class="collection with-header">
+            <li class="collection-header cyan">
+                <a ng-click="GuardarRoles()" tooltipped data-position="left" data-delay="50" data-tooltip="Guardar Roles"
+                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text"><i class="mdi-content-save"></i></a>
+                <h5 class="task-card-title">ROLES</h5>
+            </li>
+            @foreach (var item in Model.Roles)
+            {
+                <li class="collection-item dismissable">
+                    <input type="checkbox" id="r_@item.RolId" @if (item.Estado) { <text> checked</text>}>
+                    <label for="r_@item.RolId" style="text-decoration: none;">
+                        @item.Denominacion
+                    </label>
+                </li>
+            }
+
+        </ul>
+    </div>
+
+    <div class="col s12 m6 l6">
+        <ul id="task-card" class="collection with-header">
+            <li class="collection-header cyan">
+                <a ng-click="GuardarOficinas()" tooltipped data-position="left" data-delay="50" data-tooltip="Guardar Oficinas"
+                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text"><i class="mdi-content-save"></i></a>
+                <h5 class="task-card-title">OFICINAS</h5>
+            </li>
+            @foreach (var item in Model.Oficinas)
+            {
+                <li class="collection-item dismissable">
+                    <input type="checkbox" id="o_@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
+                    <label for="o_@item.OficinaId" style="text-decoration: none;">
+                        @item.Denominacion
+                    </label>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+
+</div>

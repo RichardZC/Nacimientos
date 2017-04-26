@@ -8,34 +8,33 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class OficinaBL : Repositorio<oficina>
+    public class RolBL : Repositorio<rol>
     {
-        public static List<Oficinas> ListarOficinas(int pUsuarioId)
+        public static List<Roles> ListarRoles(int pUsuarioId)
         {
             using (var bd = new nacEntities())
             {
-                var oficinas = bd.oficina.Select(x => new Oficinas()
+                var roles = bd.rol.Select(x => new Roles()
                 {
-                    OficinaId = x.OficinaId,
+                    RolId = x.RolId,
                     Denominacion = x.Denominacion,
                     Estado = false
                 }).ToList();
-                var asignados = bd.oficina.Where(x => x.usuario.FirstOrDefault().UsuarioId == pUsuarioId);
+                var asignados = bd.rol.Where(x => x.usuario.FirstOrDefault().UsuarioId == pUsuarioId);
 
                 foreach (var a in asignados)
                 {
-                    foreach (var o in oficinas)
+                    foreach (var o in roles)
                     {
-                        if (o.OficinaId == a.OficinaId)
+                        if (o.RolId == a.RolId)
                         {
                             o.Estado = true;
                             break;
                         }
                     }
                 }
-                return oficinas;
+                return roles;
             }
         }
-
     }
 }
