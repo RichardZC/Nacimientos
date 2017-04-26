@@ -60,3 +60,50 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Trigger -->
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<a id="btn" class="btn"  href="#modal1">Modal</a>
+
+@section scripts{
+    <script>
+
+        // $('.modal').modal('open');
+        $(function () {
+
+            //$(".modal-trigger").leanModal({
+            //    dismissible: true,
+            //    opacity: .5,
+            //    in_duration: 300,
+            //    out_duration: 200,
+            //    ready: function () { },
+            //    complete: function () {  }
+            //});
+
+            //$("#btn").click(function () {
+            $('#btn').leanModal({
+                ready: function () {
+                    console.log('entro');
+                },
+                complete: function () {
+                    console.log('salio');
+                }
+
+            });
+            //});
+            
+        });
+        
+
+    </script>
+}

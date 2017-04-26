@@ -63,7 +63,11 @@
         function cargar() {
             var re = / /g;
             var url = "@Url.Action("Buscar","Matrimonio")" + "?clave=" + $('#btnb').val().replace(re, '%20');
-            $("#listaActas").load(url);
+            $.get('@Url.Action("ObtenerUsuarioSesion", "Comun")', function (d) {
+                if (d == 0) location.reload();
+                $("#listaActas").load(url);
+            });
+            
         };
         function CargarAnexos() {
             var url = "@Url.Action("MostrarAnexos", "Matrimonio")" + "?pMatrimonioId=" + $("#hdMatrimonioId").val() + "&editar=false";
@@ -99,7 +103,7 @@
                 });
             });
         }
-       
+
         function Mostrar(id, corto, n, l, a,url) {
             if ($("#hdMatrimonioId").val() == id) return;
 
