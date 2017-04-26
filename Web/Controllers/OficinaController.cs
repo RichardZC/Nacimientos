@@ -17,6 +17,7 @@ namespace Web.Controllers
         }
         [HttpPost]
         public JsonResult Guardar(oficina o) {
+            o.Denominacion = o.Denominacion.ToUpper();
             OficinaBL.Guardar(o);
             return Json(true);
         }
