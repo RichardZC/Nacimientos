@@ -78,7 +78,7 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="txtOficina" type="email" class="validate" autofocus>
+                                <input id="txtOficina" type="text" class="validate" placeholder="Denominación">
                                 <label for="txtOficina">Oficina</label>
                             </div>
                         </div>
@@ -93,7 +93,9 @@
 @section scripts{
     <script>
         $(function () {
-            $('.modal-add').leanModal();
+            $('.modal-add').leanModal({
+                ready: function () {$("#txtOficina").focus();}
+            });
         });
 
         function Guardar() {
@@ -103,19 +105,16 @@
             }, function (r) {
                 //Materialize.toast('Se Guardó Correctamente!', 4000);
                 window.location.reload();
-            });
-           
+            });           
         }
 
-        function MostrarEditar(oficinaid, denominacion) {
-            $("#txtOficina").data("OficinaId", oficinaid);
-            $("#txtOficina").val(denominacion);
+        function MostrarEditar(oficinaid, denominacion) {            
             $('#modal1').openModal();
+            $("#txtOficina").data("OficinaId", oficinaid).val(denominacion).focus();
         }
 
         function Nuevo() {
-            $("#txtOficina").val("").data("OficinaId", 0);
-            //console.log(123);
+            $("#txtOficina").val("").data("OficinaId", 0).focus();
         }
         
     </script>

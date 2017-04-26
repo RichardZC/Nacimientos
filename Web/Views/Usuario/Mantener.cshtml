@@ -1,15 +1,14 @@
 ﻿
 @model Web.Controllers.UsuarioController.MantenerUsuario
 
-
 <div class="row">
     <div class="col s12 m6 l6">
         <div id="profile-card" class="card">
             <ul id="task-card" class="collection with-header">
                 <li class="collection-header cyan ">
 
-                    <a ng-click="GuardarUsuario()" tooltipped data-position="left" data-delay="50" data-tooltip="Guardar Usuario"
-                       class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text">
+                    <a ng-click="GuardarUsuario()" data-position="left" data-tooltip="Guardar Usuario"
+                       class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
                         <i class="mdi-content-save"></i>
                     </a>
 
@@ -73,8 +72,8 @@
 
                 <div class="row">
                     <div class="col s12 m12 l12">
-                        <a ng-click="ReiniciarContrasenia()" tooltipped data-position="left" data-delay="50" data-tooltip="Reiniciar contraseña"
-                           class="btn btn-floating waves-effect waves-light cyan right "><i class="mdi-navigation-refresh"></i></a>
+                        <a ng-click="ReiniciarContrasenia()" data-position="left" data-tooltip="Reiniciar contraseña"
+                           class="btn btn-floating waves-effect waves-light cyan right tooltipped"><i class="mdi-navigation-refresh"></i></a>
                     </div>
                 </div>
 
@@ -85,12 +84,11 @@
 
 
     <!--PARA VER ROLES-->
-
     <div class="col s12 m6 l6">
         <ul id="task-card" class="collection with-header">
             <li class="collection-header cyan">
-                <a ng-click="GuardarRoles()" tooltipped data-position="left" data-delay="50" data-tooltip="Guardar Roles"
-                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text"><i class="mdi-content-save"></i></a>
+                <a ng-click="GuardarRoles()" data-position="left" data-tooltip="Guardar Roles"
+                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped"><i class="mdi-content-save"></i></a>
                 <h5 class="task-card-title">ROLES</h5>
             </li>
             @foreach (var item in Model.Roles)
@@ -109,8 +107,8 @@
     <div class="col s12 m6 l6">
         <ul id="task-card" class="collection with-header">
             <li class="collection-header cyan">
-                <a ng-click="GuardarOficinas()" tooltipped data-position="left" data-delay="50" data-tooltip="Guardar Oficinas"
-                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text"><i class="mdi-content-save"></i></a>
+                <a ng-click="GuardarOficinas()" data-position="left" data-tooltip="Guardar Oficinas"
+                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped"><i class="mdi-content-save"></i></a>
                 <h5 class="task-card-title">OFICINAS</h5>
             </li>
             @foreach (var item in Model.Oficinas)
@@ -128,3 +126,4 @@
 
 
 </div>
+
