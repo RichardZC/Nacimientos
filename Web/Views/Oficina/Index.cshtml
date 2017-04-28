@@ -1,121 +1,97 @@
 ﻿@model List<BE.oficina>
-
 <div class="container">
-    <div id="mail-app" class="section">
-        <div class="row">
-            <div class="col s12">
-                <nav class="red">
-                    <div class="nav-wrapper">
-                        <div class="left col s12 m5 l5">
-                            <ul>
-                                <li>
-                                    <a href="#!" class="email-menu"><i class="mdi-navigation-menu"></i></a>
-                                </li>
-                                <li>
-                                    <a class="email-type">OFICINAS</a>
-                                </li>                               
-                            </ul>
-                        </div>
-                        
-
-                    </div>
-                </nav>
-            </div>
-            <div class="col s12">
-                <!--agregar nombre de la oficina -->
-                <div id="email-list" class="col s12 m12 l12 card-panel z-depth-1">
-                    <ul class="collection">
-                        @foreach (var item in Model)
-                        {
-                            <li class="collection-item avatar email-unread" 
-                                ondblclick="MostrarEditar(@item.OficinaId,'@item.Denominacion');">
-                                <span class="circle light-blue">@item.Denominacion.Substring(0, 1)</span>
-                                <span class="email-title">@item.Denominacion</span>
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <ul id="lista" class="collection with-header">
+                <li class="collection-header cyan">
+                    <a onclick="Nuevo();" data-target="modal1" data-position="left" data-tooltip="Nuevo" style="margin-top:5px"
+                       class="modal-add right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
+                    <h5 class="white-text">OFICINAS</h5>
+                </li>
+                @foreach (var item in Model)
+                {
+                    <li class="collection-item">
+                        <div><span id="o_@item.OficinaId">@item.Denominacion</span><a href="#!" onclick="MostrarEditar(@item.OficinaId);" class="secondary-content"><i class="mdi-content-send"></i></a></div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div id="modal1" class="modal">
+        <div class="modal-content" style="padding:0">
+            <nav class="red">
+                <div class="nav-wrapper">
+                    <div class="left col s12 m5 l5">
+                        <ul>
+                            <li>
+                                <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
                             </li>
-                        }
-
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- agregar oficina -->
-        <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-            <a onclick="Nuevo();" data-target="modal1" class="modal-add btn btn-floating btn-large red" >
-                <i class="mdi-editor-border-color"></i>
-            </a>
-        </div>
-
-        <!-- ventana emergente -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <nav class="red">
-                    <div class="nav-wrapper">
-                        <div class="left col s12 m5 l5">
-                            <ul>
-                                <li>
-                                    <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="email-type">Oficinas</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col s12 m7 l7 hide-on-med-and-down">
-                            <ul class="right">
-                                <li>
-                                    <a onclick="Guardar()"><i class="modal-action modal-close  mdi-content-save"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
+                            <li>
+                                <a href="#!" class="email-type">Oficinas</a>
+                            </li>
+                        </ul>
                     </div>
-                </nav>
-            </div>
-            <div class="model-email-content">
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="txtOficina" type="text" class="validate" placeholder="Denominación">
-                                <label for="txtOficina">Oficina</label>
-                            </div>
-                        </div>
+                    <div class="col s12 m7 l7 hide-on-med-and-down">
+                        <ul class="right">
+                            <li>
+                                <a onclick="Guardar()"><i class="modal-action modal-close  mdi-content-save"></i></a>
+                            </li>
+                        </ul>
+                    </div>
 
-                    </form>
                 </div>
+            </nav>
+        </div>
+        <div class="model-email-content">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="txtOficina" type="text" class="validate" placeholder="Denominación">
+                            <label for="txtOficina">Oficina</label>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
-
 </div>
 @section scripts{
     <script>
         $(function () {
             $('.modal-add').leanModal({
-                ready: function () {$("#txtOficina").focus();}
+                ready: function () { $("#txtOficina").focus(); }
             });
         });
-
         function Guardar() {
+            var o = $("#txtOficina").val().toUpperCase();
+
             $.post('@Url.Action("Guardar","Oficina")', {
                 OficinaId: $("#txtOficina").data("OficinaId"),
                 Denominacion: $("#txtOficina").val()
             }, function (r) {
-                //Materialize.toast('Se Guardó Correctamente!', 4000);
-                window.location.reload();
-            });           
+                if (r.EsNuevo) {
+                    $("#lista").append("<li class='collection-item'>" +
+                       "<div><span id='o_" + r.OficinaId + "'>" + o + "</span><a href='#!' onclick='MostrarEditar(" + r.OficinaId + ");' class='secondary-content'><i class='mdi-content-send'></i></a></div>" +
+                     "</li>");
+                }
+                else {
+                    $("#o_" + r.OficinaId).text(o);
+                }
+                Materialize.toast('Se Guardó Correctamente!', 4000);
+            });
         }
 
-        function MostrarEditar(oficinaid, denominacion) {            
+        function MostrarEditar(oficinaid) {
             $('#modal1').openModal();
-            $("#txtOficina").data("OficinaId", oficinaid).val(denominacion).focus();
+            var o = $("#o_" + oficinaid).text();
+            $("#txtOficina").data("OficinaId", oficinaid).val(o).focus();
         }
 
         function Nuevo() {
             $("#txtOficina").val("").data("OficinaId", 0).focus();
         }
-        
+
     </script>
 }

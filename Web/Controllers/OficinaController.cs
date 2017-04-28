@@ -17,9 +17,10 @@ namespace Web.Controllers
         }
         [HttpPost]
         public JsonResult Guardar(oficina o) {
+            bool Esnuevo = o.OficinaId == 0 ? true : false;
             o.Denominacion = o.Denominacion.ToUpper();
             OficinaBL.Guardar(o);
-            return Json(true);
+            return Json(new { EsNuevo = Esnuevo, OficinaId = o.OficinaId });
         }
     }
 }
