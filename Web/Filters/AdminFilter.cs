@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using System.Reflection;
 namespace Web.Filters
 {
     // Si no estamos logeado, regresamos al login
@@ -18,11 +18,19 @@ namespace Web.Filters
 
             if (!SessionHelper.ExistUserInSession())
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                if ((((((ReflectedActionDescriptor)filterContext.ActionDescriptor).MethodInfo).ReturnType)).Name == "JsonResult")
                 {
-                    controller = "Login",
-                    action = "Index"
-                }));
+                    
+                }
+                else {
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                    {
+                        controller = "Login",
+                        action = "Index"
+                    }));
+                }
+
+               
             }
         }
     }

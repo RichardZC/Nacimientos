@@ -1,4 +1,4 @@
-var Funcion = {
+var fn = {
     url: function (s) { return window.location.pathname + '/' + s; },
     mensaje: function (p) { Materialize.toast(p, 4000); },
     notificar: function (o) {

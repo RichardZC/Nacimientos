@@ -105,22 +105,26 @@
     </div>
 
     <div class="col s12 m6 l6">
-        <ul id="task-card" class="collection with-header">
-            <li class="collection-header cyan">
-                <a ng-click="GuardarOficinas()" data-position="left" data-tooltip="Guardar Oficinas"
-                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped"><i class="mdi-content-save"></i></a>
-                <h5 class="task-card-title">OFICINAS</h5>
-            </li>
-            @foreach (var item in Model.Oficinas)
-            {
-                <li class="collection-item dismissable">
-                    <input type="checkbox" id="o_@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
-                    <label for="o_@item.OficinaId" style="text-decoration: none;">
-                        @item.Denominacion
-                    </label>
+        <form method="post" action='@Url.Action("GuardarOficinas","Usuario")'>
+            <ul id="task-card" class="collection with-header">
+                <li class="collection-header cyan">
+                    <button type="submit" data-ajax="true" data-position="left" data-tooltip="Guardar Oficinas"
+                       class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped"><i class="mdi-content-save"></i></button>
+
+                    <h5 class="task-card-title">OFICINAS</h5>
+                    <input type="hidden" name="u.UsuarioId" value="@Model.Usuario.UsuarioId" />
                 </li>
-            }
-        </ul>
+                @foreach (var item in Model.Oficinas)
+            {
+                    <li class="collection-item dismissable">
+                        <input type="checkbox" id="o_@item.OficinaId" name="o" value="@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
+                        <label for="o_@item.OficinaId" style="text-decoration: none;">
+                            @item.Denominacion
+                        </label>
+                    </li>
+                }
+            </ul>
+        </form>
     </div>
 
 

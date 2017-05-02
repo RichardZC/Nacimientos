@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web.Filters;
 
 namespace Web.Controllers
 {
+    [Autenticado]
     public class OficinaController : Controller
     {
         // GET: Oficina
@@ -22,5 +24,6 @@ namespace Web.Controllers
             OficinaBL.Guardar(o);
             return Json(new { EsNuevo = Esnuevo, OficinaId = o.OficinaId });
         }
+        
     }
 }

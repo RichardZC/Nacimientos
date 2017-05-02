@@ -1,14 +1,17 @@
 ﻿using BE;
 using BL;
 using BL.modelo;
+using Comun;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web.Filters;
 
 namespace Web.Controllers
 {
+    [Autenticado]
     public class UsuarioController : Controller
     {
         // GET: Usuario
@@ -39,10 +42,29 @@ namespace Web.Controllers
         }
 
 
-        public ActionResult parcial()
+        [HttpPost]
+        public JsonResult GuardarOficinas(usuario u, int[] o = null)
         {
-            UsuarioBL.ActualizarParcial(new BE.usuario { UsuarioId = 1, Nombre = "xxxx", Clave = "887788" }, x => x.Clave, x => x.Nombre);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            var rm = new ResponseModel();
+            if (o != null)
+            {
+                foreach (var i in o)
+                    u.oficina.Add(new oficina { OficinaId = i });
+            }
+
+            try
+            {
+                UsuarioBL.GuardarUsuarioOficinas(u);
+                rm.SetResponse(true);
+                rm.function = "fn.notificar()";
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false);
+                rm.function = "fn.mensaje('" + ex.Message + "')";
+            }           
+
+            return Json(rm);
         }
 
         
