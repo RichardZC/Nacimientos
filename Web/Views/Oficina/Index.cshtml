@@ -18,43 +18,39 @@
         </div>
     </div>
     <div id="modal1" class="modal">
-        <div class="modal-content" style="padding:0">
-            <nav class="red">
-                <div class="nav-wrapper">
-                    <div class="left col s12 m5 l5">
-                        <ul>
-                            <li>
-                                <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
-                            </li>
-                            <li>
-                                <a href="#!" class="email-type">Oficinas</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col s12 m7 l7 hide-on-med-and-down">
-                        <ul class="right">
-                            <li>
-                                <a onclick="Guardar()"><i class="modal-action modal-close  mdi-content-save"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </nav>
-        </div>
-        <div class="model-email-content">
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="txtOficina" type="text" class="validate" placeholder="Denominación">
-                            <label for="txtOficina">Oficina</label>
+        <form action='@Url.Action("Guardar","Oficina")' method="post">
+            <input id="OficinaId" name="OficinaId" type="hidden" value="0" />
+            <div class="modal-content" style="padding:0">
+                <nav class="red">
+                    <div class="nav-wrapper">
+                        <div class="left col s12 m5 l5">
+                            <ul>
+                                <li>
+                                    <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
+                                </li>
+                                Oficinas
+                            </ul>
+                        </div>
+                        <div class="col s12 m7 l7">
+                            <ul class="right">
+                                <li>
+                                    <button type="submit" data-ajax="true" class="btn btn-large btn-flat red white-text " style="vertical-align:baseline;height:auto;"><i class="modal-action modal-close mdi-content-save"></i></button>
+                                    @*<a onclick="Guardar()"><i class="modal-action modal-close  mdi-content-save"></i></a>*@
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
-                </form>
+                </nav>
             </div>
-        </div>
+            <div class="model-email-content">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtOficina" name="Denominacion" type="text" class="validate" placeholder="Denominación">
+                        <label for="txtOficina">Oficina</label>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @section scripts{
@@ -63,34 +59,25 @@
             $('.modal-add').leanModal({
                 ready: function () { $("#txtOficina").focus(); }
             });
-        });
-        function Guardar() {
-            var o = $("#txtOficina").val().toUpperCase();
-
-            $.post('@Url.Action("Guardar","Oficina")', {
-                OficinaId: $("#txtOficina").data("OficinaId"),
-                Denominacion: $("#txtOficina").val()
-            }, function (r) {
-                if (r.EsNuevo) {
-                    $("#lista").append("<li class='collection-item'>" +
-                       "<div><span id='o_" + r.OficinaId + "'>" + o + "</span><a href='#!' onclick='MostrarEditar(" + r.OficinaId + ");' class='secondary-content'><i class='mdi-content-send'></i></a></div>" +
-                     "</li>");
-                }
-                else {
-                    $("#o_" + r.OficinaId).text(o);
-                }
-                Materialize.toast('Se Guardó Correctamente!', 4000);
-            });
-        }
-
+        });       
         function MostrarEditar(oficinaid) {
             $('#modal1').openModal();
-            var o = $("#o_" + oficinaid).text();
-            $("#txtOficina").data("OficinaId", oficinaid).val(o).focus();
+            $("#OficinaId").val(oficinaid);
+            $("#txtOficina").val($("#o_" + oficinaid).text()).focus();
         }
-
         function Nuevo() {
-            $("#txtOficina").val("").data("OficinaId", 0).focus();
+            $("#OficinaId").val(0);
+            $("#txtOficina").val("").focus();
+        }
+        function AddRowOf(id, denominacion) {
+            $("#lista").append("<li class='collection-item'>" +
+                      "<div><span id='o_" + id + "'>" + denominacion + "</span><a href='#!' onclick='MostrarEditar(" + id + ");' class='secondary-content'><i class='mdi-content-send'></i></a></div>" +
+                    "</li>");
+            $('#modal1').closeModal();
+        }
+        function RefreshRowOf(id, denominacion) {           
+            $("#o_" + id).text(denominacion);
+            $('#modal1').closeModal();           
         }
 
     </script>

@@ -95,43 +95,39 @@
                             </div>
                         </div>
                     </li>
-                    <li class="bold">
+                    <li class='bold @if (controlador == "home") {<text>active</text> }' >
                         <a href="@Url.Action("Index", "Home" )" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Inicio</a>
                     </li>
-                    <li class="bold">
+                    <li class='bold @if (controlador == "nacimiento") {<text>active</text> }'>
                         <a href="@Url.Action("Index", "Nacimiento" )" class="waves-effect waves-cyan"><i class="mdi-action-account-child"></i> Nacimientos</a>
                     </li>
-                    <li class="bold">
+                    <li class='bold @if (controlador == "matrimonio") {<text>active</text> }'>
                         <a href="@Url.Action("Index", "Matrimonio" )" class="waves-effect waves-cyan"><i class="mdi-social-people-outline"></i> Matrimonios</a>
                     </li>
-                    <li class="bold">
+                    <li class='bold @if (controlador == "defuncion") {<text>active</text> }'>
                         <a href="@Url.Action("Index", "Defuncion" )" class="waves-effect waves-cyan"><i class="mdi-communication-contacts"></i> Defunciones</a>
                     </li>
 
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
-                            <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-hardware-security"></i> Seguridad</a>
+                            <li class='bold'>
+                                <a class="collapsible-header waves-effect waves-cyan @if (controlador == "usuario") {<text>active</text> }"><i class="mdi-hardware-security"></i> Seguridad</a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li>
                                             <a href="layout-fullscreen.html">Roles</a>
                                         </li>
-                                        <li>
+                                        <li class='@if (controlador == "usuario") {<text>active</text> }'>
                                             <a href="@Url.Action("Index", "Usuario" )">Usuarios</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                        </ul>
-                    </li>
-                    <li class="no-padding">
-                        <ul class="collapsible collapsible-accordion">
                             <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-settings"></i> Mantenimientos</a>
+                                <a class="collapsible-header waves-effect waves-cyan @if (controlador == "oficina") {<text>active</text> }"><i class="mdi-action-settings"></i> Mantenimientos</a>
                                 <div class="collapsible-body">
-                                    <ul>                                       
-                                        <li>
+                                    <ul>
+                                        <li class='@if (controlador == "oficina") {<text>active</text> }'>
                                             <a href="@Url.Action("Index", "Oficina" )">Oficina</a>
                                         </li>
                                     </ul>
@@ -139,7 +135,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="bold">
+
+                    
+                    <li class='bold @if (controlador == "informe") {<text>active</text> }'>
                         <a href="@Url.Action("Index", "Informe" )" class="waves-effect waves-cyan"><i class="mdi-action-find-in-page"></i> Consultas</a>
                     </li>
 

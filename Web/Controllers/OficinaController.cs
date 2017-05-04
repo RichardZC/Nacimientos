@@ -1,5 +1,6 @@
 ﻿using BE;
 using BL;
+using Comun;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,23 @@ namespace Web.Controllers
         public JsonResult Guardar(oficina o) {
             bool Esnuevo = o.OficinaId == 0 ? true : false;
             o.Denominacion = o.Denominacion.ToUpper();
-            OficinaBL.Guardar(o);
-            return Json(new { EsNuevo = Esnuevo, OficinaId = o.OficinaId });
+            var rm = new ResponseModel();
+            try
+            {
+                OficinaBL.Guardar(o);
+                rm.SetResponse(true);
+                if (Esnuevo)
+                    rm.function = "AddRowOf(" + o.OficinaId + ",'" + o.Denominacion + "');fn.notificar();";
+                else
+                    rm.function = "RefreshRowOf(" + o.OficinaId + ",'" + o.Denominacion + "');fn.notificar();";
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false);
+                rm.function = "fn.mensaje('" + ex.Message + "')";
+            }
+           
+            return Json(rm);
         }
         
     }

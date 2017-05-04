@@ -50,10 +50,10 @@ $(document).ready(function () {
         form.prepend(block);
 
         // En caso de que haya habido un mensaje de alerta
-        $(".alert", form).remove();
+        $("#card-alert", form).remove();
 
         // Para los formularios que tengan CKupdate
-        if (form.hasClass('CKupdate')) CKupdate();
+        //if (form.hasClass('CKupdate')) CKupdate();
 
         form.ajaxSubmit({
             dataType: 'JSON',
@@ -75,11 +75,12 @@ $(document).ready(function () {
                 if (r.message != null) {
                     if (r.message.length > 0) {
                         var css = "";
-                        if (r.response) css = "alert-success";
-                        else css = "alert-danger";
+                        if (r.response) css = "green";
+                        else css = "red";
 
-                        var message = '<div class="alert ' + css + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + r.message + '</div>';
+                        var message = '<div id="card-alert" class="card ' + css + ' "><div class="card-content white-text"><p><i class="mdi-alert-error"></i>' + r.message + '</p></div><button type="button" class="close white-text" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>';
                         form.prepend(message);
+                        setTimeout('$("#card-alert .close").click(function () { $(this).closest("#card-alert").fadeOut("slow") });', 0);
                     }
                 }
 
