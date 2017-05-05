@@ -3,10 +3,10 @@ var fn = {
     mensaje: function (p) { Materialize.toast(p, 4000); },
     notificar: function (o) {
         switch (o) {
-            case 'add': Materialize.toast('SE CREO EL REGISTRO CORRECTAMENTE!', 4000);
-            case 'mod': Materialize.toast('SE MODIFICO CORRECTAMENTE!', 4000);
-            case 'anu': Materialize.toast('SE ANULO CORRECTAMENTE!', 4000);
-            case 'rem': Materialize.toast('SE ELIMINO CORRECTAMENTE!', 4000);
+            case 'add': Materialize.toast('SE CREO EL REGISTRO CORRECTAMENTE!', 4000); break;
+            case 'mod': Materialize.toast('SE MODIFICO CORRECTAMENTE!', 4000); break;
+            case 'anu': Materialize.toast('SE ANULO CORRECTAMENTE!', 4000); break;
+            case 'rem': Materialize.toast('SE ELIMINO CORRECTAMENTE!', 4000); break;
             default: Materialize.toast('SE GRABARON LOS DATOS CORRECTAMENTE!', 4000);
         }
     }

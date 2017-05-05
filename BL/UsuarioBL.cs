@@ -14,7 +14,6 @@ namespace BL
 
         public static void GuardarUsuarioOficinas(usuario u)
         {
-
             using (var bd = new nacEntities())
             {
                 bd.Configuration.ProxyCreationEnabled = false;
@@ -30,14 +29,31 @@ namespace BL
                 u.oficina = oficinaBK;
                 foreach (var i in u.oficina)
                     bd.Entry(i).State = EntityState.Unchanged;
+                
+                bd.SaveChanges();
+            }
+        }
 
+        public static void GuardarUsuarioRoles(usuario u)
+        {
+            using (var bd = new nacEntities())
+            {
+                bd.Configuration.ProxyCreationEnabled = false;
+                bd.Configuration.LazyLoadingEnabled = false;
+                bd.Configuration.ValidateOnSaveEnabled = false;
+
+                bd.Database.ExecuteSqlCommand("Delete from usuario_rol where UsuarioId=" + u.UsuarioId.ToString());
+
+                var rolBK = u.rol;
+
+                u.rol = null;
+                bd.Entry(u).State = EntityState.Unchanged;
+                u.rol = rolBK;
+                foreach (var i in u.rol)
+                    bd.Entry(i).State = EntityState.Unchanged;
 
                 bd.SaveChanges();
             }
-
-
         }
-
-
     }
 }

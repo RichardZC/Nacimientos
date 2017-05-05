@@ -17,8 +17,8 @@ namespace BE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
-            this.rol = new HashSet<rol>();
             this.oficina = new HashSet<oficina>();
+            this.rol = new HashSet<rol>();
         }
     
         public int UsuarioId { get; set; }
@@ -29,8 +29,8 @@ namespace BE
     
         public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rol> rol { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<oficina> oficina { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<rol> rol { get; set; }
     }
 }

@@ -67,6 +67,69 @@ namespace Web.Controllers
             return Json(rm);
         }
 
+        [HttpPost]
+        public JsonResult GuardarRoles(usuario u, int[] r = null)
+        {
+            var rm = new ResponseModel();
+            if (r != null)
+            {
+                foreach (var i in r)
+                    u.rol.Add(new rol { RolId = i });
+            }
+
+            try
+            {
+                UsuarioBL.GuardarUsuarioRoles(u);
+                rm.SetResponse(true);
+                rm.function = "fn.notificar()";
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false);
+                rm.function = "fn.mensaje('" + ex.Message + "')";
+            }
+
+            return Json(rm);
+        }
+
+        [HttpPost]
+        public JsonResult GuardarUsuario(usuario u,string pActivo)
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                if (!string.IsNullOrEmpty(pActivo)) u.Activo = true;
+                u.Nombre = u.Nombre.Trim().ToUpper();
+                UsuarioBL.ActualizarParcial(u, x => x.Nombre, x => x.Activo);
+                rm.SetResponse(true);
+                rm.function = "fn.notificar()";
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false);
+                rm.function = "fn.mensaje('" + ex.Message + "')";
+            }
+
+            return Json(rm);
+        }
+
+        [HttpPost]
+        public JsonResult ReiniciarClave(int id)
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                var enc = Comun.HashHelper.MD5("123");
+                UsuarioBL.ActualizarParcial(new usuario { UsuarioId = id, Clave = enc }, x => x.Clave);
+                rm.SetResponse(true);                
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false,ex.Message);               
+            }
+
+            return Json(rm);
+        }
         
     }
 }

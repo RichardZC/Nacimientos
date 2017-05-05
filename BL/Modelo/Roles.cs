@@ -8,7 +8,7 @@ namespace BL.modelo
 {
     public class Roles
     {
-        public string RolId { get; set; }
+        public int RolId { get; set; }
         public string Denominacion { get; set; }
         public bool Estado { get; set; }
     }

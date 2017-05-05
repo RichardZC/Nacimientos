@@ -4,104 +4,99 @@
 <div class="row">
     <div class="col s12 m6 l6">
         <div id="profile-card" class="card">
-            <ul id="task-card" class="collection with-header">
-                <li class="collection-header cyan ">
+            <form action='@Url.Action("GuardarUsuario","Usuario")' method="post">
+                <ul id="task-card" class="collection with-header">
+                    <li class="collection-header cyan ">
 
-                    <a ng-click="GuardarUsuario()" data-position="left" data-tooltip="Guardar Usuario"
-                       class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
-                        <i class="mdi-content-save"></i>
-                    </a>
+                        <button data-ajax="true" type="submit" data-position="left" data-tooltip="Guardar Usuario"
+                                class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
+                            <i class="mdi-content-save"></i>
+                        </button>
+                        <input type="hidden" name="UsuarioId" value="@Model.Usuario.UsuarioId" />
+                        <div class="bannerUsuario">
+                            <h5 class="task-card-title ">
+                                @Model.Usuario.persona.NombreCompleto
+                            </h5>
+                        </div>
 
-                    <div class="bannerUsuario">
-                        <h5 class="task-card-title ">
-                            @Model.Usuario.persona.NombreCompleto
-                        </h5>
-                    </div>
-
-                </li>
-            </ul>
-            <div class="MyCard-content encerrar">
-                <img src="~/images/avatar.jpg" alt="" class="circle responsive-img activator card-profile-MyImage">
-
-                <ul id="profile-page-about-details">
-                    <li class="collection-item">
-                        <div class="row">
-                            <div class="col s5 grey-text darken-1"><i class="mdi-notification-phone-in-talk"></i> Celular</div>
-                            <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.Celular</div>
-                        </div>
-                    </li>
-                    <li class="collection-item">
-                        <div class="row">
-                            <div class="col s5 grey-text darken-1"><i class="mdi-maps-location-history"></i> DNI</div>
-                            <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.DNI</div>
-                        </div>
-                    </li>
-                    <li class="collection-item">
-                        <div class="row">
-                            <div class="col s5 grey-text darken-1"><i class="mdi-communication-email"></i> Correo</div>
-                            <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.Correo</div>
-                        </div>
-                    </li>
-                    <li class="collection-item">
-                        <div class="row">
-                            <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Dirección </div>
-                            <div class="col s7 grey-text text-darken-4 right-align"></div>
-                        </div>
                     </li>
                 </ul>
+                <div class="MyCard-content encerrar">
+                    <img src="~/images/avatar.jpg" alt="" class="circle responsive-img activator card-profile-MyImage">
+
+                    <ul id="profile-page-about-details">
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s5 grey-text darken-1"><i class="mdi-notification-phone-in-talk"></i> Celular</div>
+                                <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.Celular</div>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s5 grey-text darken-1"><i class="mdi-maps-location-history"></i> DNI</div>
+                                <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.DNI</div>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s5 grey-text darken-1"><i class="mdi-communication-email"></i> Correo</div>
+                                <div class="col s7 grey-text text-darken-4 right-align">@Model.Usuario.persona.Correo</div>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Dirección </div>
+                                <div class="col s7 grey-text text-darken-4 right-align"></div>
+                            </div>
+                        </li>
+                    </ul>
 
 
-                <div class="input-field col s6">
-                    <i class="mdi-social-person-outline prefix"></i>
-                    <input id="first_name2" type="text" class="validate valid" value="@Model.Usuario.Nombre">
-                    <label class="active" for="first_name2">Usuario</label>
-                </div>
-
-
-
-                <div class="input-field col s6 ">
-
-                    <input type="checkbox" class="filled-in " id="filled-in-box" @if (Model.Usuario.Activo) { <text> checked</text>} />
-
-                    <label for="filled-in-box">Usuario activo</label>
-
-
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col s12 m12 l12">
-                        <a ng-click="ReiniciarContrasenia()" data-position="left" data-tooltip="Reiniciar contraseña"
-                           class="btn btn-floating waves-effect waves-light cyan right tooltipped"><i class="mdi-navigation-refresh"></i></a>
+                    <div class="input-field col s6">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input id="txtUsuario" name="Nombre" type="text" class="validate valid" value="@Model.Usuario.Nombre">
+                        <label class="active" for="txtUsuario">Usuario</label>
                     </div>
+                    <div class="input-field col s6 ">
+                        <input type="checkbox" name="pActivo" class="filled-in" id="chkActivo" @if (Model.Usuario.Activo) { <text> checked</text>} />
+                        <label for="chkActivo">Usuario activo</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <a onclick="reiniciar(@Model.Usuario.UsuarioId)" data-position="left" data-tooltip="Reiniciar contraseña"
+                               class="btn btn-floating waves-effect waves-light cyan right tooltipped"><i class="mdi-navigation-refresh"></i></a>
+                        </div>
+                    </div>
+
                 </div>
-
-            </div>
-
+            </form>
         </div>
     </div>
 
-
-    <!--PARA VER ROLES-->
     <div class="col s12 m6 l6">
-        <ul id="task-card" class="collection with-header">
-            <li class="collection-header cyan">
-                <a ng-click="GuardarRoles()" data-position="left" data-tooltip="Guardar Roles"
-                   class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped"><i class="mdi-content-save"></i></a>
-                <h5 class="task-card-title">ROLES</h5>
-            </li>
-            @foreach (var item in Model.Roles)
+        <form method="post" action='@Url.Action("GuardarRoles","Usuario")'>
+            <ul id="task-card" class="collection with-header">
+                <li class="collection-header cyan">
+                    <button type="submit" data-ajax="true" data-position="left" data-tooltip="Guardar Roles"
+                            class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
+                        <i class="mdi-content-save"></i>
+                    </button>
+                    <h5 class="task-card-title">ROLES</h5>
+                    <input type="hidden" name="u.UsuarioId" value="@Model.Usuario.UsuarioId" />
+                </li>
+                @foreach (var item in Model.Roles)
             {
                 <li class="collection-item dismissable">
-                    <input type="checkbox" id="r_@item.RolId" @if (item.Estado) { <text> checked</text>}>
+                    <input type="checkbox" id="r_@item.RolId" name="r" value="@item.RolId" @if (item.Estado) { <text> checked</text>}>
                     <label for="r_@item.RolId" style="text-decoration: none;">
                         @item.Denominacion
                     </label>
                 </li>
-            }
+                }
 
-        </ul>
+            </ul>
+        </form>
     </div>
 
     <div class="col s12 m6 l6">
@@ -109,25 +104,53 @@
             <ul id="task-card" class="collection with-header">
                 <li class="collection-header cyan">
                     <button type="submit" data-ajax="true" data-position="left" data-tooltip="Guardar Oficinas"
-                       class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped"><i class="mdi-content-save"></i></button>
+                            class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
+                        <i class="mdi-content-save"></i>
+                    </button>
 
                     <h5 class="task-card-title">OFICINAS</h5>
                     <input type="hidden" name="u.UsuarioId" value="@Model.Usuario.UsuarioId" />
                 </li>
                 @foreach (var item in Model.Oficinas)
             {
-                    <li class="collection-item dismissable">
-                        <input type="checkbox" id="o_@item.OficinaId" name="o" value="@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
-                        <label for="o_@item.OficinaId" style="text-decoration: none;">
-                            @item.Denominacion
-                        </label>
-                    </li>
+                <li class="collection-item dismissable">
+                    <input type="checkbox" id="o_@item.OficinaId" name="o" value="@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
+                    <label for="o_@item.OficinaId" style="text-decoration: none;">
+                        @item.Denominacion
+                    </label>
+                </li>
                 }
             </ul>
         </form>
     </div>
-
-
-
 </div>
 
+@section scripts{
+    <script>
+        function reiniciar(u) {     
+            swal({
+                title: "Estas seguro de Reiniciar la Clave?",
+                text: "Esta acción reinicia la clave del usuario a 123",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Reiniciar",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    data: { id: u },
+                    url: '@Url.Action("ReiniciarClave", "Usuario")',
+                    type: 'post',
+                    success: function (d) {
+                        if (d.response) swal("Reiniciado!", "La clave ha sido reiniciada.", "success");
+                        else fn.mensaje(d.message);                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) { alert(errorThrown); }
+                });
+            });
+        }
+
+    </script>
+
+}

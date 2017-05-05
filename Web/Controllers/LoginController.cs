@@ -20,6 +20,7 @@ namespace Web.Controllers
         public JsonResult Autenticar(string username, string password)
         {
             var rm = new ResponseModel();
+            password = Comun.HashHelper.MD5(password);
             var usuario = UsuarioBL.Obtener(x => x.Nombre == username && x.Clave == password);
             if (usuario != null)
             {
