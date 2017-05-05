@@ -359,6 +359,7 @@
     <Content Include="Views\Oficina\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Mantener.cshtml" />
+    <Content Include="Views\Login\CambiarClave.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

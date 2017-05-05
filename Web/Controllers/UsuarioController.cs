@@ -120,7 +120,7 @@ namespace Web.Controllers
             try
             {
                 var enc = Comun.HashHelper.MD5("123");
-                UsuarioBL.ActualizarParcial(new usuario { UsuarioId = id, Clave = enc }, x => x.Clave);
+                UsuarioBL.ActualizarParcial(new usuario { UsuarioId = id, Clave = enc, IndCambio=true }, x => x.Clave, x => x.IndCambio);
                 rm.SetResponse(true);                
             }
             catch (Exception ex)

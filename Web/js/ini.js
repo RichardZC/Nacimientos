@@ -26,8 +26,7 @@ $(document).ready(function () {
         var button = $(this);
         var url = form.attr('action');
 
-        if (button.data('confirm') != undefined)
-        {
+        if (button.data('confirm') != undefined) {
             if (button.data('confirm') == '') {
                 if (!confirm('¿Esta seguro de realizar esta acción?')) return false;
             } else {
@@ -35,14 +34,12 @@ $(document).ready(function () {
             }
         }
 
-        if (button.data('delete') != undefined)
-        {
-            if (button.data('delete') == true)
-            {
+        if (button.data('delete') != undefined) {
+            if (button.data('delete') == true) {
                 url = button.data('url');
             }
         } else if (!form.valid()) {
-                return false;
+            return false;
         }
 
         // Creamos un div que bloqueara todo el formulario
@@ -65,8 +62,7 @@ $(document).ready(function () {
                     if (!button.data('reset') != undefined) {
                         if (button.data('reset')) form.reset();
                     }
-                    else
-                    {
+                    else {
                         form.find('input:file').val('');
                     }
                 }
@@ -94,7 +90,7 @@ $(document).ready(function () {
                     else window.location.href = r.href;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown){
+            error: function (jqXHR, textStatus, errorThrown) {
                 block.remove();
                 form.prepend('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + errorThrown + ' | <b>' + textStatus + '</b></div>');
             }
@@ -102,7 +98,7 @@ $(document).ready(function () {
 
         return false;
     })
-})
+});
 
 jQuery.fn.reset = function () {
     $("input:password,input:file,input:text,textarea", $(this)).val('');
@@ -135,3 +131,4 @@ jQuery.extend(jQuery.validator.messages, {
     max: jQuery.validator.format("Por favor, escribe un valor menor o igual a {0}."),
     min: jQuery.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
 });
+

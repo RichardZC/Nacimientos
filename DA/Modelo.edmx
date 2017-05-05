@@ -102,7 +102,7 @@
           <Key>
             <PropertyRef Name="RolId" />
           </Key>
-          <Property Name="RolId" Type="int" Nullable="false" />
+          <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Denominacion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="usuario">
@@ -114,6 +114,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Clave" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="IndCambio" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="usuario_oficina">
           <Key>
@@ -320,7 +321,7 @@
             <End Role="usuario" EntitySet="usuario" />
             <End Role="rol" EntitySet="rol" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="nacimiento_anexo">
           <Key>
             <PropertyRef Name="Nacimiento_AnexoId" />
@@ -481,6 +482,7 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="Clave" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="IndCambio" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="persona" Relationship="BDModel.usuario_ibfk_1" FromRole="usuario" ToRole="persona" />
           <NavigationProperty Name="oficina" Relationship="BDModel.usuario_oficina" FromRole="usuario" ToRole="oficina" />
           <NavigationProperty Name="rol" Relationship="BDModel.usuario_rol" FromRole="usuario" ToRole="rol" />
@@ -624,6 +626,7 @@
           <EntitySetMapping Name="usuario">
             <EntityTypeMapping TypeName="BDModel.usuario">
               <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="IndCambio" ColumnName="IndCambio" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

@@ -1,4 +1,5 @@
-﻿using BL;
+﻿using BE;
+using BL;
 using Comun;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Web.Filters;
 
 namespace Web.Controllers
 {
-   
+
     public class LoginController : Controller
     {
         [NoLogin]
@@ -21,14 +22,24 @@ namespace Web.Controllers
         {
             var rm = new ResponseModel();
             password = Comun.HashHelper.MD5(password);
-            var usuario = UsuarioBL.Obtener(x => x.Nombre == username && x.Clave == password);
+            var usuario = UsuarioBL.Obtener(x => x.Nombre == username && x.Clave == password && x.Activo);
             if (usuario != null)
             {
-                SessionHelper.AddUserToSession(usuario.UsuarioId.ToString());
-                rm.SetResponse(true);
-                rm.href = Url.Action("Index","Home");
+                if (usuario.IndCambio)
+                {
+                    rm.SetResponse(true);
+                    rm.function = "CambiarClave("+ usuario.UsuarioId + ");";
+                }
+                else
+                {
+                    SessionHelper.AddUserToSession(usuario.UsuarioId.ToString());
+                    rm.SetResponse(true);
+                    rm.href = Url.Action("Index", "Home");
+                }
+
             }
-            else {
+            else
+            {
                 rm.SetResponse(false, "Usuario o Clave Incorrecta");
             }
             return Json(rm);
@@ -37,8 +48,44 @@ namespace Web.Controllers
         public ActionResult Logout()
         {
             SessionHelper.DestroyUserSession();
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("Index", "Login");
         }
+
+        public ActionResult CambiarClave(int usuarioId)
+        {
+            ViewBag.UsuarioId = usuarioId;
+            return PartialView();
+        }
+        [HttpPost]
+        public JsonResult ActualizarClave(int usuarioId, string clave, string clave1) {
+
+
+            var rm = new ResponseModel();
+            if (clave!= clave1)
+            {
+                rm.SetResponse(false, "Las Claves Son Diferentes");
+                return Json(rm);
+            }
+
+            try
+            {
+                var enc = Comun.HashHelper.MD5(clave);
+                UsuarioBL.ActualizarParcial(new usuario { UsuarioId = usuarioId, Clave = enc, IndCambio = false }, x => x.Clave, x => x.IndCambio);
+
+                SessionHelper.AddUserToSession(usuarioId.ToString());
+                rm.SetResponse(true);
+                rm.href = Url.Action("Index", "Home");
+
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false, ex.Message);
+            }
+
+            return Json(rm);
+        }
+        
+       
 
     }
 }

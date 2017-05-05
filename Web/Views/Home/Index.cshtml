@@ -63,33 +63,135 @@
 
 
 
-@section scripts{
-    <script>
 
-        // $('.modal').modal('open');
-        $(function () {
 
-            //$(".modal-trigger").leanModal({
-            //    dismissible: true,
-            //    opacity: .5,
-            //    in_duration: 300,
-            //    out_duration: 200,
-            //    ready: function () { },
-            //    complete: function () {  }
-            //});
+<style>
+    .autocomplete {
+        display: -ms-flexbox;
+        display: flex;
+    }
 
-            //$("#btn").click(function () {
-            $('#btn').leanModal({
-                ready: function () {
-                    console.log('entro');
-                },
-                complete: function () {
-                    console.log('salio');
+        .autocomplete .ac-users {
+            padding-top: 10px;
+        }
+
+            .autocomplete .ac-users .chip {
+                -ms-flex: auto;
+                flex: auto;
+                margin-bottom: 10px;
+                margin-right: 10px;
+            }
+
+                .autocomplete .ac-users .chip:last-child {
+                    margin-right: 5px;
                 }
 
+        .autocomplete .ac-dropdown .ac-hover {
+            background: #eee;
+        }
+
+        .autocomplete .ac-input {
+            -ms-flex: 1;
+            flex: 1;
+            min-width: 150px;
+            padding-top: 0.6rem;
+        }
+
+            .autocomplete .ac-input input {
+                height: 2.4rem;
+            }
+</style>
+
+
+<div class="row">
+    <h1 class="col s12">Materialize-autocomplete</h1>
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <div class="autocomplete" id="single">
+                    <div class="ac-input">
+                        <input type="text" id="singleInput" placeholder="Please input some letters" data-activates="singleDropdown" data-beloworigin="true" autocomplete="off">
+                    </div>
+                    <ul id="singleDropdown" class="dropdown-content ac-dropdown"></ul>
+                </div>
+                <label class="active" for="singleInput">Single autocomplete: </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <div class="autocomplete" id="multiple">
+                    <div class="ac-users"></div>
+                    <div class="ac-input">
+                        <input type="text" id="multipleInput" placeholder="Please input some letters" data-activates="multipleDropdown" data-beloworigin="true" autocomplete="off">
+                    </div>
+                    <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+                    <input type="hidden" name="multipleHidden" />
+                </div>
+                <label class="active" for="multipleInput">Multiple autocomplete: </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize-autocomplete/1.0.7/jquery.materialize-autocomplete.min.js" ></script>
+
+    <script>
+
+        $(function () {
+            var single = $('#singleInput').materialize_autocomplete({
+                multiple: {
+                    enable: false
+                },
+                dropdown: {
+                    el: '#singleDropdown'
+                }
             });
-            //});
-            
+
+            var multiple = $('#multipleInput').materialize_autocomplete({
+                multiple: {
+                    enable: true
+                },
+                appender: {
+                    el: '.ac-users'
+                },
+                dropdown: {
+                    el: '#multipleDropdown'
+                }
+            });
+
+            var resultCache = {                
+                
+                'BAZ': [
+                    {
+                        id: 'Baz',
+                        text: 'Baz'
+                    }
+                ],                
+                'ABE': [
+                    {
+                        id: 'Abe',
+                        text: 'Abe'
+                    }
+                ],
+                'AR': [
+                    {
+                        id: 'Ari',
+                        text: 'Ari'
+                    }
+                ],
+                'ARI': [
+                    {
+                        id: 'Ari',
+                        text: 'Ari'
+                    }
+                ]
+            };
+
+            single.resultCache = resultCache;
+            multiple.resultCache = resultCache;
         });
         
 

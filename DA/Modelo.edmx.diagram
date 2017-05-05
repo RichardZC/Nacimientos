@@ -18,11 +18,11 @@
         <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="2.25" PointY="8.5" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="4.375" PointY="4.75" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.rol" Width="1.5" PointX="6" PointY="15.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="3.75" PointY="15.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="3.75" PointY="0.75" />
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_oficina" />
         <AssociationConnector Association="BDModel.usuario_rol" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
