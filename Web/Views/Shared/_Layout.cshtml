@@ -25,6 +25,7 @@
     <!-- For Windows Phone -->
     <!-- CORE CSS-->
     <link href="~/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="~/css/autocomplete.min.css" rel="stylesheet" />
     <link href="~/css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="~/css/miEstilo.css" rel="stylesheet" />
 
@@ -130,6 +131,9 @@
                                         <li class='@if (controlador == "oficina") {<text>active</text> }'>
                                             <a href="@Url.Action("Index", "Oficina" )">Oficina</a>
                                         </li>
+                                        <li class='@if (controlador == "persona") {<text>active</text> }'>
+                                            <a href="@Url.Action("Index", "Persona" )">Persona</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -169,8 +173,10 @@
     <!-- ================================================
     Scripts
     ================================================ -->
+
     <!-- jQuery Library -->
-    <script src="~/js/plugins/jquery-1.11.2.min.js"></script>
+    @*<script src="~/js/plugins/jquery-1.11.2.min.js"></script>*@
+    <script src="~/js/jquery-2.2.4.min.js"></script>
     <script src="~/js/jquery.form.min.js"></script>
     <!--materialize js-->
     <script src="~/js/materialize.min.js"></script>

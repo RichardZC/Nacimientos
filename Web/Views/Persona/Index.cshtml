@@ -1,0 +1,123 @@
+﻿<!--start container-->
+<div class="container">
+
+    <div id="mail-app" class="section">
+        <div class="row">
+            <div class="col s12">
+                <nav class="blue darken-2">
+                    <div class="nav-wrapper">
+
+                        <div class="left col s3 m3 l3">
+                            <ul>
+                                <li>
+                                    <a href="#!" class="email-menu"><i class="mdi-navigation-menu"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="email-type">PERSONAS</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col s9 m9 l9 hide-on-med-and-down">
+                            <form class="row">
+                                <div class="input-field">
+                                    <input id="btnb" type="text" placeholder="Buscar Ciudadano" autofocus>
+                                    <label for="btnb">
+                                        <i class="mdi-action-search"></i>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="col s12" id="listaPersonas">
+
+            </div>
+
+        </div>
+
+      
+    </div>
+</div>
+<!--end container-->
+
+@section scripts{
+    <script>
+        $(function () {
+            cargar();
+            $("#btnb").keypress(function (event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    cargar();
+                }
+            });
+        });
+
+        function cargar() {
+            var re = / /g;
+            var url = "@Url.Action("Buscar","Persona")" + "?clave=" + $('#btnb').val().replace(re, '%20');
+            $.get('@Url.Action("ObtenerUsuarioSesion", "Comun")', function (d) {
+                if (d == 0) location.reload();
+                $("#listaPersonas").load(url);
+                console.log(123);
+            });
+
+        };
+       
+        function MantenerNacimiento() {
+            window.location = '@Url.Action("Mantener", "Nacimiento")' + '/' + $("#hdNacimientoId").val();
+        }
+        function EliminarNacimiento() {
+            swal({
+                title: "Estas seguro de eliminar este registro?",
+                text: "Esta acción elimina el registro y el acta digitalizada!",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Eliminar",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '@Url.Action("Eliminar","Nacimiento")',
+                    data: { pNacimientoId: $("#hdNacimientoId").val() },
+                    success: function (res) {
+                        swal({ title: "Eliminado!", text: "El registro ha sido eliminado.", type: "success", timer: 2000 }, function () {
+                            window.location = '@Url.Action("Index", "Nacimiento")';
+                        });
+                    },
+                    error: function (req, status, err) {
+                        alert('Ocurrio un error: ' + err);
+                    }
+                });
+            });
+
+
+        }
+        //$('.collection-item').click(function () {
+        //    $(this).addClass("selected").siblings().removeClass("selected");
+        //});
+        function Mostrar(id, corto, n, l, a, url) {
+            if ($("#hdNacimientoId").val() == id) return;
+
+            $("#hdNacimientoId").val(id);
+            $('#lblCorto').text(corto);
+            $('#lblNombre').text(n);
+            $('#lblLibro').text(l);
+            $('#lblActa').text(a);
+
+            if (url.length > 0)
+                $('#embedPdf2').attr("src", "@Href("~")Actas/Nacimiento/" + url);
+            else
+                $('#embedPdf2').attr("src", "@Href("~")Actas/no.jpg");
+            CargarAnexos();
+        };
+
+        function MostrarEditar(id) {
+            window.location = '@Url.Action("Mantener", "Persona")' + '/' + id;
+        }
+    </script>
+}

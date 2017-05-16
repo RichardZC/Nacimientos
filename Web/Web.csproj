@@ -184,6 +184,7 @@
     <Content Include="images\user-profile-bg.jpg" />
     <Content Include="js\custom-script.js" />
     <Content Include="js\ini.js" />
+    <Content Include="js\jquery-2.2.4.min.js" />
     <Content Include="js\jquery.form.min.js" />
     <Content Include="js\jquery.validate.unobtrusive.min.js" />
     <Content Include="js\materialize.js" />
@@ -269,6 +270,7 @@
     <Compile Include="Controllers\MatrimonioController.cs" />
     <Compile Include="Controllers\NacimientoController.cs" />
     <Compile Include="Controllers\OficinaController.cs" />
+    <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -360,6 +362,9 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Mantener.cshtml" />
     <Content Include="Views\Login\CambiarClave.cshtml" />
+    <Content Include="Views\Persona\Index.cshtml" />
+    <Content Include="Views\Persona\Buscar.cshtml" />
+    <Content Include="Views\Persona\Mantener.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
