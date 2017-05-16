@@ -184,6 +184,7 @@
     <Content Include="images\user-profile-bg.jpg" />
     <Content Include="js\custom-script.js" />
     <Content Include="js\ini.js" />
+    <Content Include="js\jquery.autocomplete.min.js" />
     <Content Include="js\jquery.form.min.js" />
     <Content Include="js\jquery.validate.unobtrusive.min.js" />
     <Content Include="js\materialize.js" />
