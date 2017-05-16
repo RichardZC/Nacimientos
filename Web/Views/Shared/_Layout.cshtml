@@ -25,7 +25,6 @@
     <!-- For Windows Phone -->
     <!-- CORE CSS-->
     <link href="~/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="~/css/autocomplete.min.css" rel="stylesheet" />
     <link href="~/css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="~/css/miEstilo.css" rel="stylesheet" />
 
@@ -54,6 +53,9 @@
                     <ul class="right hide-on-med-and-down">
                         <li>
                             <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-settings-overscan"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse"><i class="mdi-communication-chat"></i></a>
                         </li>
                     </ul>
 
@@ -131,9 +133,6 @@
                                         <li class='@if (controlador == "oficina") {<text>active</text> }'>
                                             <a href="@Url.Action("Index", "Oficina" )">Oficina</a>
                                         </li>
-                                        <li class='@if (controlador == "persona") {<text>active</text> }'>
-                                            <a href="@Url.Action("Index", "Persona" )">Persona</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -154,6 +153,32 @@
             <section id="content">
                 @RenderBody()
             </section>
+
+            <aside id="right-sidebar-nav" style="width:400px">
+                <ul id="chat-out" class="side-nav rightside-navigation right-aligned ps-container ps-active-y" >
+                    <li class="li-hover">
+                        <a href="#" data-activates="chat-out" class="chat-close-collapse right"><i class="mdi-navigation-close"></i></a>
+                        <div id="right-search" class="row">
+                            <form class="col s12">
+                                <div class="input-field">
+                                    <i class="mdi-action-search prefix"></i>
+                                    <input id="icon_prefix" type="text" class="validate">
+                                    <label for="icon_prefix">Buscar</label>
+                                </div>
+                            </form>
+                            <div class="collection">
+                                <a href="#!" class="collection-item">RICHARD ZAPATA CASAVERDE</a>
+                                <a href="#!" class="collection-item active">Alvin</a>
+                                <a href="#!" class="collection-item">Alvin</a>
+                                <a href="#!" class="collection-item">Alvin</a>
+                            </div>
+
+                           
+                        </div>                        
+                    </li>
+                </ul>
+            </aside>
+
         </div>
     </div>
     <footer class="page-footer">
@@ -173,10 +198,9 @@
     <!-- ================================================
     Scripts
     ================================================ -->
-
     <!-- jQuery Library -->
-    @*<script src="~/js/plugins/jquery-1.11.2.min.js"></script>*@
-    <script src="~/js/jquery-2.2.4.min.js"></script>
+    @*<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>*@
+    <script src="~/js/plugins/jquery-1.11.2.min.js"></script>
     <script src="~/js/jquery.form.min.js"></script>
     <!--materialize js-->
     <script src="~/js/materialize.min.js"></script>

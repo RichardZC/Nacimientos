@@ -61,139 +61,150 @@
     </div>
 </div>
 
-
-
-
-
 <style>
-    .autocomplete {
-        display: -ms-flexbox;
-        display: flex;
+    /*.dropdown-content {
+        background-color: #fff;
+        margin: 0;
+        display: none;
+        min-width: 100px;
+        max-height: 650px;
+        overflow-y: auto;
+        opacity: 0;
+        position: absolute;
+        z-index: 999;
+        will-change: width, height;
     }
 
-        .autocomplete .ac-users {
-            padding-top: 10px;
+        .dropdown-content li {
+            clear: both;
+            color: rgba(0, 0, 0, 0.87);
+            cursor: pointer;
+            min-height: 50px;
+            line-height: 1.5rem;
+            width: 100%;
+            text-align: left;
+            text-transform: none;
         }
 
-            .autocomplete .ac-users .chip {
-                -ms-flex: auto;
-                flex: auto;
-                margin-bottom: 10px;
-                margin-right: 10px;
-            }
 
-                .autocomplete .ac-users .chip:last-child {
-                    margin-right: 5px;
-                }
 
-        .autocomplete .ac-dropdown .ac-hover {
-            background: #eee;
+            .dropdown-content li > a, .dropdown-content li > span {
+                font-size: 16px;
+                color: #26a69a;
+                display: block;
+                line-height: 22px;
+                padding: 14px 16px;
+            }*/
+
+
+
+    /* Autocomplete */
+    .autocomplete-content {
+        margin-top: -15px;
+        display: block;
+        opacity: 1;
+        position: static;
+    }
+
+        /*.autocomplete-content li .highlight {
+            color: #444;
+        }*/
+
+        .autocomplete-content li img {
+            height: 40px;
+            width: 40px;
+            margin: 5px 15px;
         }
 
-        .autocomplete .ac-input {
-            -ms-flex: 1;
-            flex: 1;
-            min-width: 150px;
-            padding-top: 0.6rem;
-        }
+    .autocomplete-suggestions {
+        border: 1px solid #999;
+        background: #FFF;
+        overflow: auto;
+    }
 
-            .autocomplete .ac-input input {
-                height: 2.4rem;
-            }
+    .autocomplete-suggestion {
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .autocomplete-selected {
+        background: #F0F0F0;
+    }
+
+    .autocomplete-suggestions strong {
+        font-weight: normal;
+        color: #3399FF;
+    }
+
+    .autocomplete-group {
+        padding: 2px 5px;
+    }
+
+        .autocomplete-group strong {
+            display: block;
+            border-bottom: 1px solid #000;
+        }
 </style>
 
-
 <div class="row">
-    <h1 class="col s12">Materialize-autocomplete</h1>
-    <form class="col s12">
+    <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <div class="autocomplete" id="single">
-                    <div class="ac-input">
-                        <input type="text" id="singleInput" placeholder="Please input some letters" data-activates="singleDropdown" data-beloworigin="true" autocomplete="off">
-                    </div>
-                    <ul id="singleDropdown" class="dropdown-content ac-dropdown"></ul>
-                </div>
-                <label class="active" for="singleInput">Single autocomplete: </label>
+                <input type="text" name="country" id="autocomplete" />
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <div class="autocomplete" id="multiple">
-                    <div class="ac-users"></div>
-                    <div class="ac-input">
-                        <input type="text" id="multipleInput" placeholder="Please input some letters" data-activates="multipleDropdown" data-beloworigin="true" autocomplete="off">
-                    </div>
-                    <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
-                    <input type="hidden" name="multipleHidden" />
-                </div>
-                <label class="active" for="multipleInput">Multiple autocomplete: </label>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 
+
+
 @section scripts{
-
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize-autocomplete/1.0.7/jquery.materialize-autocomplete.min.js" ></script>
-
+    <script src="~/js/jquery.autocomplete.min.js"></script>
     <script>
+        //https://github.com/devbridge/jQuery-Autocomplete
+        $(document).ready(function () {
 
-        $(function () {
-            var single = $('#singleInput').materialize_autocomplete({
-                multiple: {
-                    enable: false
+            var countries = [
+             { value: 'Andorra', data: 'AD' },
+            
+             { value: 'Zimbabwe', data: 'ZZ' },
+             { value: 'Lima', data: 'ZZ' },
+            { value: 'Ayacucho', data: 'ZZ' }
+            ];
+
+            $('#autocomplete').autocomplete({
+                serviceUrl: '@Url.Action("listapais", "Home")',
+                //lookup: countries,
+                minChars: 2,
+                onSelect: function (suggestion) {
+                    console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                    //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
                 },
-                dropdown: {
-                    el: '#singleDropdown'
-                }
+                showNoSuggestionNotice: true,
+                noSuggestionNotice: 'Lo siento, no hay resultados',
             });
 
-            var multiple = $('#multipleInput').materialize_autocomplete({
-                multiple: {
-                    enable: true
-                },
-                appender: {
-                    el: '.ac-users'
-                },
-                dropdown: {
-                    el: '#multipleDropdown'
-                }
-            });
+            //$('#autocomplete').autocomplete({
+            //    lookup: function (query, done) {
+            //        // Do Ajax call or lookup locally, when done,
+            //        // call the callback and pass your results:
+            //        var result = {
+            //            suggestions: [
+            //                { "value": "Lima", "data": "AE" },
+            //                { "value": "Peru", "data": "UK" },
+            //                { "value": "Ayacucho", "data": "US" }
+            //            ]
+            //        };
 
-            var resultCache = {                
-                
-                'BAZ': [
-                    {
-                        id: 'Baz',
-                        text: 'Baz'
-                    }
-                ],                
-                'ABE': [
-                    {
-                        id: 'Abe',
-                        text: 'Abe'
-                    }
-                ],
-                'AR': [
-                    {
-                        id: 'Ari',
-                        text: 'Ari'
-                    }
-                ],
-                'ARI': [
-                    {
-                        id: 'Ari',
-                        text: 'Ari'
-                    }
-                ]
-            };
-
-            single.resultCache = resultCache;
-            multiple.resultCache = resultCache;
+            //        done(result);
+            //    },
+            //    onSelect: function (suggestion) {
+            //        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            //    }
+            //});
         });
-        
-
     </script>
+
+    
 }

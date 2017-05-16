@@ -122,7 +122,7 @@ $(function () {
 
     //Main Left Sidebar Chat
     $('.chat-collapse').sideNav({
-        menuWidth: 300,
+        menuWidth: 400,
         edge: 'right',
     });
     $('.chat-close-collapse').click(function () {
