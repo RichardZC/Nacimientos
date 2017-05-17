@@ -23,3 +23,50 @@
 .encerrar {
   overflow: hidden;
 }
+
+.autocomplete-content {
+        margin-top: -15px;
+        display: block;
+        opacity: 1;
+        position: static;
+    }
+
+        /*.autocomplete-content li .highlight {
+            color: #444;
+        }*/
+
+        .autocomplete-content li img {
+            height: 40px;
+            width: 40px;
+            margin: 5px 15px;
+        }
+
+    .autocomplete-suggestions {
+        border: 1px solid #999;
+        background: #FFF;
+        overflow: auto;
+    }
+
+    .autocomplete-suggestion {
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .autocomplete-selected {
+        background: #F0F0F0;
+    }
+
+    .autocomplete-suggestions strong {
+        font-weight: normal;
+        color: #3399FF;
+    }
+
+    .autocomplete-group {
+        padding: 2px 5px;
+    }
+
+        .autocomplete-group strong {
+            display: block;
+            border-bottom: 1px solid #000;
+        }
