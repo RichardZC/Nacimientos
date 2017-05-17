@@ -23,7 +23,13 @@ namespace Web.Controllers
         public ActionResult Mantener(int id = 0)
         {
             if (id == 0)
-                return View(new usuario());
+
+                return View(new MantenerUsuario
+                {
+                    Usuario = new usuario(),
+                    Roles =  RolBL.ListarRoles(),
+                    Oficinas = OficinaBL.ListarOficinas()
+                });
 
             return View(new MantenerUsuario
             {

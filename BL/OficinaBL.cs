@@ -36,6 +36,20 @@ namespace BL
                 return oficinas;
             }
         }
+        public static List<Oficinas> ListarOficinas()
+        {
+            using (var bd = new nacEntities())
+            {
+                var oficinas = bd.oficina.Select(x => new Oficinas()
+                {
+                    OficinaId = x.OficinaId,
+                    Denominacion = x.Denominacion,
+                    Estado = false
+                }).ToList();
+                
+                return oficinas;
+            }
+        }
 
     }
 }

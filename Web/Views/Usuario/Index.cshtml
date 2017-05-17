@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<BE.usuario>
 
 
+
 <div id="mail-app" class="section">
     <div class="row">
         <div class="col s12">
@@ -38,7 +39,8 @@
                     @foreach (var item in Model)
                     {
                         <li class="collection-item avatar email-unread"
-                            ondblclick="MostrarEditar(@item.UsuarioId);"> <!--mostrar con doble clik-->
+                            ondblclick="MostrarEditar(@item.UsuarioId);">
+                            <!--mostrar con doble clik-->
 
                             <span class="circle @if (@item.Activo) { <text>light-blue</text>} else { <text>red</text>}">@item.Nombre.Substring(0, 1)</span>
 
@@ -58,22 +60,28 @@
         </div>
     </div>
 
-    <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-        <a class="btn-floating btn-large red" href='@Url.Action("Mantener","Usuario",new { id=0 })'>
 
-            <i class="mdi-social-person-add"></i>
-        </a>
-    </div>
 
 </div>
 
 
 
 @section scripts {
+
+
+
     <script>
+
+  
+
+
+
         function MostrarEditar(id) {
+
             window.location = '@Url.Action("Mantener", "Usuario")' + '/' + id;
         }
+
+
 
     </script>
 
