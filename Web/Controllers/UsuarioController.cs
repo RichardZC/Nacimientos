@@ -20,16 +20,44 @@ namespace Web.Controllers
             return View(UsuarioBL.Listar(includeProperties: "persona"));
         }
 
-        public ActionResult Mantener(int id = 0)
-        {
-            if (id == 0)
 
-                return View(new MantenerUsuario
-                {
-                    Usuario = new usuario(),
-                    Roles =  RolBL.ListarRoles(),
-                    Oficinas = OficinaBL.ListarOficinas()
-                });
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Id del usuario</param>
+        /// <param name="PersonaId">id de la persona a crear el usuario</param>
+        /// <returns></returns>
+        public ActionResult Mantener(int id = 0, int pPersonaId = 0)
+        {
+
+            if (id == 0)
+            {
+              
+                // nombre usurio 
+
+                usuario u = new usuario();
+                u.Activo = true;
+
+                persona p = PersonaBL.Obtener(pPersonaId);
+                var nombreusuario = p.Nombres.Substring(0, 1) + p.Paterno;
+                var cuenta = UsuarioBL.Contar(x => x.PersonaId == pPersonaId);
+                if (cuenta > 0)                
+                    u.Nombre = nombreusuario + (cuenta + 1);                
+                else
+                    u.Nombre = nombreusuario;
+
+                u.PersonaId = pPersonaId;
+                u.IndCambio = true;
+
+                u.Clave = "202cb962ac59075b964b07152d234b70";//123
+                UsuarioBL.Crear(u);
+
+                id = u.UsuarioId;
+                
+
+            }
+
 
             return View(new MantenerUsuario
             {
@@ -37,6 +65,37 @@ namespace Web.Controllers
                 Roles = RolBL.ListarRoles(id),
                 Oficinas = OficinaBL.ListarOficinas(id)
             });
+        }
+
+        public JsonResult listaPersonas(string query)
+        {
+            var lista = cargar();
+
+
+            return Json(new
+            {
+                query = "Unit",
+                suggestions = lista.Where(x => x.value.ToLower().Contains(query.ToLower())).ToList()
+            }, JsonRequestBehavior.AllowGet);
+            //return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<personita> cargar()
+        {
+            var lista1 = PersonaBL.Listar();
+            var lista2 = new List<personita>();
+            foreach (persona p in lista1)
+            {
+                lista2.Add(new personita { value = p.NombreCompleto, data = p.PersonaId });
+            }
+            return lista2;
+        }
+
+        public class personita
+        {
+            public string value { get; set; }
+            public int data { get; set; }
+
         }
 
 
@@ -68,7 +127,7 @@ namespace Web.Controllers
             {
                 rm.SetResponse(false);
                 rm.function = "fn.mensaje('" + ex.Message + "')";
-            }           
+            }
 
             return Json(rm);
         }
@@ -99,7 +158,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarUsuario(usuario u,string pActivo)
+        public JsonResult GuardarUsuario(usuario u, string pActivo)
         {
             var rm = new ResponseModel();
             try
@@ -126,16 +185,16 @@ namespace Web.Controllers
             try
             {
                 var enc = Comun.HashHelper.MD5("123");
-                UsuarioBL.ActualizarParcial(new usuario { UsuarioId = id, Clave = enc, IndCambio=true }, x => x.Clave, x => x.IndCambio);
-                rm.SetResponse(true);                
+                UsuarioBL.ActualizarParcial(new usuario { UsuarioId = id, Clave = enc, IndCambio = true }, x => x.Clave, x => x.IndCambio);
+                rm.SetResponse(true);
             }
             catch (Exception ex)
             {
-                rm.SetResponse(false,ex.Message);               
+                rm.SetResponse(false, ex.Message);
             }
 
             return Json(rm);
         }
-        
+
     }
 }
