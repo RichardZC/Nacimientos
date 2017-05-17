@@ -24,22 +24,36 @@ namespace Web.Controllers
         }
         public JsonResult listapais(string query)
         {
-            var lista = new List<pais>();
-            lista.Add(new pais {value= "United", data= "AE" });
-            lista.Add(new pais { value = "Peru", data = "PR" });
-            lista.Add(new pais { value = "Lima", data = "LM" });
-
             return Json(new
             {
-                query = "Unit",
-                suggestions = lista.Where(x=>x.value.ToLower().Contains(query.ToLower())).ToList()
+                //query = "Unit",
+                suggestions = PersonaBL
+                                .Listar(x => x.NombreCompleto.Contains(query))
+                                .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
+                                .ToList()
             }, JsonRequestBehavior.AllowGet);
-            //return Json(lista, JsonRequestBehavior.AllowGet);
+
         }
 
-        public class pais {
-            public string value { get; set; }
-            public string data { get; set; }
+        public JsonResult listap()
+        {
+            return Json(new
+            {
+                //query = "Unit",
+                suggestions = PersonaBL
+                                .Listar()
+                                .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
+                                .ToList()
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult listarPersona()
+        {
+            return Json(PersonaBL.Listar()
+                          .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
+                          .ToList()
+            , JsonRequestBehavior.AllowGet);
 
         }
     }

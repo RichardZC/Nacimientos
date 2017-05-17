@@ -151,7 +151,7 @@
     <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <input type="text" name="country" id="autocomplete" />
+                <input type="text" id="autocompletar" data-tabla="persona" data-funcion="SeleccionarPersona" />
             </div>
         </div>
     </div>
@@ -160,31 +160,25 @@
 
 
 @section scripts{
-    <script src="~/js/jquery.autocomplete.min.js"></script>
+    
     <script>
         //https://github.com/devbridge/jQuery-Autocomplete
-        $(document).ready(function () {
+        $(document).ready(function () {            
 
-            var countries = [
-             { value: 'Andorra', data: 'AD' },
-            
-             { value: 'Zimbabwe', data: 'ZZ' },
-             { value: 'Lima', data: 'ZZ' },
-            { value: 'Ayacucho', data: 'ZZ' }
-            ];
-
-            $('#autocomplete').autocomplete({
-                serviceUrl: '@Url.Action("listapais", "Home")',
-                //lookup: countries,
-                minChars: 2,
-                onSelect: function (suggestion) {
-                    console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                    //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                },
-                showNoSuggestionNotice: true,
-                noSuggestionNotice: 'Lo siento, no hay resultados',
-            });
-
+            @*$.get('@Url.Action("listarPersona", "Home")', function (d) {                
+                $('#autocomplete').autocomplete({
+                    //serviceUrl: '@Url.Action("listapais", "Home")',
+                    lookup: d,
+                    minChars: 2,
+                    onSelect: function (suggestion) {
+                        console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                        //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                    },
+                    showNoSuggestionNotice: true,
+                    noSuggestionNotice: 'Lo siento, no hay resultados',
+                });
+            });*@
+           
             //$('#autocomplete').autocomplete({
             //    lookup: function (query, done) {
             //        // Do Ajax call or lookup locally, when done,
@@ -204,6 +198,10 @@
             //    }
             //});
         });
+
+        function SeleccionarPersona(id) {
+            console.log(id);
+        }
     </script>
 
     
