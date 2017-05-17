@@ -13,6 +13,27 @@ var fn = {
 };
 
 $(document).ready(function () {
+    
+    //https://github.com/devbridge/jQuery-Autocomplete
+    if ($('#autocompletar').data('tabla') == 'persona') {
+        $.get('Comun/ListarPersonas', function (res) {
+            $('#autocompletar').autocomplete({
+                //serviceUrl: '@Url.Action("listapais", "Home")',
+                lookup: res,
+                minChars: 2,
+                onSelect: function (suggestion) {
+                    if ($(this).data('funcion') != null) {
+                        var funcion = $(this).data('funcion') + '(' + suggestion.data + ');';
+                        setTimeout(funcion, 0);
+                    }
+                },
+                showNoSuggestionNotice: true,
+                noSuggestionNotice: 'Lo siento, no hay resultados',
+            });
+        });
+    };
+
+
     $("body").on('click', 'button', function () {
 
         // Si el boton no tiene el atributo ajax no hacemos nada
