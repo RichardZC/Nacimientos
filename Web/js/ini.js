@@ -15,8 +15,8 @@ var fn = {
 $(document).ready(function () {
     
     //https://github.com/devbridge/jQuery-Autocomplete
-    if ($('#autocompletar').data('tabla') == 'persona') {
-        $.get('Comun/ListarPersonas', function (res) {
+    if ($('#autocompletar').data('url') != null) {
+        $.get($('#autocompletar').data('url'), function (res) {
             $('#autocompletar').autocomplete({
                 //serviceUrl: '@Url.Action("listapais", "Home")',
                 lookup: res,
