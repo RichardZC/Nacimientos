@@ -16,16 +16,25 @@ $(document).ready(function () {
     
     //https://github.com/devbridge/jQuery-Autocomplete
     if ($('#autocompletar').data('url') != null) {
-        $.get($('#autocompletar').data('url'), function (res) {
-            $('#autocompletar').autocomplete({
+        var txt = $('#autocompletar');
+        if (txt.data('boton') != null) $("#" + txt.data('boton')).attr('disabled', true);
+
+        $.get(txt.data('url'), function (res) {
+            txt.autocomplete({
                 //serviceUrl: '@Url.Action("listapais", "Home")',
                 lookup: res,
                 minChars: 2,
-                onSelect: function (suggestion) {
+                onSelect: function (suggestion) {                   
+                    if ($(this).data('seleccion') != null) $("#" + $(this).data('seleccion')).val(suggestion.data);
+                    if ($(this).data('boton') != null) $("#" + $(this).data('boton')).attr('disabled', false);
                     if ($(this).data('funcion') != null) {
                         var funcion = $(this).data('funcion') + '(' + suggestion.data + ');';
                         setTimeout(funcion, 0);
                     }
+                },
+                onInvalidateSelection: function () {                    
+                    if ($(this).data('seleccion') != null) $("#" + $(this).data('seleccion')).val(0);
+                    if ($(this).data('boton') != null) $("#" + $(this).data('boton')).attr('disabled', true);
                 },
                 showNoSuggestionNotice: true,
                 noSuggestionNotice: 'Lo siento, no hay resultados',

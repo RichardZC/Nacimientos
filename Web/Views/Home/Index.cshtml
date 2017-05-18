@@ -65,15 +65,19 @@
     <div class="col s12">
         <div class="row">
             <div class="input-field col s12">
+                <input type="hidden" id="hdid" value="0" />
                 <input type="text" id="autocompletar" 
                        data-url='@Url.Action("ListarPersonas","Comun")' 
-                       data-funcion="SeleccionarPersona" />
+                       data-seleccion="hdid"
+                       @*data-funcion="SeleccionarPersona"*@ 
+                       data-boton="btn"/>
+                <input type="submit" id="btn" value="enviar" />
             </div>
         </div>
     </div>
 </div>
 
-
+    
 
 @section scripts{
     
