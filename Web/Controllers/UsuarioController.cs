@@ -33,8 +33,6 @@ namespace Web.Controllers
 
             if (id == 0)
             {
-              
-                // nombre usurio 
 
                 usuario u = new usuario();
                 u.Activo = true;
@@ -42,8 +40,8 @@ namespace Web.Controllers
                 persona p = PersonaBL.Obtener(pPersonaId);
                 var nombreusuario = p.Nombres.Substring(0, 1) + p.Paterno;
                 var cuenta = UsuarioBL.Contar(x => x.PersonaId == pPersonaId);
-                if (cuenta > 0)                
-                    u.Nombre = nombreusuario + (cuenta + 1);                
+                if (cuenta > 0)
+                    u.Nombre = nombreusuario + (cuenta + 1);
                 else
                     u.Nombre = nombreusuario;
 
@@ -54,9 +52,10 @@ namespace Web.Controllers
                 UsuarioBL.Crear(u);
 
                 id = u.UsuarioId;
-                
+
 
             }
+
 
 
             return View(new MantenerUsuario
@@ -163,6 +162,17 @@ namespace Web.Controllers
             var rm = new ResponseModel();
             try
             {
+                usuario u2 = UsuarioBL.Obtener(x => x.UsuarioId == u.UsuarioId);
+                bool mismoUsuario = u2.Nombre.Equals(u.Nombre);
+                bool yaExiste = UsuarioBL.Contar(x => x.Nombre == u.Nombre) > 0;
+                if (!mismoUsuario&&yaExiste )
+                {
+                    rm.SetResponse(false);
+                    rm.function = "fn.mensaje('El nombre de usuario ya existe.')";
+                    return Json(rm); 
+                }
+                
+
                 if (!string.IsNullOrEmpty(pActivo)) u.Activo = true;
                 u.Nombre = u.Nombre.Trim().ToUpper();
                 UsuarioBL.ActualizarParcial(u, x => x.Nombre, x => x.Activo);
