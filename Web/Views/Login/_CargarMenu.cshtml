@@ -1,0 +1,9 @@
+﻿@{
+    var u = Comun.SessionHelper.GetUser();
+    var menu = BL.PersonaBL.Listar();
+ }
+
+@foreach (var item in menu)
+{
+    <p>@item.NombreCompleto</p>
+}

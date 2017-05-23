@@ -98,7 +98,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class='bold @if (controlador == "home") {<text>active</text> }' >
+
+                    <li class='bold @if (controlador == "home") {<text>active</text> }'>
                         <a href="@Url.Action("Index", "Home" )" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Inicio</a>
                     </li>
                     <li class='bold @if (controlador == "nacimiento") {<text>active</text> }'>
@@ -112,7 +113,7 @@
                     </li>
 
                     <li class="no-padding">
-                        <ul class="collapsible collapsible-accordion">
+                        <ul id="mnuPrincipal" class="collapsible collapsible-accordion">
                             <li class='bold'>
                                 <a class="collapsible-header waves-effect waves-cyan @if (controlador == "usuario") {<text>active</text> }"><i class="mdi-hardware-security"></i> Seguridad</a>
                                 <div class="collapsible-body">
@@ -142,7 +143,7 @@
                         </ul>
                     </li>
 
-                    
+
                     <li class='bold @if (controlador == "informe") {<text>active</text> }'>
                         <a href="@Url.Action("Index", "Informe" )" class="waves-effect waves-cyan"><i class="mdi-action-find-in-page"></i> Consultas</a>
                     </li>

@@ -365,6 +365,7 @@
     <Content Include="Views\Persona\Buscar.cshtml" />
     <Content Include="Views\Persona\Index.cshtml" />
     <Content Include="Views\Persona\Mantener.cshtml" />
+    <Content Include="Views\Login\_CargarMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
