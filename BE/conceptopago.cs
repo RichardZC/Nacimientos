@@ -12,23 +12,22 @@ namespace BE
     using System;
     using System.Collections.Generic;
     
-    public partial class menu
+    public partial class conceptopago
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public menu()
+        public conceptopago()
         {
-            this.rol = new HashSet<rol>();
+            this.cajamovdetalle = new HashSet<cajamovdetalle>();
         }
     
-        public int MenuId { get; set; }
+        public int ConceptoPagoId { get; set; }
         public string Denominacion { get; set; }
-        public string Modulo { get; set; }
-        public string Icono { get; set; }
-        public Nullable<bool> IndPadre { get; set; }
-        public Nullable<int> Orden { get; set; }
-        public Nullable<int> Referencia { get; set; }
+        public Nullable<decimal> Importe { get; set; }
+        public Nullable<int> OficinaId { get; set; }
+        public Nullable<bool> Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rol> rol { get; set; }
+        public virtual ICollection<cajamovdetalle> cajamovdetalle { get; set; }
+        public virtual oficina oficina { get; set; }
     }
 }
