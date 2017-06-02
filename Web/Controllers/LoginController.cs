@@ -38,7 +38,7 @@ namespace Web.Controllers
                     rm.function = "localStorage.setItem('mnuclick', 'mnuhome'); $.ajax({url:'Login/_CargarMenu',dataType:'html',success: function(d) {localStorage.setItem('mnu', d)} });";
                 }
 
-            }........................................................................
+            }
             else
             {
                 rm.SetResponse(false, "Usuario o Clave Incorrecta");

@@ -19,7 +19,6 @@ namespace BE
         {
             this.menu = new HashSet<menu>();
             this.usuario = new HashSet<usuario>();
-            this.menu = new HashSet<menu>();
         }
     
         public int RolId { get; set; }
@@ -29,7 +28,5 @@ namespace BE
         public virtual ICollection<menu> menu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario> usuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<menu> menu { get; set; }
     }
 }
