@@ -59,6 +59,7 @@
     <Compile Include="MatrimonioAnexoBL.cs" />
     <Compile Include="MatrimonioBL.cs" />
     <Compile Include="MenuBL.cs" />
+    <Compile Include="MenusUsuarioBL.cs" />
     <Compile Include="Modelo\Menus.cs" />
     <Compile Include="Modelo\Oficinas.cs" />
     <Compile Include="Modelo\Roles.cs" />

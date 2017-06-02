@@ -10,27 +10,20 @@ namespace BL
     public class MenuBL : Repositorio<menu>
     {
 
-        public static List<menu> ListarMenu(int pUsuarioId)
+        public static List<uvw_menus> ListarMenu(int pUsuarioId)
         {
             using (var bd = new nacEntities())
             {
-                var usuario = UsuarioBL.Obtener(pUsuarioId);
-                var rol = RolBL.Obtener();
-               
-                //var menus = bd.menu.Where(x => x.rol.FirstOrDefault().RolId == usuario.rol.);
+                //var u = UsuarioBL.Obtener(x=>x.UsuarioId == pUsuarioId,includeProperties:"rol,rol.menu");
 
-                //foreach (var a in asignados)
-                //{
-                //    foreach (var o in roles)
-                //    {
-                //        if (o.RolId == a.RolId)
-                //        {
-                //            o.Estado = true;
-                //            break;
-                //        }
-                //    }
-                //}
-                return null;
+                //var u2 = RolBL.Listar(x => x.usuario.FirstOrDefault().UsuarioId == pUsuarioId, includeProperties: "usuario,menu");
+
+
+                //bd.Database.ExecuteSqlCommand("select * from uvw_rolesUsusario where UsuarioId=" + pUsuarioId);
+
+                var lista = MenusUsuarioBL.Listar(x => x.UsuarioId == pUsuarioId, y => y.OrderBy(z => z.Orden));
+
+                return lista; 
             }
         }
 

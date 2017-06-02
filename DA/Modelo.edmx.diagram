@@ -10,19 +10,20 @@
         <EntityTypeShape EntityType="BDModel.matrimonio_anexo" Width="1.5" PointX="7.375" PointY="4.125" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.defuncion" Width="1.5" PointX="9" PointY="2.25" IsExpanded="false" />
         <AssociationConnector Association="BDModel.defuncion_anexo_ibfk_1" />
-        <EntityTypeShape EntityType="BDModel.matrimonio" Width="1.5" PointX="5.125" PointY="11.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.matrimonio" Width="1.5" PointX="5.875" PointY="10.375" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.nacimiento" Width="1.5" PointX="4.75" PointY="7.875" IsExpanded="false" />
         <AssociationConnector Association="BDModel.matrimonio_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
         <EntityTypeShape EntityType="BDModel.persona" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="2.25" PointY="8.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.rol" Width="1.5" PointX="3.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="2.5" PointY="4.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.rol" Width="1.5" PointX="3" PointY="2.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="4.25" PointY="0.625" IsExpanded="false" />
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_oficina" />
         <AssociationConnector Association="BDModel.usuario_rol" />
-        <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="0.75" PointY="3" IsExpanded="false" />
         <AssociationConnector Association="BDModel.menu_rol" />
+        <EntityTypeShape EntityType="BDModel.uvw_menus" Width="1.5" PointX="0.75" PointY="5.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
