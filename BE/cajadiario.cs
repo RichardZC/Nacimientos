@@ -12,24 +12,28 @@ namespace BE
     using System;
     using System.Collections.Generic;
     
-    public partial class oficina
+    public partial class cajadiario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public oficina()
+        public cajadiario()
         {
             this.cajamov = new HashSet<cajamov>();
-            this.conceptopago = new HashSet<conceptopago>();
-            this.usuario = new HashSet<usuario>();
         }
     
-        public int OficinaId { get; set; }
-        public string Denominacion { get; set; }
+        public int CajaDiarioId { get; set; }
+        public Nullable<int> CajaId { get; set; }
+        public Nullable<int> PersonaId { get; set; }
+        public Nullable<decimal> SaldoInicial { get; set; }
+        public Nullable<decimal> Entradas { get; set; }
+        public Nullable<decimal> Salidas { get; set; }
+        public Nullable<decimal> SaldoFinal { get; set; }
+        public Nullable<System.DateTime> FechaInicio { get; set; }
+        public Nullable<System.DateTime> FechaFin { get; set; }
+        public Nullable<bool> IndAbierto { get; set; }
     
+        public virtual caja caja { get; set; }
+        public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<conceptopago> conceptopago { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<usuario> usuario { get; set; }
     }
 }
