@@ -1,8 +1,6 @@
 ﻿
 @{
-    string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
     var usuario = BL.UsuarioBL.Obtener(Comun.SessionHelper.GetUser());
-    bool login = usuario == null || controlador == "login" ? true : false;
     var menus = BL.MenuBL.ListarMenu(usuario.UsuarioId);
 }
 
@@ -60,7 +58,7 @@
                                     if (submenu.IndPadre == false && submenu.Referencia == menu.MenuId)
                                     {
                                         <li class="mnu" id="mnu_@submenu.MenuId" data-ref="mnu_@submenu.Referencia">
-                                            <a href="@submenu.Modulo">@submenu.Denominacion</a>
+                                            <a href="@Url.Action("Index", @submenu.Modulo)">@submenu.Denominacion</a>
                                         </li>
                                     }
                                     

@@ -35,7 +35,7 @@ namespace Web.Controllers
                     SessionHelper.AddUserToSession(usuario.UsuarioId.ToString());
                     rm.SetResponse(true);
                     rm.href = Url.Action("Index", "Home");
-                    rm.function = "localStorage.setItem('mnuclick', 'mnuhome'); $.ajax({url:'Login/_CargarMenu',dataType:'html',success: function(d) {localStorage.setItem('mnu', d)} });";
+                    rm.function = "localStorage.setItem('mnuclick', 'mnuhome'); $.ajax({url:'Login/_CargarMenu',dataType:'html',cache: false,success: function(d) {localStorage.setItem('mnu', d)} });";
                 }
 
             }
@@ -76,7 +76,7 @@ namespace Web.Controllers
                 SessionHelper.AddUserToSession(usuarioId.ToString());
                 rm.SetResponse(true);
                 rm.href = Url.Action("Index", "Home");
-
+                rm.function = "localStorage.setItem('mnuclick', 'mnuhome'); $.ajax({url:'Login/_CargarMenu',dataType:'html',cache: false,success: function(d) {localStorage.setItem('mnu', d)} });";
             }
             catch (Exception ex)
             {
