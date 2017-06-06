@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CajadiarioBL.cs" />
     <Compile Include="DefuncionAnexoBL.cs" />
     <Compile Include="DefuncionBL.cs" />
     <Compile Include="ItemCombo.cs" />

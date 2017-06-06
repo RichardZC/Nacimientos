@@ -31,10 +31,6 @@ namespace BE
         public virtual DbSet<matrimonio_anexo> matrimonio_anexo { get; set; }
         public virtual DbSet<nacimiento> nacimiento { get; set; }
         public virtual DbSet<nacimiento_anexo> nacimiento_anexo { get; set; }
-        public virtual DbSet<caja> caja { get; set; }
-        public virtual DbSet<cajadiario> cajadiario { get; set; }
-        public virtual DbSet<cajamov> cajamov { get; set; }
-        public virtual DbSet<cajamovdetalle> cajamovdetalle { get; set; }
         public virtual DbSet<conceptopago> conceptopago { get; set; }
         public virtual DbSet<menu> menu { get; set; }
         public virtual DbSet<oficina> oficina { get; set; }
@@ -42,5 +38,9 @@ namespace BE
         public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<uvw_menus> uvw_menus { get; set; }
+        public virtual DbSet<caja> caja { get; set; }
+        public virtual DbSet<cajadiario> cajadiario { get; set; }
+        public virtual DbSet<cajamov> cajamov { get; set; }
+        public virtual DbSet<cajamovdetalle> cajamovdetalle { get; set; }
     }
 }
