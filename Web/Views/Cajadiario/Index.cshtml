@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BE.cajadiario>
+
+<div class="row" style="margin-bottom:0;">
+    <div class="col s12 m8 l8">
+        <table>
+            <thead>
+                <tr>
+                    <th data-field="id">Caja</th>
+                    <th data-field="name">Estado</th>
+                    <th data-field="price">Usuario</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.caja.Denominacion</td> 
+                        <td>@item.persona.NombreCompleto</td>
+                        <td>Caja 1</td>
+                    </tr>
+                }
+               
+                <tr>
+                    <td>Caja 3</td>
+                    <td>Cerrado</td>
+                    <td> <a class="secondary-content email-time left" href="#">Asignar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
