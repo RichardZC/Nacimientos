@@ -19,6 +19,8 @@ namespace BE
         {
             this.oficina = new HashSet<oficina>();
             this.rol = new HashSet<rol>();
+            this.cajamov = new HashSet<cajamov>();
+            this.cajamov1 = new HashSet<cajamov>();
         }
     
         public int UsuarioId { get; set; }
@@ -33,5 +35,9 @@ namespace BE
         public virtual ICollection<oficina> oficina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rol> rol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cajamov> cajamov { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cajamov> cajamov1 { get; set; }
     }
 }

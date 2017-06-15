@@ -19,7 +19,7 @@ namespace Web.Controllers
             return View(OficinaBL.Listar()  );
         }
         [HttpPost]
-        public JsonResult Guardar(oficina o) {
+        public JsonResult Guardar(oficina o, int[] mnu) {
             bool Esnuevo = o.OficinaId == 0 ? true : false;
             o.Denominacion = o.Denominacion.ToUpper();
             var rm = new ResponseModel();

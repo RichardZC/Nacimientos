@@ -14,7 +14,21 @@ namespace BE
     
     public partial class menu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public menu()
+        {
+            this.rol = new HashSet<rol>();
+        }
+    
         public int MenuId { get; set; }
         public string Denominacion { get; set; }
+        public string Modulo { get; set; }
+        public string Icono { get; set; }
+        public Nullable<bool> IndPadre { get; set; }
+        public Nullable<int> Orden { get; set; }
+        public Nullable<int> Referencia { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<rol> rol { get; set; }
     }
 }

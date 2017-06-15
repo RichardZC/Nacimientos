@@ -262,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CajadiarioController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\DefuncionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -366,6 +367,7 @@
     <Content Include="Views\Persona\Index.cshtml" />
     <Content Include="Views\Persona\Mantener.cshtml" />
     <Content Include="Views\Login\_CargarMenu.cshtml" />
+    <Content Include="Views\Cajadiario\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

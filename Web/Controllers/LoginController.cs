@@ -32,12 +32,12 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    SessionHelper.AddUserToSession(usuario.UsuarioId.ToString());
-                    rm.SetResponse(true);
-                    rm.href = Url.Action("Index", "Home");
-                    rm.function = "$.ajax({url:'Login/_CargarMenu',dataType:'html',success: function(d) {localStorage.setItem('mnu', d)} });";
+                    addSesion(usuario.UsuarioId, ref rm);
+                    //SessionHelper.AddUserToSession(usuario.UsuarioId.ToString());
+                    //rm.SetResponse(true);
+                    //rm.href = Url.Action("Index", "Home");
+                    //rm.function = "localStorage.setItem('mnuclick', 'mnuhome'); $.ajax({url:'Login/_CargarMenu',dataType:'html',cache: false,success: function(d) {localStorage.setItem('mnu', d)} });";
                 }
-
             }
             else
             {
@@ -45,7 +45,12 @@ namespace Web.Controllers
             }
             return Json(rm);
         }
-
+        private void addSesion(int usuarioId, ref ResponseModel rm) {
+            SessionHelper.AddUserToSession(usuarioId.ToString());
+            rm.SetResponse(true);
+            rm.href = Url.Action("Index", "Home");
+            rm.function = "localStorage.setItem('mnuclick', 'mnuhome'); $.ajax({url:'Login/_CargarMenu',dataType:'html',cache: false,success: function(d) {localStorage.setItem('mnu', d)} });";
+        }
         public ActionResult Logout()
         {
             SessionHelper.DestroyUserSession();
@@ -72,11 +77,7 @@ namespace Web.Controllers
             {
                 var enc = Comun.HashHelper.MD5(clave);
                 UsuarioBL.ActualizarParcial(new usuario { UsuarioId = usuarioId, Clave = enc, IndCambio = false }, x => x.Clave, x => x.IndCambio);
-
-                SessionHelper.AddUserToSession(usuarioId.ToString());
-                rm.SetResponse(true);
-                rm.href = Url.Action("Index", "Home");
-
+                addSesion(usuarioId, ref rm);
             }
             catch (Exception ex)
             {
