@@ -9,6 +9,9 @@ namespace BL
 {
     public class MenuBL : Repositorio<menu>
     {
+
+
+
         //cambio
         public static List<uvw_menus> ListarMenu(int pUsuarioId)
         {
