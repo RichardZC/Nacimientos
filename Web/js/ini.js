@@ -15,9 +15,9 @@ var fn = {
 $(document).ready(function () {
     
     //https://github.com/devbridge/jQuery-Autocomplete
-    if ($('#autocompletar').data('url') != null) {
+    if ($('#autocompletar').data('url') !== null) {
         var txt = $('#autocompletar');
-        if (txt.data('boton') != null) $("#" + txt.data('boton')).attr('disabled', true);
+        if (txt.data('boton') !== null) $("#" + txt.data('boton')).attr('disabled', true);
 
         $.get(txt.data('url'), function (res) {
             txt.autocomplete({
@@ -25,16 +25,16 @@ $(document).ready(function () {
                 lookup: res,
                 minChars: 2,
                 onSelect: function (suggestion) {                   
-                    if ($(this).data('seleccion') != null) $("#" + $(this).data('seleccion')).val(suggestion.data);
-                    if ($(this).data('boton') != null) $("#" + $(this).data('boton')).attr('disabled', false);
-                    if ($(this).data('funcion') != null) {
+                    if ($(this).data('seleccion') !== null) $("#" + $(this).data('seleccion')).val(suggestion.data);
+                    if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', false);
+                    if ($(this).data('funcion') !== null) {
                         var funcion = $(this).data('funcion') + '(' + suggestion.data + ');';
                         setTimeout(funcion, 0);
                     }
                 },
                 onInvalidateSelection: function () {                    
-                    if ($(this).data('seleccion') != null) $("#" + $(this).data('seleccion')).val(0);
-                    if ($(this).data('boton') != null) $("#" + $(this).data('boton')).attr('disabled', true);
+                    if ($(this).data('seleccion') !== null) $("#" + $(this).data('seleccion')).val(0);
+                    if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', true);
                 },
                 showNoSuggestionNotice: true,
                 noSuggestionNotice: 'Lo siento, no hay resultados',
@@ -46,26 +46,26 @@ $(document).ready(function () {
     $("body").on('click', 'button', function () {
 
         // Si el boton no tiene el atributo ajax no hacemos nada
-        if ($(this).data('ajax') == undefined) return;
+        if ($(this).data('ajax') === undefined) return;
 
         // El metodo .data identifica la entrada y la castea al valor más correcto
-        if ($(this).data('ajax') != true) return;
+        if ($(this).data('ajax') !== true) return;
 
         var form = $(this).closest("form");
         var buttons = $("button", form);
         var button = $(this);
         var url = form.attr('action');
 
-        if (button.data('confirm') != undefined) {
-            if (button.data('confirm') == '') {
+        if (button.data('confirm') !== undefined) {
+            if (button.data('confirm') === '') {
                 if (!confirm('¿Esta seguro de realizar esta acción?')) return false;
             } else {
                 if (!confirm(button.data('confirm'))) return false;
             }
         }
 
-        if (button.data('delete') != undefined) {
-            if (button.data('delete') == true) {
+        if (button.data('delete') !== undefined) {
+            if (button.data('delete') === true) {
                 url = button.data('url');
             }
         } else if (!form.valid()) {
@@ -89,7 +89,7 @@ $(document).ready(function () {
             success: function (r) {
                 block.remove();
                 if (r.response) {
-                    if (!button.data('reset') != undefined) {
+                    if (!button.data('reset') !== undefined) {
                         if (button.data('reset')) form.reset();
                     }
                     else {
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 }
 
                 // Mostrar mensaje
-                if (r.message != null) {
+                if (r.message !== null) {
                     if (r.message.length > 0) {
                         var css = "";
                         if (r.response) css = "green";
@@ -111,12 +111,12 @@ $(document).ready(function () {
                 }
 
                 // Ejecutar funciones
-                if (r.function != null) {
+                if (r.function !== null) {
                     setTimeout(r.function, 0);
                 }
                 // Redireccionar
-                if (r.href != null) {
-                    if (r.href == 'self') window.location.reload(true);
+                if (r.href !== null) {
+                    if (r.href === 'self') window.location.reload(true);
                     else window.location.href = r.href;
                 }
             },
