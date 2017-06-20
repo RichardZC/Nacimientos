@@ -20,24 +20,25 @@ namespace Web.Controllers
             return View(UsuarioBL.Listar(includeProperties: "persona"));
         }
 
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Id del usuario</param>
-        /// <param name="PersonaId">id de la persona a crear el usuario</param>
-        /// <returns></returns>
-        public ActionResult Mantener(int id = 0, int pPersonaId = 0)
-        {
-
-            if (id == 0)
+        public ActionResult Mantener(int id)
+        {            
+            return View(new MantenerUsuario
             {
+                Usuario = UsuarioBL.Obtener(x => x.UsuarioId == id, "persona"),
+                Roles = RolBL.ListarRoles(id),
+                Oficinas = OficinaBL.ListarOficinas(id)
+            });
+        }
 
-                usuario u = new usuario();
-                u.Activo = true;
-
-                persona p = PersonaBL.Obtener(pPersonaId);
+        [HttpPost]
+        public JsonResult NuevoUsuario(int pPersonaId)
+        {
+            var rm = new ResponseModel();
+            usuario u = new usuario();
+            u.Activo = true;
+            persona p = PersonaBL.Obtener(pPersonaId);
+            try
+            {                
                 var nombreusuario = p.Nombres.Substring(0, 1) + p.Paterno;
                 var cuenta = UsuarioBL.Contar(x => x.PersonaId == pPersonaId);
                 if (cuenta > 0)
@@ -51,52 +52,21 @@ namespace Web.Controllers
                 u.Clave = "202cb962ac59075b964b07152d234b70";//123
                 UsuarioBL.Crear(u);
 
-                id = u.UsuarioId;
-
-
+                rm.SetResponse(true);
+                rm.href = Url.Action("Mantener", "Usuario", new { id = u.UsuarioId });
+                return Json(rm);
             }
-
-
-
-            return View(new MantenerUsuario
+            catch (Exception ex)
             {
-                Usuario = UsuarioBL.Obtener(x => x.UsuarioId == id, "persona"),
-                Roles = RolBL.ListarRoles(id),
-                Oficinas = OficinaBL.ListarOficinas(id)
-            });
-        }
-
-        public JsonResult listaPersonas(string query)
-        {
-            var lista = cargar();
-
-
-            return Json(new
-            {
-                query = "Unit",
-                suggestions = lista.Where(x => x.value.ToLower().Contains(query.ToLower())).ToList()
-            }, JsonRequestBehavior.AllowGet);
-            //return Json(lista, JsonRequestBehavior.AllowGet);
-        }
-
-        public List<personita> cargar()
-        {
-            var lista1 = PersonaBL.Listar();
-            var lista2 = new List<personita>();
-            foreach (persona p in lista1)
-            {
-                lista2.Add(new personita { value = p.NombreCompleto, data = p.PersonaId });
+                rm.SetResponse(false, ex.Message);
+                return Json(rm);
             }
-            return lista2;
+            finally {
+                p = null;
+                u = null;
+                rm = null;
+            }            
         }
-
-        public class personita
-        {
-            public string value { get; set; }
-            public int data { get; set; }
-
-        }
-
 
         public class MantenerUsuario
         {
@@ -165,13 +135,13 @@ namespace Web.Controllers
                 usuario u2 = UsuarioBL.Obtener(x => x.UsuarioId == u.UsuarioId);
                 bool mismoUsuario = u2.Nombre.Equals(u.Nombre);
                 bool yaExiste = UsuarioBL.Contar(x => x.Nombre == u.Nombre) > 0;
-                if (!mismoUsuario&&yaExiste )
+                if (!mismoUsuario && yaExiste)
                 {
                     rm.SetResponse(false);
                     rm.function = "fn.mensaje('El nombre de usuario ya existe.')";
-                    return Json(rm); 
+                    return Json(rm);
                 }
-                
+
 
                 if (!string.IsNullOrEmpty(pActivo)) u.Activo = true;
                 u.Nombre = u.Nombre.Trim().ToUpper();

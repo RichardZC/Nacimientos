@@ -4,7 +4,7 @@
     <div class="col s12 m12 l8" >
         <div class="card-panel">
             <div class="row" style="margin-bottom:0;">
-                <form id="frmbuscar" method="post" action='@Url.Action("Mantener","Usuario")'>
+                <form method="post" action='@Url.Action("NuevoUsuario","Usuario")'>
                     <div class="input-field col s12 m7 l8">
                         <input type="hidden" id="txtPersonaId" name="pPersonaId" value="0" />
                         <i class="mdi-action-search prefix"></i>
@@ -15,7 +15,8 @@
                         <label for="autocompletar">Buscar Persona</label>
                     </div>
                     <div class="input-field col s12 m5 l4">
-                        <button onclick="crearUsuario()" class="btn waves-effect waves-light left" type="submit" name="action" id="btnCrearUsuario" disabled>
+                        <button data-ajax="true" class="btn waves-effect waves-light left" 
+                                type="submit" id="btnCrearUsuario" disabled>
                             Crear usuario
                             <i class="mdi-action-done right"></i>
                         </button>
@@ -97,46 +98,12 @@
 
 </div>
 
-
-
 @section scripts {
-
-
-    
-    <script>
         
-
-        @*$(document).ready(function () {
-
-            $('#autocomplete').autocomplete({
-                serviceUrl: '@Url.Action("listaPersonas", "Usuario")',
-                minChars: 2,
-                onSelect: function (suggestion) {
-                    console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                    $("#PersonaId").val(suggestion.data);
-                    document.getElementById("btnCrearUsuario").disabled = true;
-                  
-                },
-                showNoSuggestionNotice: true,
-                noSuggestionNotice: 'Lo siento, no hay resultados',
-            });
-        });*@
-
-
+    <script>       
         function MostrarEditar(id) {
             window.location = '@Url.Action("Mantener", "Usuario")' + '/' + id;
-        }
-
-        function crearUsuario() {
-            //alert($("#PersonaId").val());
-            var PersonaId = $("#PersonaId").val();
-
-
-            window.location = '@Url.Action("Mantener", "Usuario")' + '?id=0&pPersonaId=' + PersonaId;
-           
-            
-        }
-
+        }        
     </script>
 
 
