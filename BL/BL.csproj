@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CajadiarioBL.cs" />
+    <Compile Include="CargoBL.cs" />
     <Compile Include="DefuncionAnexoBL.cs" />
     <Compile Include="DefuncionBL.cs" />
     <Compile Include="ItemCombo.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Modelo\Menus.cs" />
     <Compile Include="Modelo\Oficinas.cs" />
     <Compile Include="Modelo\Roles.cs" />
+    <Compile Include="Modelo\Tabla.cs" />
     <Compile Include="NacimientoAnexoBL.cs" />
     <Compile Include="NacimientoBL.cs" />
     <Compile Include="OficinaBL.cs" />

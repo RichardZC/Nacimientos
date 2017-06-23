@@ -107,11 +107,17 @@
     </div>
 </div>
  
+<button onclick="ingresa();">ingrese un dato</button>
 
 @section scripts{
     
     <script>
-        
+        function ingresa() {
+            fn.prompt('Cargo',null, function (valor) {
+                //fn.mensaje(valor);
+                console.log(valor);
+            });
+        }
 
         //function SeleccionarPersona(id) {
         //    console.log(id);

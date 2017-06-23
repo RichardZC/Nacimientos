@@ -1,5 +1,5 @@
 var fn = {
-    url: function (s) { return window.location.pathname + '/' + s; },
+    //url: function (s) { return baseUrl + s; },
     mensaje: function (p) { Materialize.toast(p, 4000); },
     notificar: function (o) {
         switch (o) {
@@ -9,11 +9,61 @@ var fn = {
             case 'rem': Materialize.toast('SE ELIMINO CORRECTAMENTE!', 4000); break;
             default: Materialize.toast('SE GRABARON LOS DATOS CORRECTAMENTE!', 4000);
         }
+    },
+    prompt: function (mensaje, valor, mcallback) {
+        swal({
+            title: mensaje,
+            //text: mensaje,
+            type: "input", showCancelButton: true,
+            closeOnConfirm: false,
+            animation: "slide-from-top",
+            inputPlaceholder: "Ingrese dato",
+            inputValue: valor
+        },
+                         function (inputValue) {
+                             if (inputValue === false) return false;
+                             if (inputValue === "") {
+                                 swal.showInputError("Tu necesitas escribir algo!");
+                                 return false
+                             }
+                             if (typeof mcallback === 'function') { mcallback(inputValue); swal.close(); }
+
+                             //swal("Nice!", "You wrote: " + inputValue, "success");
+                         });
     }
 };
 
+var tabla = {
+    guardar: function (t, id) {
+        var txt = "";
+        if (id > 0) txt = $("#" + t + id).text();
+
+        fn.prompt("CREAR " + t, txt, function (valor) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: baseUrl + "Mantenimiento/Guardar",
+                data: { tabla: t, data: { Id: id, Denominacion: valor } },
+                success: function (res) {
+                    if (id > 0) {
+                        $("#" + t + res).text(valor.toUpperCase());
+                    }
+                    else {
+                        $("#" + t).append("<li class='collection-item'>" +
+                      "<div><span id='" + t + res + "'>" + valor.toUpperCase() + "</span><a href='#!' onclick='tabla.guardar(\"" + t + "\"," + res + ");' class='secondary-content'><i class='mdi-content-send'></i></a></div>" +
+                    "</li>");
+                    }
+                    fn.notificar();
+                },
+                error: function (req, status, err) {
+                    alert('Ocurrio un error: ' + err);
+                }
+            });
+        });
+    }
+}
 $(document).ready(function () {
-    
+
     //https://github.com/devbridge/jQuery-Autocomplete
     if ($('#autocompletar').data('url') !== null) {
         var txt = $('#autocompletar');
@@ -24,7 +74,7 @@ $(document).ready(function () {
                 //serviceUrl: '@Url.Action("listapais", "Home")',
                 lookup: res,
                 minChars: 2,
-                onSelect: function (suggestion) {                   
+                onSelect: function (suggestion) {
                     if ($(this).data('seleccion') !== null) $("#" + $(this).data('seleccion')).val(suggestion.data);
                     if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', false);
                     if ($(this).data('funcion') !== null) {
@@ -32,7 +82,7 @@ $(document).ready(function () {
                         setTimeout(funcion, 0);
                     }
                 },
-                onInvalidateSelection: function () {                    
+                onInvalidateSelection: function () {
                     if ($(this).data('seleccion') !== null) $("#" + $(this).data('seleccion')).val(0);
                     if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', true);
                 },

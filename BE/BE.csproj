@@ -66,6 +66,9 @@
     <Compile Include="cajamovdetalle.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="cargo.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="conceptopago.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
