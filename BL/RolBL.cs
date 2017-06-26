@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace BL
 {
@@ -51,5 +52,29 @@ namespace BL
                 return roles;
             }
         }
+
+        public static void GuardarRolMenu(rol r) {
+            using (var bd = new nacEntities()) {
+                bd.Configuration.ProxyCreationEnabled = false; /*integridad referencial*/
+                bd.Configuration.LazyLoadingEnabled = false;
+                bd.Configuration.ValidateOnSaveEnabled = false;
+                bd.Database.ExecuteSqlCommand("Delete from menu_rol where RolId=" + r.RolId.ToString());
+               // bd.SaveChanges();
+
+                var mnuBK = r.menu;
+                r.menu = null;
+                bd.Entry(r).State = EntityState.Unchanged; /*no modificar la base de datos rol */
+                r.menu = mnuBK;
+                foreach (var i in r.menu)
+                    bd.Entry(i).State = EntityState.Unchanged; /*no modificar la base de datos menu */
+
+                bd.SaveChanges();
+            }
+        }
+
+
     }
+
+
+
 }
