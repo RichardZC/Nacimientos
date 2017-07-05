@@ -38,9 +38,9 @@ namespace BE
         public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<uvw_menus> uvw_menus { get; set; }
-        public virtual DbSet<caja> caja { get; set; }
-        public virtual DbSet<cajadiario> cajadiario { get; set; }
         public virtual DbSet<cajamov> cajamov { get; set; }
         public virtual DbSet<cajamovdetalle> cajamovdetalle { get; set; }
+        public virtual DbSet<caja> caja { get; set; }
+        public virtual DbSet<cajadiario> cajadiario { get; set; }
     }
 }

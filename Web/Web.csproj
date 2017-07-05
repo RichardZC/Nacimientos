@@ -368,6 +368,7 @@
     <Content Include="Views\Persona\Mantener.cshtml" />
     <Content Include="Views\Login\_CargarMenu.cshtml" />
     <Content Include="Views\Cajadiario\Index.cshtml" />
+    <Content Include="Views\Home\SinPermiso.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

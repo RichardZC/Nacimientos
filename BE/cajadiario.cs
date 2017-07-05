@@ -21,15 +21,15 @@ namespace BE
         }
     
         public int CajaDiarioId { get; set; }
-        public Nullable<int> CajaId { get; set; }
-        public Nullable<int> PersonaId { get; set; }
-        public Nullable<decimal> SaldoInicial { get; set; }
-        public Nullable<decimal> Entradas { get; set; }
-        public Nullable<decimal> Salidas { get; set; }
-        public Nullable<decimal> SaldoFinal { get; set; }
-        public Nullable<System.DateTime> FechaInicio { get; set; }
+        public int CajaId { get; set; }
+        public int PersonaId { get; set; }
+        public decimal SaldoInicial { get; set; }
+        public decimal Entradas { get; set; }
+        public decimal Salidas { get; set; }
+        public decimal SaldoFinal { get; set; }
+        public System.DateTime FechaInicio { get; set; }
         public Nullable<System.DateTime> FechaFin { get; set; }
-        public Nullable<bool> IndAbierto { get; set; }
+        public bool IndAbierto { get; set; }
     
         public virtual caja caja { get; set; }
         public virtual persona persona { get; set; }

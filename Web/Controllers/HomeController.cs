@@ -22,6 +22,11 @@ namespace Web.Controllers
             ViewBag.Total = NroNac + NroDef + NroMat;
             return View();
         }
+
+        public ActionResult SinPermiso()
+        {           
+            return View();
+        }
         public JsonResult listapais(string query)
         {
             return Json(new
