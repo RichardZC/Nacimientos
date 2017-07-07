@@ -19,7 +19,6 @@ namespace BE
         {
             this.conceptopago = new HashSet<conceptopago>();
             this.usuario = new HashSet<usuario>();
-            this.cajamov = new HashSet<cajamov>();
         }
     
         public int OficinaId { get; set; }
@@ -29,7 +28,5 @@ namespace BE
         public virtual ICollection<conceptopago> conceptopago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario> usuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cajamov> cajamov { get; set; }
     }
 }

@@ -40,6 +40,49 @@ namespace Web.Controllers
            
             return Json(rm);
         }
-        
+
+        public JsonResult GuardarRoles(rol r, int[] mnu)
+        {
+            bool Esnuevo = r.RolId == 0 ? true : false;
+            r.Denominacion = r.Denominacion.ToUpper();
+            var rm = new ResponseModel();
+
+            try
+            {
+                RolBL.Guardar(r);
+                rm.SetResponse(true);
+                if (Esnuevo)
+                {
+                    rm.function = "AddRowOfR(" + r.RolId + ",'" + r.Denominacion + "');fn.notificar();";
+                }
+
+                else
+                {
+                    rm.function = "RefreshRowOfR(" + r.RolId + ",'" + r.Denominacion + "');fn.notificar();";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                rm.SetResponse(false);
+                rm.function = "fn.mensaje('" + ex.Message + "')";
+            }
+
+           if (mnu != null)
+            {
+                foreach (var i in mnu)
+                    r.menu.Add(new menu { MenuId = i });
+            }
+            RolBL.GuardarRolMenu(r);
+            
+
+            return Json(rm);
+        }
+
+        public JsonResult ListarMenus(int rolId)
+        {
+            var m = RolBL.Obtener(x=>x.RolId== rolId,includeProperties:"menu");
+            return Json(m.menu.Select(x => new { id = x.MenuId }), JsonRequestBehavior.AllowGet);
+        }
     }
 }

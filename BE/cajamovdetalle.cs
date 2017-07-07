@@ -15,11 +15,11 @@ namespace BE
     public partial class cajamovdetalle
     {
         public int CajaMovDetalleId { get; set; }
-        public Nullable<int> CajaMovId { get; set; }
-        public Nullable<int> Cantidad { get; set; }
-        public Nullable<int> ConceptoPagoId { get; set; }
-        public Nullable<decimal> PU { get; set; }
-        public Nullable<decimal> Monto { get; set; }
+        public int CajaMovId { get; set; }
+        public int Cantidad { get; set; }
+        public int ConceptoPagoId { get; set; }
+        public decimal PU { get; set; }
+        public decimal Monto { get; set; }
     
         public virtual cajamov cajamov { get; set; }
         public virtual conceptopago conceptopago { get; set; }

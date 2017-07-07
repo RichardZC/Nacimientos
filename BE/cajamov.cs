@@ -22,26 +22,24 @@ namespace BE
     
         public int CajaMovId { get; set; }
         public Nullable<int> CajaDiarioId { get; set; }
-        public Nullable<int> PersonaId { get; set; }
+        public int PersonaId { get; set; }
         public string Operacion { get; set; }
-        public Nullable<decimal> Monto { get; set; }
+        public decimal Monto { get; set; }
         public string Glosa { get; set; }
-        public Nullable<bool> IndEntrada { get; set; }
+        public bool IndEntrada { get; set; }
         public string Estado { get; set; }
-        public Nullable<int> OficinaId { get; set; }
-        public Nullable<int> UsuarioRegId { get; set; }
-        public Nullable<System.DateTime> FechaReg { get; set; }
+        public int UsuarioRegId { get; set; }
+        public System.DateTime FechaReg { get; set; }
         public Nullable<System.DateTime> FechaCobro { get; set; }
         public Nullable<System.DateTime> FechaAnulacion { get; set; }
         public Nullable<int> UsuarioDespachoId { get; set; }
         public Nullable<System.DateTime> FechaDespacho { get; set; }
     
+        public virtual cajadiario cajadiario { get; set; }
         public virtual persona persona { get; set; }
-        public virtual oficina oficina { get; set; }
         public virtual usuario usuario { get; set; }
         public virtual usuario usuario1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamovdetalle> cajamovdetalle { get; set; }
-        public virtual cajadiario cajadiario { get; set; }
     }
 }
