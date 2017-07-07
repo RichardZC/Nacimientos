@@ -31,9 +31,9 @@ namespace BE
         public Nullable<System.DateTime> FechaFin { get; set; }
         public Nullable<bool> IndAbierto { get; set; }
     
-        public virtual caja caja { get; set; }
         public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov { get; set; }
+        public virtual caja caja { get; set; }
     }
 }

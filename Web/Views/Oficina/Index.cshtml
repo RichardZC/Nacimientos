@@ -88,7 +88,7 @@
 
 
         <div id="modal2" class="modal">
-            <form action='@Url.Action("GuardarRoles","Oficina")' method="post">
+            <form id="frmrol" action='@Url.Action("GuardarRoles","Oficina")' method="post">
                 <input id="RolId" name="RolId" type="hidden" value="0" />
                 <div class="modal-content" style="padding:0">
                     <nav class="red">
@@ -115,20 +115,23 @@
                 </div>
                 <div class="model-email-content" style="padding-bottom: 100px;">
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input id="txtRol" name="Denominacion" type="text" class="validate" placeholder="Denominación">
-                            <label for="txtRol">Rol</label>
-                        </div>
+                        
+                            <div class="input-field col s12">
+                                <input id="txtRol" name="Denominacion" type="text" class="validate" placeholder="Denominación">
+                                <label for="txtRol">Rol</label>
+                            </div>
 
-                        <label>Lista de Permisos</label>
-                        <br />
-                        @foreach (var item in listamnu)
-                        {
-                            <div class="input-field col s3">
-                                <input type="checkbox" class="filled-in" id="@item.MenuId" name="mnu" value="@item.MenuId" />
-                                <label for="@item.MenuId">@item.Denominacion</label>
-                            </div>  
-                        }
+                            <label>Lista de Permisos</label>
+                            <br />
+                            @foreach (var item in listamnu)
+                            {
+                                <div class="input-field col s3">
+
+                                    <input type="checkbox" class="filled-in" id="@item.MenuId" name="mnu" value="@item.MenuId" />
+                                    <label for="@item.MenuId">@item.Denominacion</label>
+                                </div>
+                            }
+                        
                     </div>
 
                     @*<span class="caret"></span>*@
@@ -153,10 +156,18 @@
                 $("#txtOficina").val($("#o_" + oficinaid).text()).focus();
             }
             function MostrarEditarRol(Rolid) {
-                $('#modal2').openModal();
-                $("#RolId").val(Rolid);
-                $("#txtRol").val($("#r_" + Rolid).text()).focus();
+                $.get("@Url.Action("ListarMenus", "Oficina")", { rolId: Rolid }, function (d) {    
+                    $('#modal2').openModal();
+                    $("#RolId").val(Rolid);
+                    $("#txtRol").val($("#r_" + Rolid).text()).focus();
+                    
+                    $(".filled-in").prop("checked", false);                   
+                    for (var i = 0; i < d.length; i++) {
+                        $("#" + d[i].id).prop("checked", true);
+                    }                
+                });  
             }
+
             function Nuevo() {
                 $("#OficinaId").val(0);
                 $("#txtOficina").val("").focus();
@@ -185,7 +196,21 @@
                 $("#r_" + id).text(denominacion);
                 $('#modal2').closeModal();
             }
-            function deseleccionar() {
+            function verificar(checkbox,idMenu) {
+                var checkeado = document.getElementById(checkbox).checked;
+                var checkBoxsList = document.getElementById(idMenu).getElementsByTagName('input');
+                if (checkeado) {
+                    for (var i = 0; i < checkBoxsList.length; i++) {
+                        checkBoxsList[i].checked = true;
+                    }
+                }
+                else {
+                    for (var i = 0; i < checkBoxsList.length; i++) {
+                        checkBoxsList[i].checked = false;
+                    }
+                }
+
+
 
             }
 

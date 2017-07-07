@@ -14,32 +14,32 @@
         <AssociationConnector Association="BDModel.defuncion_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.matrimonio_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
-        <EntityTypeShape EntityType="BDModel.conceptopago" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="5" PointY="3.625" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="3.75" PointY="4.625" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.persona" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.rol" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.usuario" Width="1.5" PointX="3" PointY="2.75" IsExpanded="false" />
-        <AssociationConnector Association="BDModel.conceptopago_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
-        <AssociationConnector Association="BDModel.menu_rol" />
         <AssociationConnector Association="BDModel.usuario_oficina" />
-        <AssociationConnector Association="BDModel.usuario_rol" />
         <EntityTypeShape EntityType="BDModel.uvw_menus" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.cajamov" Width="1.5" PointX="8" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.cajamovdetalle" Width="1.5" PointX="10.25" PointY="2.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.cajadiario" Width="1.5" PointX="3" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.cajamov" Width="1.5" PointX="9" PointY="1.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.cajamovdetalle" Width="1.5" PointX="11.25" PointY="2.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.conceptopago" Width="1.5" PointX="6" PointY="2.25" IsExpanded="false" />
+        <AssociationConnector Association="BDModel.cajadiario_ibfk_2" />
+        <AssociationConnector Association="BDModel.cajamov_ibfk_1" />
         <AssociationConnector Association="BDModel.cajamov_ibfk_2" />
         <AssociationConnector Association="BDModel.cajamov_ibfk_3" />
         <AssociationConnector Association="BDModel.cajamov_ibfk_4" />
         <AssociationConnector Association="BDModel.cajamov_ibfk_5" />
         <AssociationConnector Association="BDModel.cajamovdetalle_ibfk_1" />
         <AssociationConnector Association="BDModel.cajamovdetalle_ibfk_2" />
-        <EntityTypeShape EntityType="BDModel.caja" Width="1.5" PointX="0.75" PointY="12.5" />
-        <EntityTypeShape EntityType="BDModel.cajadiario" Width="1.5" PointX="3" PointY="0.75" IsExpanded="false" />
+        <AssociationConnector Association="BDModel.conceptopago_ibfk_1" />
+        <EntityTypeShape EntityType="BDModel.caja" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="BDModel.cargo" Width="1.5" PointX="7.75" PointY="8.75" />
         <AssociationConnector Association="BDModel.cajadiario_ibfk_1" />
-        <AssociationConnector Association="BDModel.cajadiario_ibfk_2" />
-        <AssociationConnector Association="BDModel.cajamov_ibfk_1" />
-        <EntityTypeShape EntityType="BDModel.cargo" Width="1.5" PointX="3.375" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="BDModel.rol" Width="1.5" PointX="7.25" PointY="10.875" />
+        <AssociationConnector Association="BDModel.menu_rol" />
+        <AssociationConnector Association="BDModel.usuario_rol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
