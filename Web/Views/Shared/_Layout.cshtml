@@ -31,6 +31,7 @@
     <!-- Custome CSS-->
     <link href="~/css/custom/custom-style.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="~/js/plugins/sweetalert/dist/sweetalert.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="~/js/plugins/sweetalert/dist/facebook.css" rel="stylesheet" />
 
 </head>
 
@@ -214,6 +215,7 @@
     <script src="~/js/jquery.form.min.js"></script>
     <script src="~/js/jquery.autocomplete.min.js"></script>
     <script>
+        var baseUrl = "@Url.Content("~")";
         $('#left-sidebar-nav').html(localStorage.getItem("mnu"));
         var mnu = $("#" + localStorage.getItem("mnuclick"));
         mnu.addClass("active");

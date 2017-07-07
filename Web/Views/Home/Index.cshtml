@@ -62,31 +62,66 @@
 </div>
 
 <div class="row">
-    <div class="col s12">
+    @*<div class="col s12">
         <div class="row">
             <div class="input-field col s12">
                 <input type="hidden" id="hdid" value="0" />
-                <input type="text" id="autocompletar" 
-                       data-url='@Url.Action("ListarPersonas","Comun")' 
+                <input type="text" id="autocompletar"
+                       data-url='@Url.Action("ListarPersonas","Comun")'
                        data-seleccion="hdid"
-                       @*data-funcion="SeleccionarPersona"*@ 
+                       data-funcion="SeleccionarPersona"
                        data-boton="btn"/>
                 <input type="submit" id="btn" value="enviar" />
             </div>
         </div>
-    </div>
+    </div>*@
+    
 </div>
 
+@{
+    var listamnu = BL.MenuBL.Listar(x => x.IndPadre == false, x => x.OrderBy(y => y.Orden));
+}
+<!--multiple select-->
+<div class="row">
+    
+
+    <div class="col s12 m4 l3">
+        <p>You can add the property <code>multiple</code> to get the multiple select and select several options.</p>
+    </div>
+    <div class="col s12 m8 l9">
+        <form method="post" action="@Url.Action("EnvioMenus","Home")">
+            <div class="input-field col s12">
+                <select multiple id="cboMenu" name="cbomenu">
+                    <option value="" disabled selected>Escoja los menús</option>
+                    @foreach (var item in listamnu)
+                    {
+                        <option value="@item.MenuId">@item.Denominacion</option>
+                    }
+                </select>
+                <label>Lista de menus</label>
+            </div>
+
+            <input type="submit" id="btn" value="enviar" data-ajax="true" />
+            
+        </form>
+    </div>
+</div>
  
+<button onclick="ingresa();">ingrese un dato</button>
 
 @section scripts{
     
     <script>
-        
-
-        function SeleccionarPersona(id) {
-            console.log(id);
+        function ingresa() {
+            fn.prompt('Cargo',null, function (valor) {
+                //fn.mensaje(valor);
+                console.log(valor);
+            });
         }
+
+        //function SeleccionarPersona(id) {
+        //    console.log(id);
+        //}
     </script>
 
     

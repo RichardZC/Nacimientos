@@ -1,0 +1,11 @@
+﻿
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l6">
+            @Html.Partial("_tabla", (List<BL.Modelo.Tabla>)ViewBag.lstOficina, new ViewDataDictionary() { { "tabla", "OFICINA" } })
+        </div>
+        <div class="col s12 m6 l6">
+            @Html.Partial("_tabla", (List<BL.Modelo.Tabla>)ViewBag.lstCargo, new ViewDataDictionary() { { "tabla", "CARGO" } })
+        </div>
+    </div>
+</div>

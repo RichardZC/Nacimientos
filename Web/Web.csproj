@@ -254,6 +254,7 @@
     <Content Include="js\plugins\raphael\raphael-min.js" />
     <Content Include="js\plugins\sparkline\jquery.sparkline.min.js" />
     <Content Include="js\plugins\sparkline\sparkline-script.js" />
+    <Content Include="js\plugins\sweetalert\dist\facebook.css" />
     <Content Include="js\plugins\sweetalert\dist\sweetalert.css" />
     <Content Include="js\plugins\sweetalert\dist\sweetalert.min.js" />
     <Content Include="Web.config">
@@ -268,6 +269,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MantenimientoController.cs" />
     <Compile Include="Controllers\MatrimonioController.cs" />
     <Compile Include="Controllers\NacimientoController.cs" />
     <Compile Include="Controllers\OficinaController.cs" />
@@ -368,7 +370,8 @@
     <Content Include="Views\Persona\Mantener.cshtml" />
     <Content Include="Views\Login\_CargarMenu.cshtml" />
     <Content Include="Views\Cajadiario\Index.cshtml" />
-    <Content Include="Views\Home\SinPermiso.cshtml" />
+    <Content Include="Views\Mantenimiento\Index.cshtml" />
+    <Content Include="Views\Mantenimiento\_Tabla.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

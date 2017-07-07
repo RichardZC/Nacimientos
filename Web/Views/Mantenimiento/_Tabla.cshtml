@@ -1,0 +1,24 @@
+﻿
+@model List<BL.Modelo.Tabla>
+    @{string t = ViewData["tabla"].ToString();
+            } 
+
+<ul id="@t" class="collection with-header">
+    <li class="collection-header cyan">
+        <a onclick="tabla.guardar('@t',0);" data-position="left" data-tooltip="Nuevo" style="margin-top:5px"
+           class="right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
+        <h5 class="white-text">@t</h5>
+    </li>
+    @foreach (var item in Model)
+    {
+        <li class="collection-item">
+            <div>
+                <span id="@t@item.id">@item.Denominacion</span>
+                <a href="#!" onclick="tabla.guardar('@t',@item.id);" class="secondary-content"><i class="mdi-content-send"></i></a>
+            </div>
+        </li>
+    }
+</ul>
+
+
+
