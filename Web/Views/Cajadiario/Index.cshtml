@@ -141,11 +141,11 @@
 
 
                 <div id="mostrarSaldo" class="input-field col s12 m8 l6">
-                    @*<i class="mdi-editor-attach-money prefix"></i>
+                    <i class="mdi-editor-attach-money prefix"></i>
                     <label for="txtSaldoInicial" class="" data-error="Ingrese monto correcto">Monto Inicial</label>
 
-                    <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number" max="0">
-                    <div class="errorTxt1"></div>*@
+                    <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number" >
+                    <div class="errorTxt1"></div>
 
                 </div>
 
@@ -188,11 +188,11 @@
             $.get('@Url.Action("ObtenerSaldoBoveda", "Cajadiario")', function (d) {
                 $("#mensajeBoveda").text('En la bóveda hay un saldo de S/. ' + d);
                 //$("#txtSaldoInicial").addClass('max');
-                //$("#txtSaldoInicial").data('max', d);
+                $("#txtSaldoInicial").prop('max', d);
                 //$("#txtSaldoInicial").css('max', d);
                 //$("[max]").css('max', d);
 
-                $("#mostrarSaldo").html('<i class="mdi-editor-attach-money prefix"> </i> <label for="txtSaldoInicial" class="" data-error="Ingrese monto correcto">Monto Inicial </label> <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number" max="' + d + '"> <div class="errorTxt1"></div>')
+                //$("#mostrarSaldo").html('<i class="mdi-editor-attach-money prefix"> </i> <label for="txtSaldoInicial" class="" data-error="Ingrese monto correcto">Monto Inicial </label> <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number" max="' + d + '"> <div class="errorTxt1"></div>')
             });
 
             $('#modal1').openModal();

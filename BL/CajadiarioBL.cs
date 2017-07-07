@@ -10,6 +10,7 @@ namespace BL
     public class CajadiarioBL : Repositorio<cajadiario>
     {
         public static decimal ObtenerSaldoBoveda() {
+
             var cd = CajadiarioBL.Obtener(x => x.IndAbierto == true 
              && x.caja.IndBoveda && x.caja.IndAbierto, includeProperties: "Caja");
             return cd.SaldoFinal;

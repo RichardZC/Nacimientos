@@ -45,9 +45,9 @@ namespace Web.Controllers
             cd.SaldoInicial = SaldoInicial;
             cd.FechaInicio = DateTime.Now;
             cd.IndAbierto = true;
-            cd.Entradas = 0;
-            cd.Salidas = 0;
-            cd.SaldoFinal = 0;
+            //cd.Entradas = 0;
+            //cd.Salidas = 0;
+            //cd.SaldoFinal = 0;
 
            
 
@@ -58,10 +58,27 @@ namespace Web.Controllers
                 //actualizando la caja
                 CajaBL.ActualizarParcial(new caja { CajaId = pCajaId, IndAbierto = true, PersonaId = pPersonaId,FechaInicioOperacion=cd.FechaInicio }, x => x.IndAbierto, x => x.PersonaId,x => x.FechaInicioOperacion);
 
-                //actualizando la boveda
-                //CajadiarioBL.ActualizarParcial(new cajadiario { CajaDiarioId = boveda.CajaDiarioId,  SaldoFinal = (boveda.SaldoFinal-SaldoInicial)},  x => x.SaldoFinal);
+                //registrando un movimiento
+                var cm = new cajamov();
+                cm.Operacion = "TRA";
+                cm.Monto = SaldoInicial;
+                cm.Glosa = "TRANSFERENCIA DESDE BÓVEDA";
+                cm.IndEntrada = false;
+                cm.Estado = "C";//concluído
+                cm.UsuarioRegId = Comun.SessionHelper.GetUser();
+                cm.FechaReg = DateTime.Now;
 
+
+                CajaMovBL.Crear(cm);
+
+
+                //actualizando la boveda
+                var boveda = CajadiarioBL.Obtener(x => x.caja.IndBoveda, includeProperties: "Caja");
+                CajadiarioBL.ActualizarParcial(new cajadiario { CajaDiarioId = boveda.CajaDiarioId, SaldoFinal = (boveda.SaldoFinal - SaldoInicial) }, x => x.SaldoFinal);
+
+                //obteniendo los datos del cajero
                 persona p = PersonaBL.Obtener(x => x.PersonaId== pPersonaId);
+
                 rm.SetResponse(true);
 
                 rm.function = "RefreshRowOf("+ pCajaId + ",'" + p.NombreCompleto + "','"+cd.FechaInicio+"');fn.notificar();";
