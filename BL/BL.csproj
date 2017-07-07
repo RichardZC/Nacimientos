@@ -56,6 +56,7 @@
     <Compile Include="CajaBL.cs" />
     <Compile Include="CajadiarioBL.cs" />
     <Compile Include="CajaMovBL.cs" />
+    <Compile Include="CargoBL.cs" />
     <Compile Include="DefuncionAnexoBL.cs" />
     <Compile Include="DefuncionBL.cs" />
     <Compile Include="ItemCombo.cs" />
