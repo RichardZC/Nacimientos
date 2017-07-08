@@ -53,6 +53,7 @@ namespace BL
             }
         }
 
+
         public static void GuardarRolMenu(rol r) {
             using (var bd = new nacEntities()) {
                 bd.Configuration.ProxyCreationEnabled = false; /*integridad referencial*/
