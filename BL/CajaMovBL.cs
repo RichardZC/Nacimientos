@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class CargoBL: Repositorio<cargo>
+    public class CajaMovBL: Repositorio<cajamov>
     {
     }
 }

@@ -24,42 +24,13 @@ namespace Web.Controllers
         }
         public JsonResult EnvioMenus(int[] cbomenu)
         {
-
             return Json(null, JsonRequestBehavior.AllowGet);
         }
-        //public JsonResult listapais(string query)
-        //{
-        //    return Json(new
-        //    {
-        //        //query = "Unit",
-        //        suggestions = PersonaBL
-        //                        .Listar(x => x.NombreCompleto.Contains(query))
-        //                        .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
-        //                        .ToList()
-        //    }, JsonRequestBehavior.AllowGet);
 
-        //}
-
-        //public JsonResult listap()
-        //{
-        //    return Json(new
-        //    {
-        //        //query = "Unit",
-        //        suggestions = PersonaBL
-        //                        .Listar()
-        //                        .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
-        //                        .ToList()
-        //    }, JsonRequestBehavior.AllowGet);
-
-        //}
-
-        //public JsonResult listarPersona()
-        //{
-        //    return Json(PersonaBL.Listar()
-        //                  .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
-        //                  .ToList()
-        //    , JsonRequestBehavior.AllowGet);
-
-        //}
+        public ActionResult SinPermiso()
+        {
+            return View();
+        }
+               
     }
 }

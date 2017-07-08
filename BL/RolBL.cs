@@ -2,10 +2,10 @@
 using BL.modelo;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity;
 
 namespace BL
 {
@@ -53,14 +53,15 @@ namespace BL
             }
         }
 
-
-        public static void GuardarRolMenu(rol r) {
-            using (var bd = new nacEntities()) {
+        public static void GuardarRolMenu(rol r)
+        {
+            using (var bd = new nacEntities())
+            {
                 bd.Configuration.ProxyCreationEnabled = false; /*integridad referencial*/
                 bd.Configuration.LazyLoadingEnabled = false;
                 bd.Configuration.ValidateOnSaveEnabled = false;
                 bd.Database.ExecuteSqlCommand("Delete from menu_rol where RolId=" + r.RolId.ToString());
-               // bd.SaveChanges();
+                // bd.SaveChanges();
 
                 var mnuBK = r.menu;
                 r.menu = null;
@@ -72,10 +73,5 @@ namespace BL
                 bd.SaveChanges();
             }
         }
-
-
     }
-
-
-
 }

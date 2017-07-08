@@ -1,72 +1,91 @@
 ﻿
 .bannerUsuario {
-   padding-left:55px;
+    padding-left: 55px;
 }
 
 #profile-card .card-profile-MyImage {
     width: 60px;
     position: absolute;
     top: 6px;
-    left:10px;
+    left: 10px;
     z-index: 1;
     cursor: pointer;
 }
 
-.MyCard-content{
-    padding:20px;
-    border-radius:0 0 2px 2px;
-    padding-top:0px;
+.MyCard-content {
+    padding: 20px;
+    border-radius: 0 0 2px 2px;
+    padding-top: 0px;
 }
 
 
 
 .encerrar {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .autocomplete-content {
-        margin-top: -15px;
-        display: block;
-        opacity: 1;
-        position: static;
-    }
+    margin-top: -15px;
+    display: block;
+    opacity: 1;
+    position: static;
+}
 
-        /*.autocomplete-content li .highlight {
+    /*.autocomplete-content li .highlight {
             color: #444;
         }*/
 
-        .autocomplete-content li img {
-            height: 40px;
-            width: 40px;
-            margin: 5px 15px;
-        }
-
-    .autocomplete-suggestions {
-        border: 1px solid #999;
-        background: #FFF;
-        overflow: auto;
+    .autocomplete-content li img {
+        height: 40px;
+        width: 40px;
+        margin: 5px 15px;
     }
 
-    .autocomplete-suggestion {
-        padding: 2px 5px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+}
 
-    .autocomplete-selected {
-        background: #F0F0F0;
-    }
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
-    .autocomplete-suggestions strong {
-        font-weight: normal;
-        color: #3399FF;
-    }
+.autocomplete-selected {
+    background: #F0F0F0;
+}
 
-    .autocomplete-group {
-        padding: 2px 5px;
-    }
+.autocomplete-suggestions strong {
+    font-weight: normal;
+    color: #3399FF;
+}
 
-        .autocomplete-group strong {
-            display: block;
-            border-bottom: 1px solid #000;
-        }
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+    display: block;
+    border-bottom: 1px solid #000;
+}
+
+.myModal{
+   display:none;
+   position:fixed;
+   left:0;right:0;
+   background-color:#fafafa;
+   padding:0;
+   max-height:70%;
+   width:45%;
+   margin:auto;
+   overflow-y:auto;
+   border-radius:2px;
+   will-change:top, opacity
+}
+
+#modal1
+{
+  overflow: hidden;
+}
