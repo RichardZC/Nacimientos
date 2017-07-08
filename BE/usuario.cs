@@ -17,9 +17,9 @@ namespace BE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
-            this.oficina = new HashSet<oficina>();
             this.cajamov = new HashSet<cajamov>();
             this.cajamov1 = new HashSet<cajamov>();
+            this.oficina = new HashSet<oficina>();
             this.rol = new HashSet<rol>();
         }
     
@@ -30,13 +30,13 @@ namespace BE
         public bool Activo { get; set; }
         public bool IndCambio { get; set; }
     
-        public virtual persona persona { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<oficina> oficina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov1 { get; set; }
+        public virtual persona persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<oficina> oficina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rol> rol { get; set; }
     }

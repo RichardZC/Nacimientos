@@ -25,7 +25,10 @@ namespace BE
         public Nullable<bool> IndAbierto { get; set; }
         public Nullable<bool> IndBoveda { get; set; }
         public Nullable<bool> Estado { get; set; }
+        public Nullable<int> PersonaId { get; set; }
+        public Nullable<System.DateTime> FechaInicioOperacion { get; set; }
     
+        public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajadiario> cajadiario { get; set; }
     }
