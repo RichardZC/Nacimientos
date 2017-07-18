@@ -71,6 +71,14 @@ namespace BL
                     bd.Entry(i).State = EntityState.Unchanged; /*no modificar la base de datos menu */
 
                 bd.SaveChanges();
+
+                
+                string qry = "insert into menu_rol (RolId,MenuId) " 
+                                + "SELECT DISTINCT " + r.RolId.ToString() + ",Referencia "
+                                + "from menu_rol rm "
+                                + "inner join menu m on rm.MenuId = m.MenuId "
+                                + "where rm.RolId=" + r.RolId.ToString() + " and IndPadre=0";
+                bd.Database.ExecuteSqlCommand(qry);
             }
         }
     }
