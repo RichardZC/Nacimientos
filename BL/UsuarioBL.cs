@@ -62,7 +62,7 @@ namespace BL
             using (var bd = new nacEntities())
             {
                 var usuarios = UsuarioBL.Listar(x=>x.Activo==true, includeProperties: "persona").OrderBy(x=>x.persona.NombreCompleto);
-                var asignados = bd.cajadiario.Where(x => x.IndAbierto == true);
+                var asignados = bd.cajadiario.Where(x => x.IndAbierto == true && x.caja.IndBoveda == false);
 
                 List<usuario> lista = new List<usuario>();
                 bool contiene;

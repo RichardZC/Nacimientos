@@ -14,6 +14,8 @@ namespace Web.Controllers
         {
             return Json(Comun.SessionHelper.GetUser(),JsonRequestBehavior.AllowGet);
         }
+        
+
         public JsonResult ListarPersonas()
         {
             return Json(PersonaBL.Listar()

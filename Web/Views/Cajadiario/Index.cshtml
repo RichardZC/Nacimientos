@@ -1,93 +1,73 @@
 ﻿@model IEnumerable<BE.caja>
-
 @{
     var listaUsuario = BL.UsuarioBL.ListarUsuariosSinCaja();
-    //var boveda = BL.CajadiarioBL.getBoveda();
 }
-
 <div class="row">
     <div class="col s12 m12 l12">
         <div class="card-panel">
             <div class="row">
                 <form class="col s12">
-                    <h4 class="header2">Asignación de cajeros</h4>
-                    <div class="row">
-
-                        <table class="striped">
-                            <thead>
+                    <h4 class="header2">Gestión de Caja</h4>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Caja</th>
+                                <th data-field="name">Estado</th>
+                                <th data-field="price">Usuario</th>
+                                <th data-field="price">Fecha Inic. Op.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
                                 <tr>
-                                    <th data-field="id">Caja</th>
-                                    <th data-field="name">Estado</th>
-                                    <th data-field="price">Usuario</th>
-                                    <th data-field="price">Fecha Inic. Op.</th>
+                                    <td>@item.Denominacion</td>
+                                    <td id="estado_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            <text>Abierto</text>
+                                        }
+                                        else
+                                        {
+                                            <text>Cerrado</text>
+                                        }
+                                    </td>
+                                    <td id="persona_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            @item.persona.NombreCompleto
+                                        }
+                                        else
+                                        {
+                                            <button onclick="Mostrar(@item.CajaId,'@item.Denominacion');return false;" class="btn waves-effect waves-light ">
+                                                Asignar
+                                                <i class="mdi-content-send right"></i>
+                                            </button>
+                                        }
+                                    </td>
+                                    <td id="fechaInicio_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            @item.FechaInicioOperacion
+                                        }
+                                    </td>
                                 </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-
-                                    <tr>
-
-                                        <td>
-                                            @item.Denominacion
-                                        </td>
-                                        <td id="estado_@item.CajaId">
-                                            @if (item.IndAbierto)
-                                            {
-                                                <text>Abierto</text>
-                                            }
-                                            else
-                                            {
-                                                <text>Cerrado</text>
-                                            }
-                                        </td>
-                                        <td id="persona_@item.CajaId">
-                                            @if (item.IndAbierto)
-                                            {
-                                                @item.persona.NombreCompleto
-                                            }
-                                            else
-                                            {
-
-                                                <button onclick="Mostrar(@item.CajaId,'@item.Denominacion');return false;" class="btn waves-effect waves-light ">
-                                                    Asignar
-                                                    <i class="mdi-content-send right"></i>
-                                                </button>
-
-                                            }
-
-                                        </td>
-
-                                        <td id="fechaInicio_@item.CajaId">
-                                            @if (item.IndAbierto)
-                                            {
-                                                @item.FechaInicioOperacion
-                                            }
-
-
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-
-
-                    </div>
+                            }
+                        </tbody>
+                    </table>
+                    <button onclick="nuevaCaja(); " type="button" class="btn cyan waves-effect waves-light right">
+                        Nueva Caja
+                        <i class="mdi-content-add-circle-outline right"></i>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-@*<div class="modal fade" id="personal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden=true data-keyboard="false" data-backdrop="static"</div>*@
-
 <div id="modal1" class="modal" aria-hidden=true>
     <form id="formValidate" action='@Url.Action("Guardar","Cajadiario")' method="post">
-
         <input id="CajaId" name="pCajaId" type="hidden" value="0" />
-
-
         <div class="modal-content" style="padding:0">
             <nav class="red">
                 <div class="nav-wrapper">
@@ -99,7 +79,6 @@
                             <li>
                                 <span id="tituloCaja"></span>
                             </li>
-
                         </ul>
                     </div>
                     <div class="col s12 m7 l7">
@@ -120,33 +99,26 @@
                         <select name="pPersonaId" value="0">
                             @foreach (var usuario in listaUsuario)
                             {
-                                <option value="@usuario.PersonaId">@usuario.persona.NombreCompleto</option>
+                            <option value="@usuario.PersonaId">@usuario.persona.NombreCompleto</option>
                             }
                         </select>
                     </div>
                 </div>
             </div>
             <div class="row">
-
                 <div class="input-field col s12 m8 l6">
                     <p>
-
                         <label>
                             <span id="mensajeBoveda"></span>
                         </label>
-
                     </p>
-
                 </div>
-
-
                 <div id="mostrarSaldo" class="input-field col s12 m8 l6">
                     <i class="mdi-editor-attach-money prefix"></i>
                     <label for="txtSaldoInicial" class="" data-error="Ingrese monto correcto">Monto Inicial</label>
 
-                    <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number" >
+                    <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number">
                     <div class="errorTxt1"></div>
-
                 </div>
 
             </div>
@@ -160,15 +132,11 @@
 
 
         $(function () {
-
             $('.modal-add').leanModal({
                 ready: function () {
                     $("#txtSaldoInicial").focus();
-
                 }
             });
-
-
         });
 
         $("#formValidate").validate({
@@ -184,15 +152,9 @@
         });
 
         function Mostrar(cajaId, CajaName) {
-
             $.get('@Url.Action("ObtenerSaldoBoveda", "Cajadiario")', function (d) {
                 $("#mensajeBoveda").text('En la bóveda hay un saldo de S/. ' + d);
-                //$("#txtSaldoInicial").addClass('max');
                 $("#txtSaldoInicial").prop('max', d);
-                //$("#txtSaldoInicial").css('max', d);
-                //$("[max]").css('max', d);
-
-                //$("#mostrarSaldo").html('<i class="mdi-editor-attach-money prefix"> </i> <label for="txtSaldoInicial" class="" data-error="Ingrese monto correcto">Monto Inicial </label> <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number" max="' + d + '"> <div class="errorTxt1"></div>')
             });
 
             $('#modal1').openModal();
@@ -201,17 +163,20 @@
             $('#txtSaldoInicial').empty();
         }
 
-
-
         function RefreshRowOf(id, persona, fechaInicio) {
             $("#estado_" + id).text('Abierto');
             $("#persona_" + id).text(persona);
             $("#fechaInicio_" + id).text(fechaInicio);
             $('#modal1').closeModal();
-
         }
 
-
-
+        function nuevaCaja() {
+            fn.prompt("Nueva Caja", "", function (valor) {
+                $.post('@Url.Action("GuardarCaja", "Cajadiario")', { cajaId: 0, nombre: valor }, function (d) {
+                    window.location.reload(true);
+                });
+            });
+            
+        }
     </script>
 }      
