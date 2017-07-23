@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<BE.caja>
-@*@{
-        var listaUsuario = BL.UsuarioBL.ListarUsuariosSinCaja();
-    }*@
 <div class="row">
     <div class="col s12 m12 l12">
         <div class="card-panel">
@@ -11,10 +8,14 @@
                     <table class="striped">
                         <thead>
                             <tr>
-                                <th data-field="id">Caja</th>
-                                <th data-field="name">Estado</th>
-                                <th data-field="price">Usuario</th>
-                                <th data-field="price">Fecha Inic. Op.</th>
+                                <th>Caja</th>
+                                <th>Estado</th>
+                                <th>Cajero</th>
+                                <th>Fecha Inicio</th>
+                                <th>Saldo Inicio</th>
+                                <th>Entradas</th>
+                                <th>Salidas</th>
+                                <th>Saldo Fin</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,19 +24,12 @@
                                 <tr>
                                     <td>@item.Denominacion</td>
                                     <td id="estado_@item.CajaId">
-                                        @if (item.IndAbierto)
-                                        {
-                                            <text>Abierto</text>
-                                        }
-                                        else
-                                        {
-                                            <text>Cerrado</text>
-                                        }
+                                        @(item.IndAbierto ? "Abierto" : "Cerrado")                                       
                                     </td>
                                     <td id="persona_@item.CajaId">
                                         @if (item.IndAbierto)
                                         {
-                                            @item.persona.NombreCompleto
+                                            @item.cajadiario.First().persona.NombreCompleto
                                         }
                                         else
                                         {
@@ -48,7 +42,31 @@
                                     <td id="fechaInicio_@item.CajaId">
                                         @if (item.IndAbierto)
                                         {
-                                            @item.FechaInicioOperacion
+                                            @item.cajadiario.First().FechaInicio
+                                        }
+                                    </td>
+                                    <td id="saldoInicial_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            @item.cajadiario.First().SaldoInicial
+                                        }
+                                    </td>
+                                    <td id="entradas_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            @item.cajadiario.First().Entradas   
+                                        }
+                                    </td>
+                                    <td id="salidas_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            @item.cajadiario.First().Salidas
+                                        }
+                                    </td>
+                                    <td id="saldoFinal_@item.CajaId">
+                                        @if (item.IndAbierto)
+                                        {
+                                            @item.cajadiario.First().SaldoFinal
                                         }
                                     </td>
                                 </tr>
@@ -154,14 +172,16 @@
                     fn.mensaje("NO EXISTE USUARIO DISPONIBLE PARA ASIGNAR");
                 }
             });
-
-
         }
 
-        function RefreshRowOf(id, persona, fechaInicio) {
+        function RefreshRowOf(id, persona, fechaInicio, saldoInicial,entradas,salidas, saldoFinal) {
             $("#estado_" + id).text('Abierto');
             $("#persona_" + id).text(persona);
             $("#fechaInicio_" + id).text(fechaInicio);
+            $("#saldoInicial_" + id).text(saldoInicial.toFixed(2));
+            $("#entradas_" + id).text(entradas.toFixed(2));
+            $("#salidas_" + id).text(salidas.toFixed(2));
+            $("#saldoFinal_" + id).text(saldoFinal.toFixed(2));
             $('#modal1').closeModal();
         }
 

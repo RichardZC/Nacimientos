@@ -14,8 +14,6 @@
           <Property Name="IndAbierto" Type="bit" Nullable="false" />
           <Property Name="IndBoveda" Type="bit" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
-          <Property Name="PersonaId" Type="int" />
-          <Property Name="FechaInicioOperacion" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="cajadiario">
           <Key>
@@ -249,18 +247,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           <Property Name="Orden" Type="int" />
           <Property Name="Referencia" Type="int" />
         </EntityType>
-        <Association Name="caja_ibfk_1">
-          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
-          <End Role="caja" Type="Self.caja" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="caja">
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="cajadiario_ibfk_1">
           <End Role="caja" Type="Self.caja" Multiplicity="1" />
           <End Role="cajadiario" Type="Self.cajadiario" Multiplicity="*" />
@@ -554,10 +540,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
 `uvw_menus`.`Referencia`
 FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="caja_ibfk_1" Association="Self.caja_ibfk_1">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="caja" EntitySet="caja" />
-          </AssociationSet>
           <AssociationSet Name="cajadiario_ibfk_1" Association="Self.cajadiario_ibfk_1">
             <End Role="caja" EntitySet="caja" />
             <End Role="cajadiario" EntitySet="cajadiario" />
@@ -648,8 +630,6 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
     <edmx:ConceptualModels>
       <Schema Namespace="BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="nacEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="caja" EntityType="BDModel.caja" />
-          <EntitySet Name="cajadiario" EntityType="BDModel.cajadiario" />
           <EntitySet Name="cajamov" EntityType="BDModel.cajamov" />
           <EntitySet Name="cajamovdetalle" EntityType="BDModel.cajamovdetalle" />
           <EntitySet Name="cargo" EntityType="BDModel.cargo" />
@@ -666,22 +646,6 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <EntitySet Name="rol" EntityType="BDModel.rol" />
           <EntitySet Name="usuario" EntityType="BDModel.usuario" />
           <EntitySet Name="uvw_menus" EntityType="BDModel.uvw_menus" />
-          <AssociationSet Name="caja_ibfk_1" Association="BDModel.caja_ibfk_1">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="caja" EntitySet="caja" />
-          </AssociationSet>
-          <AssociationSet Name="cajadiario_ibfk_1" Association="BDModel.cajadiario_ibfk_1">
-            <End Role="caja" EntitySet="caja" />
-            <End Role="cajadiario" EntitySet="cajadiario" />
-          </AssociationSet>
-          <AssociationSet Name="cajadiario_ibfk_2" Association="BDModel.cajadiario_ibfk_2">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="cajadiario" EntitySet="cajadiario" />
-          </AssociationSet>
-          <AssociationSet Name="cajamov_ibfk_1" Association="BDModel.cajamov_ibfk_1">
-            <End Role="cajadiario" EntitySet="cajadiario" />
-            <End Role="cajamov" EntitySet="cajamov" />
-          </AssociationSet>
           <AssociationSet Name="cajamov_ibfk_2" Association="BDModel.cajamov_ibfk_2">
             <End Role="persona" EntitySet="persona" />
             <End Role="cajamov" EntitySet="cajamov" />
@@ -735,6 +699,15 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
             <End Role="rol" EntitySet="rol" />
           </AssociationSet>
           <EntitySet Name="cajatransferencia" EntityType="BDModel.cajatransferencia" />
+          <EntitySet Name="cajadiario" EntityType="BDModel.cajadiario" />
+          <AssociationSet Name="cajadiario_ibfk_2" Association="BDModel.cajadiario_ibfk_2">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="cajadiario" EntitySet="cajadiario" />
+          </AssociationSet>
+          <AssociationSet Name="cajamov_ibfk_1" Association="BDModel.cajamov_ibfk_1">
+            <End Role="cajadiario" EntitySet="cajadiario" />
+            <End Role="cajamov" EntitySet="cajamov" />
+          </AssociationSet>
           <AssociationSet Name="cajatransferencia_ibfk_1" Association="BDModel.cajatransferencia_ibfk_1">
             <End Role="cajadiario" EntitySet="cajadiario" />
             <End Role="cajatransferencia" EntitySet="cajatransferencia" />
@@ -743,41 +716,12 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
             <End Role="cajadiario" EntitySet="cajadiario" />
             <End Role="cajatransferencia" EntitySet="cajatransferencia" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="caja">
-          <Key>
-            <PropertyRef Name="CajaId" />
-          </Key>
-          <Property Name="CajaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="IndAbierto" Type="Boolean" Nullable="false" />
-          <Property Name="IndBoveda" Type="Boolean" Nullable="false" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <Property Name="PersonaId" Type="Int32" />
-          <Property Name="FechaInicioOperacion" Type="DateTime" />
-          <NavigationProperty Name="persona" Relationship="BDModel.caja_ibfk_1" FromRole="caja" ToRole="persona" />
-          <NavigationProperty Name="cajadiario" Relationship="BDModel.cajadiario_ibfk_1" FromRole="caja" ToRole="cajadiario" />
-        </EntityType>
-        <EntityType Name="cajadiario">
-          <Key>
-            <PropertyRef Name="CajaDiarioId" />
-          </Key>
-          <Property Name="CajaDiarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CajaId" Type="Int32" Nullable="false" />
-          <Property Name="PersonaId" Type="Int32" />
-          <Property Name="SaldoInicial" Type="Decimal" Nullable="false" />
-          <Property Name="Entradas" Type="Decimal" Nullable="false" />
-          <Property Name="Salidas" Type="Decimal" Nullable="false" />
-          <Property Name="SaldoFinal" Type="Decimal" Nullable="false" />
-          <Property Name="FechaInicio" Type="DateTime" Nullable="false" />
-          <Property Name="FechaFin" Type="DateTime" />
-          <Property Name="IndAbierto" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="caja" Relationship="BDModel.cajadiario_ibfk_1" FromRole="cajadiario" ToRole="caja" />
-          <NavigationProperty Name="persona" Relationship="BDModel.cajadiario_ibfk_2" FromRole="cajadiario" ToRole="persona" />
-          <NavigationProperty Name="cajamov" Relationship="BDModel.cajamov_ibfk_1" FromRole="cajadiario" ToRole="cajamov" />
-          <NavigationProperty Name="cajatransferencia" Relationship="BDModel.cajatransferencia_ibfk_1" FromRole="cajadiario" ToRole="cajatransferencia" />
-          <NavigationProperty Name="cajatransferencia1" Relationship="BDModel.cajatransferencia_ibfk_2" FromRole="cajadiario" ToRole="cajatransferencia" />
-          </EntityType>
+          <EntitySet Name="caja" EntityType="BDModel.caja" />
+          <AssociationSet Name="cajadiario_ibfk_1" Association="BDModel.cajadiario_ibfk_1">
+            <End Role="caja" EntitySet="caja" />
+            <End Role="cajadiario" EntitySet="cajadiario" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="cajamov">
           <Key>
             <PropertyRef Name="CajaMovId" />
@@ -796,11 +740,11 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <Property Name="FechaAnulacion" Type="DateTime" />
           <Property Name="UsuarioDespachoId" Type="Int32" />
           <Property Name="FechaDespacho" Type="DateTime" />
-          <NavigationProperty Name="cajadiario" Relationship="BDModel.cajamov_ibfk_1" FromRole="cajamov" ToRole="cajadiario" />
           <NavigationProperty Name="persona" Relationship="BDModel.cajamov_ibfk_2" FromRole="cajamov" ToRole="persona" />
           <NavigationProperty Name="usuario" Relationship="BDModel.cajamov_ibfk_3" FromRole="cajamov" ToRole="usuario" />
           <NavigationProperty Name="usuario1" Relationship="BDModel.cajamov_ibfk_4" FromRole="cajamov" ToRole="usuario" />
           <NavigationProperty Name="cajamovdetalle" Relationship="BDModel.cajamovdetalle_ibfk_1" FromRole="cajamov" ToRole="cajamovdetalle" />
+          <NavigationProperty Name="cajadiario" Relationship="BDModel.cajamov_ibfk_1" FromRole="cajamov" ToRole="cajadiario" />
         </EntityType>
         <EntityType Name="cajamovdetalle">
           <Key>
@@ -940,10 +884,9 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <Property Name="Sexo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" />
           <Property Name="Partida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="caja" Relationship="BDModel.caja_ibfk_1" FromRole="persona" ToRole="caja" />
-          <NavigationProperty Name="cajadiario" Relationship="BDModel.cajadiario_ibfk_2" FromRole="persona" ToRole="cajadiario" />
           <NavigationProperty Name="cajamov" Relationship="BDModel.cajamov_ibfk_2" FromRole="persona" ToRole="cajamov" />
           <NavigationProperty Name="usuario" Relationship="BDModel.usuario_ibfk_1" FromRole="persona" ToRole="usuario" />
+          <NavigationProperty Name="cajadiario" Relationship="BDModel.cajadiario_ibfk_2" FromRole="persona" ToRole="cajadiario" />
         </EntityType>
         <EntityType Name="rol">
           <Key>
@@ -986,54 +929,6 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <Property Name="Orden" Type="Int32" />
           <Property Name="Referencia" Type="Int32" />
         </EntityType>
-        <Association Name="caja_ibfk_1">
-          <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
-          <End Type="BDModel.caja" Role="caja" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="caja">
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="cajadiario_ibfk_1">
-          <End Type="BDModel.caja" Role="caja" Multiplicity="1" />
-          <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="caja">
-              <PropertyRef Name="CajaId" />
-            </Principal>
-            <Dependent Role="cajadiario">
-              <PropertyRef Name="CajaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="cajadiario_ibfk_2">
-          <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
-          <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="cajadiario">
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="cajamov_ibfk_1">
-          <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="0..1" />
-          <End Type="BDModel.cajamov" Role="cajamov" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cajadiario">
-              <PropertyRef Name="CajaDiarioId" />
-            </Principal>
-            <Dependent Role="cajamov">
-              <PropertyRef Name="CajaDiarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="cajamov_ibfk_2">
           <End Type="BDModel.persona" Role="persona" Multiplicity="1" />
           <End Type="BDModel.cajamov" Role="cajamov" Multiplicity="*" />
@@ -1185,7 +1080,51 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <Property Name="IndSaldoInicial" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="cajadiario" Relationship="BDModel.cajatransferencia_ibfk_1" FromRole="cajatransferencia" ToRole="cajadiario" />
           <NavigationProperty Name="cajadiario1" Relationship="BDModel.cajatransferencia_ibfk_2" FromRole="cajatransferencia" ToRole="cajadiario" />
+          </EntityType>
+        <EntityType Name="cajadiario">
+          <Key>
+            <PropertyRef Name="CajaDiarioId" />
+          </Key>
+          <Property Name="CajaDiarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CajaId" Type="Int32" Nullable="false" />
+          <Property Name="PersonaId" Type="Int32" />
+          <Property Name="SaldoInicial" Type="Decimal" Nullable="false" />
+          <Property Name="Entradas" Type="Decimal" Nullable="false" />
+          <Property Name="Salidas" Type="Decimal" Nullable="false" />
+          <Property Name="SaldoFinal" Type="Decimal" Nullable="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" />
+          <Property Name="FechaFin" Type="DateTime" />
+          <Property Name="IndAbierto" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="persona" Relationship="BDModel.cajadiario_ibfk_2" FromRole="cajadiario" ToRole="persona" />
+          <NavigationProperty Name="cajamov" Relationship="BDModel.cajamov_ibfk_1" FromRole="cajadiario" ToRole="cajamov" />
+          <NavigationProperty Name="cajatransferencia" Relationship="BDModel.cajatransferencia_ibfk_1" FromRole="cajadiario" ToRole="cajatransferencia" />
+          <NavigationProperty Name="cajatransferencia1" Relationship="BDModel.cajatransferencia_ibfk_2" FromRole="cajadiario" ToRole="cajatransferencia" />
+          <NavigationProperty Name="caja" Relationship="BDModel.cajadiario_ibfk_1" FromRole="cajadiario" ToRole="caja" />
         </EntityType>
+        <Association Name="cajadiario_ibfk_2">
+          <End Type="BDModel.persona" Role="persona" Multiplicity="0..1" />
+          <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="cajadiario">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cajamov_ibfk_1">
+          <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="0..1" />
+          <End Type="BDModel.cajamov" Role="cajamov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cajadiario">
+              <PropertyRef Name="CajaDiarioId" />
+            </Principal>
+            <Dependent Role="cajamov">
+              <PropertyRef Name="CajaDiarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="cajatransferencia_ibfk_1">
           <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="1" />
           <End Type="BDModel.cajatransferencia" Role="cajatransferencia" Multiplicity="*" />
@@ -1210,41 +1149,35 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="caja">
+          <Key>
+            <PropertyRef Name="CajaId" />
+          </Key>
+          <Property Name="CajaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denominacion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IndAbierto" Type="Boolean" Nullable="false" />
+          <Property Name="IndBoveda" Type="Boolean" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cajadiario" Relationship="BDModel.cajadiario_ibfk_1" FromRole="caja" ToRole="cajadiario" />
+        </EntityType>
+        <Association Name="cajadiario_ibfk_1">
+          <End Type="BDModel.caja" Role="caja" Multiplicity="1" />
+          <End Type="BDModel.cajadiario" Role="cajadiario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="caja">
+              <PropertyRef Name="CajaId" />
+            </Principal>
+            <Dependent Role="cajadiario">
+              <PropertyRef Name="CajaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BDModelStoreContainer" CdmEntityContainer="nacEntities">
-          <EntitySetMapping Name="caja">
-            <EntityTypeMapping TypeName="BDModel.caja">
-              <MappingFragment StoreEntitySet="caja">
-                <ScalarProperty Name="FechaInicioOperacion" ColumnName="FechaInicioOperacion" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="IndBoveda" ColumnName="IndBoveda" />
-                <ScalarProperty Name="IndAbierto" ColumnName="IndAbierto" />
-                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
-                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cajadiario">
-            <EntityTypeMapping TypeName="BDModel.cajadiario">
-              <MappingFragment StoreEntitySet="cajadiario">
-                <ScalarProperty Name="IndAbierto" ColumnName="IndAbierto" />
-                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
-                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
-                <ScalarProperty Name="SaldoFinal" ColumnName="SaldoFinal" />
-                <ScalarProperty Name="Salidas" ColumnName="Salidas" />
-                <ScalarProperty Name="Entradas" ColumnName="Entradas" />
-                <ScalarProperty Name="SaldoInicial" ColumnName="SaldoInicial" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
-                <ScalarProperty Name="CajaDiarioId" ColumnName="CajaDiarioId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="cajamov">
             <EntityTypeMapping TypeName="BDModel.cajamov">
               <MappingFragment StoreEntitySet="cajamov">
@@ -1472,6 +1405,33 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
                 <ScalarProperty Name="DestinoCajaDiarioId" ColumnName="DestinoCajaDiarioId" />
                 <ScalarProperty Name="OrigenCajaDiarioId" ColumnName="OrigenCajaDiarioId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cajadiario">
+            <EntityTypeMapping TypeName="BDModel.cajadiario">
+              <MappingFragment StoreEntitySet="cajadiario">
+                <ScalarProperty Name="IndAbierto" ColumnName="IndAbierto" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="SaldoFinal" ColumnName="SaldoFinal" />
+                <ScalarProperty Name="Salidas" ColumnName="Salidas" />
+                <ScalarProperty Name="Entradas" ColumnName="Entradas" />
+                <ScalarProperty Name="SaldoInicial" ColumnName="SaldoInicial" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
+                <ScalarProperty Name="CajaDiarioId" ColumnName="CajaDiarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="caja">
+            <EntityTypeMapping TypeName="BDModel.caja">
+              <MappingFragment StoreEntitySet="caja">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IndBoveda" ColumnName="IndBoveda" />
+                <ScalarProperty Name="IndAbierto" ColumnName="IndAbierto" />
+                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
+                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

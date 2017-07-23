@@ -17,7 +17,7 @@ namespace BL
             return cd == null ? 0 : cd.SaldoFinal;
         }
 
-        public static string AsignarCajero(int pCajaId, int pPersonaId, decimal SaldoInicial)
+        public static int AsignarCajero(int pCajaId, int pPersonaId, decimal SaldoInicial)
         {
             using (var scope = new TransactionScope())
             {
@@ -35,10 +35,8 @@ namespace BL
                     CajaBL.ActualizarParcial(new caja
                     {
                         CajaId = pCajaId,
-                        IndAbierto = true,
-                        PersonaId = pPersonaId,
-                        FechaInicioOperacion = cd.FechaInicio
-                    }, x => x.IndAbierto, x => x.PersonaId, x => x.FechaInicioOperacion);
+                        IndAbierto = true
+                    }, x => x.IndAbierto);
 
                     if (SaldoInicial > 0)
                     {
@@ -57,7 +55,7 @@ namespace BL
                     }
 
                     scope.Complete();
-                    return string.Empty;
+                    return cd.CajaDiarioId;
                 }
                 catch (Exception ex)
                 {

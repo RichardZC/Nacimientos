@@ -20,10 +20,7 @@ create table Caja(
 	Denominacion VARCHAR(100) NOT NULL,
 	IndAbierto bit(1) NOT NULL,
 	IndBoveda bit(1) NOT NULL,
-	Estado bit(1) NOT NULL,
-	PersonaId int ,
-		FOREIGN KEY(PersonaId) REFERENCES Persona(PersonaId) on DELETE no action on UPDATE CASCADE,
-	FechaInicioOperacion datetime 
+	Estado bit(1) NOT NULL	
 );
 
 create table CajaDiario(

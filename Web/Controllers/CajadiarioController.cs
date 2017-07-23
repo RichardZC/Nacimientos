@@ -16,7 +16,8 @@ namespace Web.Controllers
         // GET: Cajadiario
         public ActionResult Index()
         {
-            return View(CajaBL.Listar(x => x.IndBoveda == false && x.Estado, includeProperties: "persona"));
+            var c = CajaBL.Listar(x => x.IndBoveda == false && x.Estado, includeProperties: "cajadiario,cajadiario.persona");
+            return View(c);
         }
 
         public JsonResult ObtenerSaldoBoveda()
@@ -37,11 +38,12 @@ namespace Web.Controllers
 
             try
             {
-                CajadiarioBL.AsignarCajero(pCajaId, pPersonaId, SaldoInicial);
-
-                persona p = PersonaBL.Obtener(pPersonaId);
+                int cajaDiarioId = CajadiarioBL.AsignarCajero(pCajaId, pPersonaId, SaldoInicial);
+                var cd = CajadiarioBL.Obtener(x => x.CajaDiarioId == cajaDiarioId, includeProperties: "Persona");
+               
+                
                 rm.SetResponse(true);
-                rm.function = "RefreshRowOf(" + pCajaId + ",'" + p.NombreCompleto + "','" + DateTime.Now + "');fn.notificar();";
+                rm.function = "RefreshRowOf(" + pCajaId + ",'" + cd.persona.NombreCompleto + "','" + cd.FechaInicio + "'," + cd.SaldoInicial + "," + cd.Entradas + "," + cd.Salidas + "," + cd.SaldoFinal + ");fn.notificar();";
             }
             catch (Exception ex)
             {
@@ -71,13 +73,13 @@ namespace Web.Controllers
             var personaid = UsuarioBL.Obtener(Comun.SessionHelper.GetUser()).PersonaId.Value;
             if (CajaBL.Contar(x => x.IndBoveda && x.Estado) == 0)
             {
-                var c = new caja { Denominacion = "BOVEDA", IndAbierto = true, IndBoveda = true, Estado = true, FechaInicioOperacion = DateTime.Now, PersonaId = personaid };
+                var c = new caja { Denominacion = "BOVEDA", IndAbierto = true, IndBoveda = true, Estado = true };
                 CajaBL.Crear(c);
                 CajadiarioBL.Crear(new cajadiario { CajaId = c.CajaId, PersonaId = personaid, FechaInicio = DateTime.Now, IndAbierto = true });
             }
 
             if (cajaId == 0)
-                CajaBL.Crear(new caja { Denominacion = nombre, IndAbierto = false, IndBoveda = false, Estado = true, FechaInicioOperacion = DateTime.Now });
+                CajaBL.Crear(new caja { Denominacion = nombre, IndAbierto = false, IndBoveda = false, Estado = true });
             else
                 CajaBL.ActualizarParcial(new caja { CajaId = cajaId, Denominacion = nombre }, x => x.Denominacion);
 
