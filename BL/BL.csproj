@@ -58,6 +58,7 @@
     <Compile Include="CajaBL.cs" />
     <Compile Include="CajadiarioBL.cs" />
     <Compile Include="CajaMovBL.cs" />
+    <Compile Include="CajaTransferenciaBL.cs" />
     <Compile Include="CargoBL.cs" />
     <Compile Include="ComunBL.cs" />
     <Compile Include="DefuncionAnexoBL.cs" />

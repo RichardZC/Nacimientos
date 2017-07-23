@@ -17,7 +17,7 @@ namespace BL
             return cd == null ? 0 : cd.SaldoFinal;
         }
 
-        public static bool AsignarCajero(int pCajaId, int pPersonaId, decimal SaldoInicial)
+        public static string AsignarCajero(int pCajaId, int pPersonaId, decimal SaldoInicial)
         {
             using (var scope = new TransactionScope())
             {
@@ -40,49 +40,64 @@ namespace BL
                         FechaInicioOperacion = cd.FechaInicio
                     }, x => x.IndAbierto, x => x.PersonaId, x => x.FechaInicioOperacion);
 
-                    if (SaldoInicial > 0) TransferirBovedaCaja(cd.CajaDiarioId,SaldoInicial);
-                    
-
-                    scope.Complete();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    scope.Dispose();
-                    return false;
-                }
-
-            }
-        }
-
-        public static bool TransferirBovedaCaja(int pCajaDiarioId, decimal monto)
-        {
-            using (var scope = new TransactionScope())
-            {
-                try
-                {
-                    CajaMovBL.Crear(new cajamov
+                    if (SaldoInicial > 0)
                     {
-                        CajaDiarioId = pCajaDiarioId,
-                        PersonaId = 0,
-                        Operacion = "TRA",
-                        Monto = monto,
-                        Glosa = "TRANS. DESDE BOVEDA",
-                        IndEntrada = true,
-                        Estado = "C",//concluído
-                        UsuarioRegId = Comun.SessionHelper.GetUser(),
-                        FechaReg = DateTime.Now
-                    });
+                        CajaTransferenciaBL.Crear(new cajatransferencia
+                        {
+                            OrigenCajaDiarioId = ComunBL.GetBovedaCajaDiarioId(),
+                            DestinoCajaDiarioId = cd.CajaDiarioId,
+                            Monto = SaldoInicial,
+                            Fecha = DateTime.Now,
+                            Estado = "T",
+                            IndSaldoInicial=true
+                        });
+
+                        ActualizarSaldoCajaDiario(ComunBL.GetBovedaCajaDiarioId());
+                        ActualizarSaldoCajaDiario(cd.CajaDiarioId);
+                    }
+
                     scope.Complete();
-                    return true;
+                    return string.Empty;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     scope.Dispose();
-                    return false;
+                    throw new Exception( ex.Message);
                 }
-
             }
         }
+
+
+
+
+        public static bool ActualizarSaldoCajaDiario(int pCajaDiarioId)
+        {
+            decimal ingresoMov = 0, ingresoTra = 0, egresoMov = 0, egresoTra = 0;
+           
+            using (var bd = new nacEntities())
+            {
+                ingresoMov = bd.cajamov
+                    .Where(x => x.CajaDiarioId == pCajaDiarioId && x.IndEntrada && x.Estado == "T")
+                    .Select(x => x.Monto).ToList().Sum();  
+                egresoMov = bd.cajamov
+                    .Where(x => x.CajaDiarioId == pCajaDiarioId && x.IndEntrada == false && x.Estado == "T")
+                    .Select(x => x.Monto).ToList().Sum();
+                ingresoTra = bd.cajatransferencia
+                    .Where(x => x.DestinoCajaDiarioId == pCajaDiarioId && x.Estado == "T" && !x.IndSaldoInicial)
+                    .Select(x => x.Monto).ToList().Sum();
+                egresoTra = bd.cajatransferencia
+                    .Where(x => x.OrigenCajaDiarioId == pCajaDiarioId && x.Estado == "T" && x.IndSaldoInicial)
+                    .Select(x => x.Monto).ToList().Sum();
+
+                var cd = bd.cajadiario.Find(pCajaDiarioId);
+                cd.Entradas = ingresoMov + ingresoTra;
+                cd.Salidas = egresoMov + egresoTra;
+                cd.SaldoFinal = cd.SaldoInicial + cd.Entradas - cd.Salidas;
+                bd.SaveChanges();
+            }
+                        
+            return true;
+        }
+
     }
 }

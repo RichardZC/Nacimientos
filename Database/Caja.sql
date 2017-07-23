@@ -30,7 +30,7 @@ create table CajaDiario(
 	CajaDiarioId int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	CajaId int(11) not null,
 		FOREIGN KEY(CajaId) REFERENCES Caja(CajaId) on DELETE no action on UPDATE CASCADE,
-	PersonaId int(11) not null,
+	PersonaId int(11) ,
 		FOREIGN KEY(PersonaId) REFERENCES Persona(PersonaId) on DELETE no action on UPDATE CASCADE,
 	SaldoInicial DECIMAL(15,2) not null DEFAULT 0,
 	Entradas DECIMAL(15,2) not null DEFAULT 0,
@@ -80,16 +80,20 @@ create table CajaTransferencia(
 	DestinoCajaDiarioId int(11) not null,
 		FOREIGN KEY(DestinoCajaDiarioId) REFERENCES CajaDiario(CajaDiarioId) on DELETE no action on UPDATE CASCADE,
 	Monto decimal(15,2) not null,
-	Fecha DateTime not null
+	Fecha DateTime not null,
+    Estado CHAR(1) not NULL,
+    IndSaldoInicial bit(1) not NULL
 );
 
-
+-- carga inicial
 insert into caja(Denominacion,IndAbierto,IndBoveda,Estado)
 VALUES('BOVEDA',1,1,1);
 insert into caja(Denominacion,IndAbierto,IndBoveda,Estado)
 VALUES('CAJA 1',0,0,1);
 insert into caja(Denominacion,IndAbierto,IndBoveda,Estado)
 VALUES('CAJA 2',0,0,1);
+insert into CajaDiario(CajaId,PersonaId,FechaInicio,IndAbierto)
+values(1,null,now(),1);
 
 insert into conceptopago(Denominacion,Importe,OficinaId,Estado)
 VALUES('COPIA PARTIDA NACIMIENTO',10,1,1);

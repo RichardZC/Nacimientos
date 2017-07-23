@@ -33,55 +33,15 @@ namespace Web.Controllers
             {
                 rm.SetResponse(false, "El saldo inicial ingresado es incorrecto");
                 return Json(rm);
-            }
-
-            cajadiario cd = new cajadiario();
-            cd.CajaId = pCajaId;
-            cd.PersonaId = pPersonaId;
-            cd.SaldoInicial = SaldoInicial;
-            cd.FechaInicio = DateTime.Now;
-            cd.IndAbierto = true;
+            }           
 
             try
             {
-                CajadiarioBL.Guardar(cd);
-                CajaBL.ActualizarParcial(new caja { CajaId = pCajaId, IndAbierto = true, PersonaId = pPersonaId, FechaInicioOperacion = cd.FechaInicio }, x => x.IndAbierto, x => x.PersonaId, x => x.FechaInicioOperacion);
-
-                if (SaldoInicial > 0)
-                {
-                    CajaMovBL.Crear(new cajamov
-                    {
-                        CajaDiarioId = cd.CajaDiarioId,
-                        PersonaId = pPersonaId,
-                        Operacion = "TRA",
-                        Monto = SaldoInicial,
-                        Glosa = "TRANS. DESDE BOVEDA",
-                        IndEntrada = true,
-                        Estado = "C",//concluído
-                        UsuarioRegId = Comun.SessionHelper.GetUser(),
-                        FechaReg = DateTime.Now
-                    });
-                    
-                    var boveda = CajadiarioBL.Obtener(x => x.caja.IndBoveda, includeProperties: "Caja");
-                    CajaMovBL.Crear(new cajamov
-                    {
-                        CajaDiarioId = boveda.CajaDiarioId,
-                        PersonaId = ComunBL.GetPersonaIdSesion(),
-                        Operacion = "TRA",
-                        Monto = SaldoInicial,
-                        Glosa = "TRANS. DESDE BOVEDA",
-                        IndEntrada = false,
-                        Estado = "C",//concluído
-                        UsuarioRegId = Comun.SessionHelper.GetUser(),
-                        FechaReg = DateTime.Now
-                    });
-                    CajadiarioBL.ActualizarParcial(new cajadiario { CajaDiarioId = boveda.CajaDiarioId, SaldoFinal = (boveda.SaldoFinal - SaldoInicial) }, x => x.SaldoFinal);
-                }
-
-                //obteniendo los datos del cajero
-                persona p = PersonaBL.Obtener(x => x.PersonaId == pPersonaId);
+                CajadiarioBL.AsignarCajero(pCajaId, pPersonaId, SaldoInicial);
+                
+                persona p = PersonaBL.Obtener(pPersonaId);
                 rm.SetResponse(true);
-                rm.function = "RefreshRowOf(" + pCajaId + ",'" + p.NombreCompleto + "','" + cd.FechaInicio + "');fn.notificar();";
+                rm.function = "RefreshRowOf(" + pCajaId + ",'" + p.NombreCompleto + "','" + DateTime.Now + "');fn.notificar();";
             }
             catch (Exception ex)
             {
