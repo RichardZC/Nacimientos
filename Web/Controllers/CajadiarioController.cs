@@ -33,12 +33,12 @@ namespace Web.Controllers
             {
                 rm.SetResponse(false, "El saldo inicial ingresado es incorrecto");
                 return Json(rm);
-            }           
+            }
 
             try
             {
                 CajadiarioBL.AsignarCajero(pCajaId, pPersonaId, SaldoInicial);
-                
+
                 persona p = PersonaBL.Obtener(pPersonaId);
                 rm.SetResponse(true);
                 rm.function = "RefreshRowOf(" + pCajaId + ",'" + p.NombreCompleto + "','" + DateTime.Now + "');fn.notificar();";
@@ -82,6 +82,16 @@ namespace Web.Controllers
                 CajaBL.ActualizarParcial(new caja { CajaId = cajaId, Denominacion = nombre }, x => x.Denominacion);
 
             return Json(true);
+        }
+
+        public JsonResult ComboUsuariosCajaAsignar()
+        {
+            return Json(BL.UsuarioBL.ListarUsuariosSinCaja()
+                .Select(x => new { Id = x.PersonaId, Valor = x.NombreCompleto })
+                , JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ContarUsuariosCajaAsignar() {
+            return Json(BL.UsuarioBL.ListarUsuariosSinCaja().Count, JsonRequestBehavior.AllowGet);
         }
     }
 }

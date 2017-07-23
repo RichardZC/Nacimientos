@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BE.caja>
-@{
-    var listaUsuario = BL.UsuarioBL.ListarUsuariosSinCaja();
-}
+@*@{
+        var listaUsuario = BL.UsuarioBL.ListarUsuariosSinCaja();
+    }*@
 <div class="row">
     <div class="col s12 m12 l12">
         <div class="card-panel">
@@ -76,9 +76,7 @@
                             <li>
                                 <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
                             </li>
-                            <li>
-                                <span id="tituloCaja"></span>
-                            </li>
+                            <li><span id="tituloCaja"></span></li>
                         </ul>
                     </div>
                     <div class="col s12 m7 l7">
@@ -92,26 +90,16 @@
             </nav>
         </div>
         <div class="model-email-content">
-
             <div class="row">
                 <div class="col s12 m8 l12">
                     <div class="input-field col s12">
-                        <select name="pPersonaId" value="0">
-                            @foreach (var usuario in listaUsuario)
-                            {
-                            <option value="@usuario.PersonaId">@usuario.persona.NombreCompleto</option>
-                            }
-                        </select>
+                        <select name="pPersonaId" id="drpUsuario"></select>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m8 l6">
-                    <p>
-                        <label>
-                            <span id="mensajeBoveda"></span>
-                        </label>
-                    </p>
+                    <p><label><span id="mensajeBoveda"></span></label></p>
                 </div>
                 <div id="mostrarSaldo" class="input-field col s12 m8 l6">
                     <i class="mdi-editor-attach-money prefix"></i>
@@ -120,7 +108,6 @@
                     <input id="txtSaldoInicial" name="SaldoInicial" type="number" data-error=".errorTxt1" class="required number">
                     <div class="errorTxt1"></div>
                 </div>
-
             </div>
         </div>
     </form>
@@ -129,8 +116,6 @@
 
 @section scripts{
     <script>
-
-
         $(function () {
             $('.modal-add').leanModal({
                 ready: function () {
@@ -152,15 +137,25 @@
         });
 
         function Mostrar(cajaId, CajaName) {
-            $.get('@Url.Action("ObtenerSaldoBoveda", "Cajadiario")', function (d) {
-                $("#mensajeBoveda").text('En la bóveda hay un saldo de S/. ' + d);
-                $("#txtSaldoInicial").prop('max', d);
+            $.get('@Url.Action("ContarUsuariosCajaAsignar", "Cajadiario")', function (r) {
+                if (r > 0) {
+                    $.get('@Url.Action("ObtenerSaldoBoveda", "Cajadiario")', function (d) {
+                        $("#mensajeBoveda").text('En la bóveda hay un saldo de S/. ' + d);
+                        $("#txtSaldoInicial").prop('max', d);
+                    });
+                    fn.CargarCombo("@Url.Action("ComboUsuariosCajaAsignar", "CajaDiario")", "drpUsuario");
+
+                    $('#modal1').openModal();
+                    $("#CajaId").val(cajaId);
+                    $("#tituloCaja").text(CajaName);
+                    $('#txtSaldoInicial').empty();
+                }
+                else {
+                    fn.mensaje("NO EXISTE USUARIO DISPONIBLE PARA ASIGNAR");
+                }
             });
 
-            $('#modal1').openModal();
-            $("#CajaId").val(cajaId);
-            $("#tituloCaja").text(CajaName);
-            $('#txtSaldoInicial').empty();
+
         }
 
         function RefreshRowOf(id, persona, fechaInicio) {
@@ -176,7 +171,7 @@
                     window.location.reload(true);
                 });
             });
-            
+
         }
     </script>
 }      

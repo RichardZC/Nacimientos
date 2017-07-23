@@ -56,34 +56,38 @@ namespace BL
             }
         }
 
-        public static List<usuario> ListarUsuariosSinCaja()
+        public static List<persona> ListarUsuariosSinCaja()
         {
-
             using (var bd = new nacEntities())
             {
-                var usuarios = UsuarioBL.Listar(x=>x.Activo==true, includeProperties: "persona").OrderBy(x=>x.persona.NombreCompleto);
-                var asignados = bd.cajadiario.Where(x => x.IndAbierto == true && x.caja.IndBoveda == false);
+                var asignados = bd.cajadiario
+                    .Where(x => x.IndAbierto == true && x.caja.IndBoveda == false)
+                    .Select(x => x.PersonaId);
 
-                List<usuario> lista = new List<usuario>();
-                bool contiene;
-                foreach (var u in usuarios)
-                {
-                    contiene = false;
-                    foreach (var a in asignados)
-                    {
-                       
-                        if (u.PersonaId == a.PersonaId)
-                        {
-                            contiene = true;
-                            break;
-                        }
-                    }
-                    if (!contiene)
-                    {
-                        lista.Add(u);
-                    }
-                }
-                return lista;
+                var p = bd.usuario.Where(x => x.Activo == true && !asignados.Contains(x.PersonaId))
+                    .Select(x => x.persona).ToList();
+
+                return p;
+
+                //List<usuario> lista = new List<usuario>();
+                //bool contiene;
+                //foreach (var u in usuarios)
+                //{
+                //    contiene = false;
+                //    foreach (var a in asignados)
+                //    {                       
+                //        if (u.PersonaId == a.PersonaId)
+                //        {
+                //            contiene = true;
+                //            break;
+                //        }
+                //    }
+                //    if (!contiene)
+                //    {
+                //        lista.Add(u);
+                //    }
+                //}
+                //return lista;
             }
         }
     }

@@ -30,6 +30,23 @@ var fn = {
 
                              //swal("Nice!", "You wrote: " + inputValue, "success");
                          });
+    },
+    CargarCombo: function (strUrl, strComboId, callbackOk) {
+        $.ajax({
+            url: window.location.origin + strUrl,
+            data: {},
+            success: function (result) {
+                if (result !== null) {
+                    var html = ''; 
+                    $.each(result, function () {
+                        html += "<option value=\"" + this.Id + "\">" + this.Valor + "</option>";
+                    });
+                    $("#" + strComboId).html(html);
+                    $("#" + strComboId).not('.disabled').material_select();
+                    if (typeof callbackOk === 'function') { callbackOk.call(this); }
+                }
+            }
+        });
     }
 };
 
