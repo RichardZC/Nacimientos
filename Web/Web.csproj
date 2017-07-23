@@ -265,14 +265,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CajadiarioController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
-    <Compile Include="Controllers\DefuncionController.cs" />
+    <Compile Include="Controllers\Acta\DefuncionController.cs" />
     <Compile Include="Controllers\DiarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MantenimientoController.cs" />
-    <Compile Include="Controllers\MatrimonioController.cs" />
-    <Compile Include="Controllers\NacimientoController.cs" />
+    <Compile Include="Controllers\Acta\MatrimonioController.cs" />
+    <Compile Include="Controllers\Acta\NacimientoController.cs" />
     <Compile Include="Controllers\OficinaController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
