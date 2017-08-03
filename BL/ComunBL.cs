@@ -13,6 +13,12 @@ namespace BL
         {
             return UsuarioBL.Obtener(Comun.SessionHelper.GetUser()).PersonaId.Value;
         }
+        public static persona GetPersonaSesion()
+        {
+            int id = Comun.SessionHelper.GetUser();
+            return UsuarioBL.Obtener(x => x.UsuarioId == id, includeProperties: "persona")
+                .persona;
+        }
         public static int GetCajaDiarioId()
         {
             using (var bd = new nacEntities())

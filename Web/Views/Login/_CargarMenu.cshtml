@@ -1,16 +1,15 @@
-﻿@{
-    var usuario = BL.UsuarioBL.Obtener(Comun.SessionHelper.GetUser());
-    var menus = BL.MenuBL.ListarMenu();
+﻿@{   
+    var m = BL.MenuBL.ListarMenu();
 }
 
 <ul id="slide-out" class="side-nav fixed leftside-navigation">
 
     <li class="user-details cyan darken-2">
         <div class="row">
-            <div class="col col s4 m4 l4">
+            <div class="col col s3 m3 l3" style="margin:0;padding:0">
                 <img src="~/images/male.gif" alt="" class="circle responsive-img valign profile-image">
             </div>
-            <div class="col col s8 m8 l8">
+            <div class="col col s9 m9 l9" style="margin:0;padding:0">
                 <ul id="profile-dropdown" class="dropdown-content">
                     <li>
                         <a href="#"><i class="mdi-action-face-unlock"></i> Perfil</a>
@@ -20,15 +19,14 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#"><i class="mdi-action-lock-outline"></i> Bloqueo</a>
-                    </li>
-                    <li>
                         <a href="@Url.Action("Logout", "Login" )"><i class="mdi-hardware-keyboard-tab"></i> Salir</a>
                     </li>
                 </ul>
 
-                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><span id="lblUsuario">@usuario.Nombre</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
-                <p class="user-roal">Administrador</p>
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">
+                    <span>@BL.ComunBL.GetPersonaSesion().Nombres</span><i class="mdi-navigation-arrow-drop-down right" style="margin:0"></i>
+                </a>
+                <p class="user-roal">@BL.MenuBL.RolSesion()</p>
 
             </div>
         </div>
@@ -42,7 +40,7 @@
     <li class="no-padding">
         <ul id="mnuPrincipal" class="collapsible collapsible-accordion">
 
-            @foreach (var menu in menus)
+            @foreach (var menu in m)
             {
                 <li class="bold">
 
@@ -51,7 +49,7 @@
                         <a id="mnu_@menu.MenuId" class="collapsible-header waves-effect waves-cyan"><i class="@menu.Icono"></i> @menu.Denominacion</a>
                         <div class="collapsible-body">
                             <ul>
-                                @foreach (var submenu in menus)
+                                @foreach (var submenu in m)
                                 {
                                     if (submenu.IndPadre == false && submenu.Referencia == menu.MenuId)
                                     {
@@ -59,7 +57,7 @@
                                             <a href="@Url.Action("Index", @submenu.Modulo)">@submenu.Denominacion</a>
                                         </li>
                                     }
-                                    
+
                                 }
 
                             </ul>
@@ -74,4 +72,6 @@
 
     <li class="li-hover"><div class="divider"></div></li>
 </ul>
+
+
 

@@ -218,22 +218,6 @@
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="uvw_menus">
-          <Key>
-            <PropertyRef Name="UsuarioId" />
-            <PropertyRef Name="RolId" />
-            <PropertyRef Name="MenuId" />
-          </Key>
-          <Property Name="UsuarioId" Type="int" Nullable="false" />
-          <Property Name="RolId" Type="int" Nullable="false" />
-          <Property Name="MenuId" Type="int" Nullable="false" />
-          <Property Name="Denominacion" Type="varchar" MaxLength="50" />
-          <Property Name="Modulo" Type="varchar" MaxLength="50" />
-          <Property Name="Icono" Type="varchar" MaxLength="200" />
-          <Property Name="IndPadre" Type="bit" />
-          <Property Name="Orden" Type="int" />
-          <Property Name="Referencia" Type="int" />
-        </EntityType>
         <Association Name="cajadiario_ibfk_1">
           <End Role="caja" Type="Self.caja" Multiplicity="1" />
           <End Role="cajadiario" Type="Self.cajadiario" Multiplicity="*" />
@@ -489,19 +473,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario_oficina" EntityType="Self.usuario_oficina" Schema="nac" store:Type="Tables" />
           <EntitySet Name="usuario_rol" EntityType="Self.usuario_rol" Schema="nac" store:Type="Tables" />
-          <EntitySet Name="uvw_menus" EntityType="Self.uvw_menus" store:Type="Views" store:Schema="nac">
-            <DefiningQuery>SELECT
-`uvw_menus`.`UsuarioId`, 
-`uvw_menus`.`RolId`, 
-`uvw_menus`.`MenuId`, 
-`uvw_menus`.`Denominacion`, 
-`uvw_menus`.`Modulo`, 
-`uvw_menus`.`Icono`, 
-`uvw_menus`.`IndPadre`, 
-`uvw_menus`.`Orden`, 
-`uvw_menus`.`Referencia`
-FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="cajadiario_ibfk_1" Association="Self.cajadiario_ibfk_1">
             <End Role="caja" EntitySet="caja" />
             <End Role="cajadiario" EntitySet="cajadiario" />
@@ -603,7 +574,6 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <EntitySet Name="rol_menu" EntityType="BDModel.rol_menu" />
           <EntitySet Name="usuario" EntityType="BDModel.usuario" />
           <EntitySet Name="usuario_rol" EntityType="BDModel.usuario_rol" />
-          <EntitySet Name="uvw_menus" EntityType="BDModel.uvw_menus" />
           <AssociationSet Name="cajadiario_ibfk_1" Association="BDModel.cajadiario_ibfk_1">
             <End Role="caja" EntitySet="caja" />
             <End Role="cajadiario" EntitySet="cajadiario" />
@@ -915,22 +885,6 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
           <Property Name="RolId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="rol" Relationship="BDModel.usuario_rol_ibfk_2" FromRole="usuario_rol" ToRole="rol" />
           <NavigationProperty Name="usuario" Relationship="BDModel.usuario_rol_ibfk_1" FromRole="usuario_rol" ToRole="usuario" />
-        </EntityType>
-        <EntityType Name="uvw_menus">
-          <Key>
-            <PropertyRef Name="UsuarioId" />
-            <PropertyRef Name="RolId" />
-            <PropertyRef Name="MenuId" />
-          </Key>
-          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
-          <Property Name="RolId" Type="Int32" Nullable="false" />
-          <Property Name="MenuId" Type="Int32" Nullable="false" />
-          <Property Name="Denominacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Icono" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="IndPadre" Type="Boolean" />
-          <Property Name="Orden" Type="Int32" />
-          <Property Name="Referencia" Type="Int32" />
         </EntityType>
         <Association Name="cajadiario_ibfk_1">
           <End Type="BDModel.caja" Role="caja" Multiplicity="1" />
@@ -1371,21 +1325,6 @@ FROM `uvw_menus` AS `uvw_menus`</DefiningQuery>
                 <ScalarProperty Name="RolId" ColumnName="RolId" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="uvw_menus">
-            <EntityTypeMapping TypeName="BDModel.uvw_menus">
-              <MappingFragment StoreEntitySet="uvw_menus">
-                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
-                <ScalarProperty Name="Orden" ColumnName="Orden" />
-                <ScalarProperty Name="IndPadre" ColumnName="IndPadre" />
-                <ScalarProperty Name="Icono" ColumnName="Icono" />
-                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
-                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-                <ScalarProperty Name="RolId" ColumnName="RolId" />
-                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

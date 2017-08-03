@@ -89,7 +89,6 @@
   <ItemGroup>
     <Content Include="BD\Caja.sql" />
     <Content Include="BD\Seguridad.sql" />
-    <Content Include="BD\uvw_menus.sql" />
     <Content Include="Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>

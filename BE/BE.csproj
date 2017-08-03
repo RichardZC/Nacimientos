@@ -118,9 +118,6 @@
     <Compile Include="usuario_rol.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="uvw_menus.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -44,6 +44,5 @@ namespace BE
         public virtual DbSet<rol_menu> rol_menu { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<usuario_rol> usuario_rol { get; set; }
-        public virtual DbSet<uvw_menus> uvw_menus { get; set; }
     }
 }
