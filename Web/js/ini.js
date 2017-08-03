@@ -10,26 +10,28 @@ var fn = {
             default: Materialize.toast('SE GRABARON LOS DATOS CORRECTAMENTE!', 4000);
         }
     },
-    prompt: function (mensaje, valor, mcallback) {
+    prompt: function (titulo, control, valor, mcallback) { 
         swal({
-            title: mensaje,
-            //text: mensaje,
-            type: "input", showCancelButton: true,
+            title: titulo,
+            input: control,
+            showCancelButton: true,
             closeOnConfirm: false,
-            animation: "slide-from-top",
             inputPlaceholder: "Ingrese dato",
-            inputValue: valor
-        },
-                         function (inputValue) {
-                             if (inputValue === false) return false;
-                             if (inputValue === "") {
-                                 swal.showInputError("Tu necesitas escribir algo!");
-                                 return false
-                             }
-                             if (typeof mcallback === 'function') { mcallback(inputValue); swal.close(); }
-
-                             //swal("Nice!", "You wrote: " + inputValue, "success");
-                         });
+            inputValue: valor,
+            confirmButtonText: '<i class="mdi-navigation-check"></i> ACEPTAR',
+            cancelButtonText: '<i class="mdi-navigation-close"></i> CANCELAR',
+            inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                    if (value) {
+                        resolve()
+                    } else {
+                        reject('Tu necesitas ingresar un dato válido!')
+                    }
+                })
+            }
+        }).then(function (result) {
+            if (typeof mcallback === 'function') { mcallback(result); swal.close(); }
+        });
     },
     CargarCombo: function (strUrl, strComboId, callbackOk) {
         $.ajax({
@@ -37,7 +39,7 @@ var fn = {
             data: {},
             success: function (result) {
                 if (result !== null) {
-                    var html = ''; 
+                    var html = '';
                     $.each(result, function () {
                         html += "<option value=\"" + this.Id + "\">" + this.Valor + "</option>";
                     });
@@ -55,7 +57,7 @@ var tabla = {
         var txt = "";
         if (id > 0) txt = $("#" + t + id).text();
 
-        fn.prompt("CREAR " + t, txt, function (valor) {
+        fn.prompt("CREAR " + t,'text', txt, function (valor) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',

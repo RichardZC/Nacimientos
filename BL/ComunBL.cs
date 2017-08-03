@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace BL
 {
    public  class ComunBL
@@ -18,10 +18,23 @@ namespace BL
             using (var bd = new nacEntities())
             {
                 var personaid = bd.usuario.Find(Comun.SessionHelper.GetUser()).PersonaId;
-                return bd.cajadiario
-                    .First(x => x.PersonaId == personaid && x.IndAbierto && x.caja.IndBoveda == false && x.caja.IndAbierto)
-                    .CajaDiarioId;
+                var cd = bd.cajadiario
+                    .FirstOrDefault(x => x.PersonaId == personaid && x.IndAbierto && x.caja.IndBoveda == false && x.caja.IndAbierto);
+
+                if (cd == null)
+                    return 0;
+
+                return cd.CajaDiarioId;
             }            
+        }
+        public static cajadiario GetCajaDiario()
+        {
+            using (var bd = new nacEntities())
+            {
+                var personaid = bd.usuario.Find(Comun.SessionHelper.GetUser()).PersonaId;
+                return bd.cajadiario.Include(t => t.caja).Include(x=>x.persona).Include(x=>x.cajamov).Include("cajamov.persona")
+                    .FirstOrDefault(x => x.PersonaId == personaid && x.IndAbierto && x.caja.IndBoveda == false && x.caja.IndAbierto);
+            }
         }
         public static int GetBovedaCajaDiarioId()
         {
@@ -30,6 +43,14 @@ namespace BL
                 return bd.cajadiario
                     .First(x => x.IndAbierto && x.caja.IndBoveda && x.caja.IndAbierto)
                     .CajaDiarioId;
+            }
+        }
+        public static cajadiario GetBoveda()
+        {
+            using (var bd = new nacEntities())
+            {
+                return bd.cajadiario.Include(x=>x.caja)
+                    .First(x => x.IndAbierto && x.caja.IndBoveda && x.caja.IndAbierto);
             }
         }
     }

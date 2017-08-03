@@ -11,12 +11,12 @@ using Web.Filters;
 namespace Web.Controllers
 {
     [Autenticado]
-    public class OficinaController : Controller
+    public class RolController : Controller
     {
         // GET: Oficina
         public ActionResult Index()
         {
-            return View(OficinaBL.Listar()  );
+            return View();
         }
         //[HttpPost]
         //public JsonResult Guardar(oficina o) {
@@ -50,6 +50,13 @@ namespace Web.Controllers
             try
             {
                 RolBL.Guardar(r);
+                if (mnu != null)
+                {
+                    foreach (var i in mnu)
+                        r.rol_menu.Add(new rol_menu { RolId = r.RolId, MenuId = i });
+                }
+                RolBL.GuardarRolMenu(r);
+
                 rm.SetResponse(true);
                 if (Esnuevo)
                 {
@@ -68,21 +75,13 @@ namespace Web.Controllers
                 rm.function = "fn.mensaje('" + ex.Message + "')";
             }
 
-           if (mnu != null)
-            {
-                foreach (var i in mnu)
-                    r.menu.Add(new menu { MenuId = i });
-            }
-            RolBL.GuardarRolMenu(r);
-            
-
             return Json(rm);
         }
 
         public JsonResult ListarMenus(int rolId)
         {
-            var m = RolBL.Obtener(x=>x.RolId== rolId,includeProperties:"menu");
-            return Json(m.menu.Select(x => new { id = x.MenuId }), JsonRequestBehavior.AllowGet);
+            var m = MenuBL.ListarMenu(rolId);
+            return Json(m.Select(x => new { id = x.MenuId }), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -58,7 +58,6 @@
     <Compile Include="Caja\CajaBL.cs" />
     <Compile Include="Caja\CajadiarioBL.cs" />
     <Compile Include="Caja\CajaMovBL.cs" />
-    <Compile Include="Caja\CajaTransferenciaBL.cs" />
     <Compile Include="Maestro\CargoBL.cs" />
     <Compile Include="ComunBL.cs" />
     <Compile Include="Actas\DefuncionAnexoBL.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Repositorio.cs" />
     <Compile Include="Reporte\ReporteNac.cs" />
     <Compile Include="Seguridad\RolBL.cs" />
+    <Compile Include="Seguridad\RolMenuBL.cs" />
     <Compile Include="Seguridad\UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -40,17 +40,35 @@ namespace BL
 
                     if (SaldoInicial > 0)
                     {
-                        CajaTransferenciaBL.Crear(new cajatransferencia
+                        //mov origen
+                        var boveda = ComunBL.GetBoveda();
+                        CajaMovBL.Crear(new cajamov
                         {
-                            OrigenCajaDiarioId = ComunBL.GetBovedaCajaDiarioId(),
-                            DestinoCajaDiarioId = cd.CajaDiarioId,
+                            CajaDiarioId = boveda.CajaDiarioId,
+                            PersonaId = ComunBL.GetPersonaIdSesion(),
                             Monto = SaldoInicial,
-                            Fecha = DateTime.Now,
+                            Operacion = "TRA",
+                            Glosa = "TRANS. BOVEDA A " + boveda.caja.Denominacion,
+                            IndEntrada = false,
                             Estado = "T",
-                            IndSaldoInicial=true
+                            UsuarioRegId = Comun.SessionHelper.GetUser(),
+                            FechaReg = DateTime.Now
+                        });
+                        // mov destino
+                        CajaMovBL.Crear(new cajamov
+                        {
+                            CajaDiarioId = cd.CajaDiarioId,
+                            PersonaId = cd.PersonaId.Value,
+                            Monto = cd.SaldoInicial,
+                            Operacion = "INI",
+                            Glosa = "TRANS. SALDO INICIAL",
+                            IndEntrada = true,
+                            Estado = "T",
+                            UsuarioRegId = Comun.SessionHelper.GetUser(),
+                            FechaReg = DateTime.Now
                         });
 
-                        ActualizarSaldoCajaDiario(ComunBL.GetBovedaCajaDiarioId());
+                        ActualizarSaldoCajaDiario(boveda.CajaDiarioId);
                         ActualizarSaldoCajaDiario(cd.CajaDiarioId);
                     }
 
@@ -60,7 +78,7 @@ namespace BL
                 catch (Exception ex)
                 {
                     scope.Dispose();
-                    throw new Exception( ex.Message);
+                    throw new Exception(ex.Message);
                 }
             }
         }
@@ -70,32 +88,59 @@ namespace BL
 
         public static bool ActualizarSaldoCajaDiario(int pCajaDiarioId)
         {
-            decimal ingresoMov = 0, ingresoTra = 0, egresoMov = 0, egresoTra = 0;
-           
+            decimal ingresoMov = 0, egresoMov = 0;
+
             using (var bd = new nacEntities())
             {
                 ingresoMov = bd.cajamov
-                    .Where(x => x.CajaDiarioId == pCajaDiarioId && x.IndEntrada && x.Estado == "T")
-                    .Select(x => x.Monto).ToList().Sum();  
+                    .Where(x => x.CajaDiarioId == pCajaDiarioId && x.IndEntrada && x.Estado == "T" && x.Operacion != "INI")
+                    .Select(x => x.Monto).ToList().Sum();
                 egresoMov = bd.cajamov
                     .Where(x => x.CajaDiarioId == pCajaDiarioId && x.IndEntrada == false && x.Estado == "T")
                     .Select(x => x.Monto).ToList().Sum();
-                ingresoTra = bd.cajatransferencia
-                    .Where(x => x.DestinoCajaDiarioId == pCajaDiarioId && x.Estado == "T" && !x.IndSaldoInicial)
-                    .Select(x => x.Monto).ToList().Sum();
-                egresoTra = bd.cajatransferencia
-                    .Where(x => x.OrigenCajaDiarioId == pCajaDiarioId && x.Estado == "T" && x.IndSaldoInicial)
-                    .Select(x => x.Monto).ToList().Sum();
 
                 var cd = bd.cajadiario.Find(pCajaDiarioId);
-                cd.Entradas = ingresoMov + ingresoTra;
-                cd.Salidas = egresoMov + egresoTra;
+                cd.Entradas = ingresoMov;
+                cd.Salidas = egresoMov;
                 cd.SaldoFinal = cd.SaldoInicial + cd.Entradas - cd.Salidas;
                 bd.SaveChanges();
             }
-                        
+
             return true;
         }
+
+        public static bool CrearSaldoInicial(int cajaDiarioId, decimal saldoInicial)
+        {
+            using (var scope = new TransactionScope())
+            {
+                try
+                {
+                    CajadiarioBL.ActualizarParcial(new cajadiario { CajaDiarioId = cajaDiarioId, SaldoInicial = saldoInicial }, x => x.SaldoInicial);
+                    CajaMovBL.Crear(new cajamov
+                    {
+                        CajaDiarioId = cajaDiarioId,
+                        PersonaId = ComunBL.GetPersonaIdSesion(),
+                        Monto = saldoInicial,
+                        Operacion = "INI",
+                        Glosa = "TRANS. SALDO INICIAL",
+                        IndEntrada = true,
+                        Estado = "T",
+                        UsuarioRegId = Comun.SessionHelper.GetUser(),
+                        FechaReg = DateTime.Now
+                    });
+                    ActualizarSaldoCajaDiario(cajaDiarioId);
+
+                    scope.Complete();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    scope.Dispose();
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
 
     }
 }

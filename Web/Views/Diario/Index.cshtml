@@ -1,4 +1,115 @@
-﻿
+﻿@{
+    var CajaDiario = BL.ComunBL.GetCajaDiario();
+}
+@if (CajaDiario == null)
+{
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div id="card-alert" class="card orange">
+                <div class="card-content white-text center">
+                    <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i>  Caja no asignada</span>
+                    <p> EL USUARIO ACTUAL NO SE ENCUENTRA ASIGNADO A UNA CAJA.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="section">
+            <div id="card-stats" class="seaction">
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="card">
+                            <div class="card-content orange white-text">
+                                <p class="card-stats-title"><i class="mdi-editor-insert-drive-file"></i> @CajaDiario.caja.Denominacion - @CajaDiario.persona.NombreCompleto</p>
+                                <h6 class="card-stats-number">@CajaDiario.FechaInicio</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <div class="card">
+                            <div class="card-content  green white-text">
+                                <p class="card-stats-title"><i class="mdi-action-account-child"></i> SALDO INICIAL</p>
+                                <h4 class="card-stats-number">@CajaDiario.SaldoInicial</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <div class="card">
+                            <div class="card-content purple white-text">
+                                <p class="card-stats-title"><i class="mdi-communication-contacts"></i> INGRESOS</p>
+                                <h4 class="card-stats-number">@CajaDiario.Entradas</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <div class="card">
+                            <div class="card-content blue-grey white-text">
+                                <p class="card-stats-title"><i class="mdi-social-people-outline"></i> EGRESOS</p>
+                                <h4 class="card-stats-number">@CajaDiario.Salidas</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <div class="card">
+                            <div class="card-content deep-purple white-text">
+                                <p class="card-stats-title"><i class="mdi-editor-insert-drive-file"></i> NETO CAJA</p>
+                                <h4 class="card-stats-number">@CajaDiario.SaldoFinal</h4>
+                            </div>
+                        </div>
+                    </div>
 
-<h2>Diario ejemplo</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card-panel row">
+                <form class="col s12">
+                    @*<h5 class="header2">@CajaDiario.caja.Denominacion - @CajaDiario.persona.NombreCompleto</h5>*@
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Fecha</th>
+                                <th>Persona</th>
+                                <th>Operacion</th>
+                                <th>Descripcion</th>
+                                <th>Ingreso</th>
+                                <th>Egreso</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in CajaDiario.cajamov)
+                            {
+                                <tr>
+                                    <td>@i.CajaMovId</td>
+                                    <td>@i.FechaReg</td>
+                                    <td>@i.persona.NombreCompleto </td>
+                                    <td>@i.Operacion </td>
+                                    <td>@i.Glosa </td>
+                                    <td>
+                                        @if (i.IndEntrada)
+                                        {@i.Monto}
+                                    </td>
+                                    <td>
+                                        @if (!i.IndEntrada)
+                                        {@i.Monto}
+                                    </td>
+                                    <td>
+                                       @i.Estado
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+}

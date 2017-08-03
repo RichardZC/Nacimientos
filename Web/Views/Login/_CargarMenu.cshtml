@@ -1,7 +1,6 @@
-﻿
-@{
+﻿@{
     var usuario = BL.UsuarioBL.Obtener(Comun.SessionHelper.GetUser());
-    var menus = BL.MenuBL.ListarMenu(usuario.UsuarioId);
+    var menus = BL.MenuBL.ListarMenu();
 }
 
 <ul id="slide-out" class="side-nav fixed leftside-navigation">
@@ -41,7 +40,6 @@
 
 
     <li class="no-padding">
-
         <ul id="mnuPrincipal" class="collapsible collapsible-accordion">
 
             @foreach (var menu in menus)

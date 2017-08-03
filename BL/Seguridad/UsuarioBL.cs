@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BE;
 using MySql.Data.MySqlClient;
 using System.Data.Entity;
+using System.Transactions;
 
 namespace BL
 {
@@ -33,29 +34,29 @@ namespace BL
                 bd.SaveChanges();
             }
         }
-
+        
         public static void GuardarUsuarioRoles(usuario u)
         {
-            using (var bd = new nacEntities())
+            using (var scope = new TransactionScope())
             {
-                bd.Configuration.ProxyCreationEnabled = false;
-                bd.Configuration.LazyLoadingEnabled = false;
-                bd.Configuration.ValidateOnSaveEnabled = false;
-
-                bd.Database.ExecuteSqlCommand("Delete from usuario_rol where UsuarioId=" + u.UsuarioId.ToString());
-
-                var rolBK = u.rol;
-
-                u.rol = null;
-                bd.Entry(u).State = EntityState.Unchanged;
-                u.rol = rolBK;
-                foreach (var i in u.rol)
-                    bd.Entry(i).State = EntityState.Unchanged;
-
-                bd.SaveChanges();
+                try
+                {
+                    using (var bd = new nacEntities())
+                    {
+                        bd.usuario_rol.RemoveRange(bd.usuario_rol.Where(x => x.UsuarioId == u.UsuarioId));
+                        bd.usuario_rol.AddRange(u.usuario_rol);
+                        bd.SaveChanges();                        
+                    }
+                    scope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    scope.Dispose();
+                    throw new Exception(ex.Message);
+                }
             }
-        }
 
+        }
         public static List<persona> ListarUsuariosSinCaja()
         {
             using (var bd = new nacEntities())

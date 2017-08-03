@@ -16,7 +16,7 @@ namespace Web.Controllers
         // GET: Cajadiario
         public ActionResult Index()
         {
-            var c = CajaBL.Listar(x => x.IndBoveda == false && x.Estado, includeProperties: "cajadiario,cajadiario.persona");
+            var c = CajadiarioBL.Listar(x => x.IndAbierto, includeProperties: "caja,persona");
             return View(c);
         }
 
@@ -43,7 +43,8 @@ namespace Web.Controllers
                
                 
                 rm.SetResponse(true);
-                rm.function = "RefreshRowOf(" + pCajaId + ",'" + cd.persona.NombreCompleto + "','" + cd.FechaInicio + "'," + cd.SaldoInicial + "," + cd.Entradas + "," + cd.Salidas + "," + cd.SaldoFinal + ");fn.notificar();";
+                //rm.function = "RefreshRowOf(" + pCajaId + ",'" + cd.persona.NombreCompleto + "','" + cd.FechaInicio + "'," + cd.SaldoInicial + "," + cd.Entradas + "," + cd.Salidas + "," + cd.SaldoFinal + ");fn.notificar();";
+                rm.href = "self";
             }
             catch (Exception ex)
             {
@@ -94,6 +95,11 @@ namespace Web.Controllers
         }
         public JsonResult ContarUsuariosCajaAsignar() {
             return Json(BL.UsuarioBL.ListarUsuariosSinCaja().Count, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CrearSaldoInicial(int cajaDiarioId, decimal saldoInicial) {
+            return Json(CajadiarioBL.CrearSaldoInicial(cajaDiarioId, saldoInicial));
         }
     }
 }

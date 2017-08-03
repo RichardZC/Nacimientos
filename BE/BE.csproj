@@ -67,9 +67,6 @@
     <Compile Include="cajamovdetalle.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="cajatransferencia.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="cargo.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -112,7 +109,13 @@
     <Compile Include="rol.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="rol_menu.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="usuario.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuario_rol.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="uvw_menus.cs">

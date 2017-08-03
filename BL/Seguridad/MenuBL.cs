@@ -4,29 +4,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace BL
 {
     public class MenuBL : Repositorio<menu>
     {
 
-        public static List<uvw_menus> ListarMenu(int pUsuarioId)
+        public static List<uvw_menus> ListarMenu()
         {
-            using (var bd = new nacEntities())
-            {
-                //var u = UsuarioBL.Obtener(x=>x.UsuarioId == pUsuarioId,includeProperties:"rol,rol.menu");
-
-                //var u2 = RolBL.Listar(x => x.usuario.FirstOrDefault().UsuarioId == pUsuarioId, includeProperties: "usuario,menu");
-
-
-                //bd.Database.ExecuteSqlCommand("select * from uvw_rolesUsusario where UsuarioId=" + pUsuarioId);
-
-                var lista = MenusUsuarioBL.Listar(x => x.UsuarioId == pUsuarioId, y => y.OrderBy(z => z.Orden));
-
-                return lista; 
+            var id = Comun.SessionHelper.GetUser();
+            var lista = MenusUsuarioBL.Listar(x => x.UsuarioId == id, y => y.OrderBy(z => z.MenuId));
+            return lista;
+        }
+        public static List<menu> ListarMenu(int rolId)
+        {
+            using (var bd = new nacEntities()) {
+                var q = from rm in bd.rol_menu
+                        where rm.RolId == rolId
+                        select rm.menu;
+                return q.ToList();
             }
         }
 
+        //public static List<menu> ListarMenu2()
+        //{
+        //    var id = Comun.SessionHelper.GetUser();
+        //    using (var bd = new nacEntities())
+        //    {
+        //        var lista = bd.usuario
+        //            .Include(x => x.rol).Include("rol.menu")
+        //            .First(x => x.UsuarioId == id);
+        //        var c = from u in bd.usuario
+        //                select u.rol_menu.
+        //        return lista;
+        //    }
+        //}
 
     }
 }

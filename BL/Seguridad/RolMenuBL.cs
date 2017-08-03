@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-   public class CajaTransferenciaBL:Repositorio<cajatransferencia>
+    public class RolMenuBL:Repositorio<rol_menu>
     {
     }
 }

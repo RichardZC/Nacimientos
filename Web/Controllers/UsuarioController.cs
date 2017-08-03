@@ -138,7 +138,7 @@ namespace Web.Controllers
             if (r != null)
             {
                 foreach (var i in r)
-                    u.rol.Add(new rol { RolId = i });
+                    u.usuario_rol.Add(new usuario_rol { UsuarioId = u.UsuarioId, RolId = i });
             }
 
             try

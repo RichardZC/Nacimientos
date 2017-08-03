@@ -1,4 +1,4 @@
-﻿@model List<BE.oficina>
+﻿
 @{
     var listamnu = BL.MenuBL.Listar(x => x.IndPadre == false, x => x.OrderBy(y => y.Orden));
     var modelRoles = BL.RolBL.Listar();
@@ -26,7 +26,7 @@
 
 
         <div id="modal2" class="modal">
-            <form id="frmrol" action='@Url.Action("GuardarRoles","Oficina")' method="post">
+            <form id="frmrol" action='@Url.Action("GuardarRoles","Rol")' method="post">
                 <input id="RolId" name="RolId" type="hidden" value="0" />
                 <div class="modal-content" style="padding:0">
                     <nav class="red">
@@ -92,7 +92,7 @@
             });
             
             function MostrarEditarRol(Rolid) {
-                $.get("@Url.Action("ListarMenus", "Oficina")", { rolId: Rolid }, function (d) {    
+                $.get("@Url.Action("ListarMenus", "Rol")", { rolId: Rolid }, function (d) {    
                     $('#modal2').openModal();
                     $("#RolId").val(Rolid);
                     $("#txtRol").val($("#r_" + Rolid).text()).focus();

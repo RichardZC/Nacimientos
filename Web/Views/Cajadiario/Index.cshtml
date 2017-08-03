@@ -1,4 +1,7 @@
-﻿@model IEnumerable<BE.caja>
+﻿@model IEnumerable<BE.cajadiario>
+@{
+    var c = BL.CajaBL.Listar(x => x.Estado && !x.IndAbierto);
+}
 <div class="row">
     <div class="col s12 m12 l12">
         <div class="card-panel">
@@ -16,67 +19,65 @@
                                 <th>Entradas</th>
                                 <th>Salidas</th>
                                 <th>Saldo Fin</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.Denominacion</td>
-                                    <td id="estado_@item.CajaId">
-                                        @(item.IndAbierto ? "Abierto" : "Cerrado")                                       
-                                    </td>
-                                    <td id="persona_@item.CajaId">
-                                        @if (item.IndAbierto)
+                                    <td>@item.caja.Denominacion</td>
+                                    <td>@(item.IndAbierto ? "Abierto" : "Cerrado")</td>
+                                    <td>
+                                        @if (item.PersonaId.HasValue)
                                         {
-                                            @item.cajadiario.First().persona.NombreCompleto
+                                            @item.persona.NombreCompleto
                                         }
                                         else
                                         {
-                                            <button onclick="Mostrar(@item.CajaId,'@item.Denominacion');return false;" class="btn waves-effect waves-light ">
-                                                Asignar
-                                                <i class="mdi-content-send right"></i>
-                                            </button>
+                                            @item.caja.Denominacion
                                         }
                                     </td>
-                                    <td id="fechaInicio_@item.CajaId">
-                                        @if (item.IndAbierto)
+                                    <td>@item.FechaInicio </td>
+                                    <td>
+                                        @if (@item.SaldoInicial == 0)
                                         {
-                                            @item.cajadiario.First().FechaInicio
+                                            <a onclick="CrearSaldoInicial(@item.CajaDiarioId);" href="#" class="btn white black-text">@item.SaldoInicial</a>
                                         }
-                                    </td>
-                                    <td id="saldoInicial_@item.CajaId">
-                                        @if (item.IndAbierto)
+                                        else
                                         {
-                                            @item.cajadiario.First().SaldoInicial
+                                            @item.SaldoInicial
                                         }
                                     </td>
-                                    <td id="entradas_@item.CajaId">
-                                        @if (item.IndAbierto)
-                                        {
-                                            @item.cajadiario.First().Entradas   
-                                        }
+                                    <td>@item.Entradas</td>
+                                    <td>@item.Salidas</td>
+                                    <td>@item.SaldoFinal</td>
+                                    <td>
+                                        <a class="btn teal tooltipped waves-effect waves-light" data-position="left" data-tooltip="Ver Movimientos"><i class="mdi-action-description"></i></a>
                                     </td>
-                                    <td id="salidas_@item.CajaId">
-                                        @if (item.IndAbierto)
-                                        {
-                                            @item.cajadiario.First().Salidas
-                                        }
+                                </tr>
+                            }
+                            @foreach (var item in c)
+                            {
+                                <tr>
+                                    <td>@item.Denominacion</td>
+                                    <td>Cerrado</td>
+                                    <td>
+                                        <button onclick="Mostrar(@item.CajaId,'@item.Denominacion');return false;" class="btn waves-effect waves-light ">
+                                            Asignar
+                                            <i class="mdi-content-send right"></i>
+                                        </button>
                                     </td>
-                                    <td id="saldoFinal_@item.CajaId">
-                                        @if (item.IndAbierto)
-                                        {
-                                            @item.cajadiario.First().SaldoFinal
-                                        }
-                                    </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    <button onclick="nuevaCaja(); " type="button" class="btn cyan waves-effect waves-light right">
-                        Nueva Caja
-                        <i class="mdi-content-add-circle-outline right"></i>
-                    </button>
                 </form>
             </div>
         </div>
@@ -131,6 +132,12 @@
     </form>
 </div>
 
+<div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+    <a onclick="nuevaCaja();" class="btn btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Nueva Caja">
+        <i class="mdi-content-add-box"></i>
+    </a>
+</div>
+
 
 @section scripts{
     <script>
@@ -173,25 +180,20 @@
                 }
             });
         }
-
-        function RefreshRowOf(id, persona, fechaInicio, saldoInicial,entradas,salidas, saldoFinal) {
-            $("#estado_" + id).text('Abierto');
-            $("#persona_" + id).text(persona);
-            $("#fechaInicio_" + id).text(fechaInicio);
-            $("#saldoInicial_" + id).text(saldoInicial.toFixed(2));
-            $("#entradas_" + id).text(entradas.toFixed(2));
-            $("#salidas_" + id).text(salidas.toFixed(2));
-            $("#saldoFinal_" + id).text(saldoFinal.toFixed(2));
-            $('#modal1').closeModal();
-        }
-
+        
         function nuevaCaja() {
-            fn.prompt("Nueva Caja", "", function (valor) {
+            fn.prompt("Nueva Caja","text", "", function (valor) {
                 $.post('@Url.Action("GuardarCaja", "Cajadiario")', { cajaId: 0, nombre: valor }, function (d) {
                     window.location.reload(true);
                 });
             });
-
+        }
+        function CrearSaldoInicial(cdId) {
+            fn.prompt("Registrar Saldo Inicial", "number", "", function (valor) {
+                $.post('@Url.Action("CrearSaldoInicial", "Cajadiario")', { cajaDiarioId: cdId, saldoInicial: valor }, function (d) {
+                    window.location.reload(true);
+                });
+            });
         }
     </script>
 }      

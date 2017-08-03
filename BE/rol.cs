@@ -17,16 +17,16 @@ namespace BE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public rol()
         {
-            this.menu = new HashSet<menu>();
-            this.usuario = new HashSet<usuario>();
+            this.rol_menu = new HashSet<rol_menu>();
+            this.usuario_rol = new HashSet<usuario_rol>();
         }
     
         public int RolId { get; set; }
         public string Denominacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<menu> menu { get; set; }
+        public virtual ICollection<rol_menu> rol_menu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<usuario> usuario { get; set; }
+        public virtual ICollection<usuario_rol> usuario_rol { get; set; }
     }
 }

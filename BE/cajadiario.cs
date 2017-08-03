@@ -18,8 +18,6 @@ namespace BE
         public cajadiario()
         {
             this.cajamov = new HashSet<cajamov>();
-            this.cajatransferencia = new HashSet<cajatransferencia>();
-            this.cajatransferencia1 = new HashSet<cajatransferencia>();
         }
     
         public int CajaDiarioId { get; set; }
@@ -33,13 +31,9 @@ namespace BE
         public Nullable<System.DateTime> FechaFin { get; set; }
         public bool IndAbierto { get; set; }
     
+        public virtual caja caja { get; set; }
         public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cajatransferencia> cajatransferencia { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cajatransferencia> cajatransferencia1 { get; set; }
-        public virtual caja caja { get; set; }
     }
 }

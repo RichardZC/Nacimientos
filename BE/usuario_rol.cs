@@ -12,17 +12,13 @@ namespace BE
     using System;
     using System.Collections.Generic;
     
-    public partial class cajatransferencia
+    public partial class usuario_rol
     {
         public int Id { get; set; }
-        public int OrigenCajaDiarioId { get; set; }
-        public int DestinoCajaDiarioId { get; set; }
-        public decimal Monto { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string Estado { get; set; }
-        public bool IndSaldoInicial { get; set; }
+        public int UsuarioId { get; set; }
+        public int RolId { get; set; }
     
-        public virtual cajadiario cajadiario { get; set; }
-        public virtual cajadiario cajadiario1 { get; set; }
+        public virtual rol rol { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }

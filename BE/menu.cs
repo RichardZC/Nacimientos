@@ -17,7 +17,7 @@ namespace BE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public menu()
         {
-            this.rol = new HashSet<rol>();
+            this.rol_menu = new HashSet<rol_menu>();
         }
     
         public int MenuId { get; set; }
@@ -29,6 +29,6 @@ namespace BE
         public Nullable<int> Referencia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rol> rol { get; set; }
+        public virtual ICollection<rol_menu> rol_menu { get; set; }
     }
 }

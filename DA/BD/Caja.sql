@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS CajaTransferencia;
+-- DROP TABLE IF EXISTS CajaTransferencia;
 DROP TABLE IF EXISTS CajaMovDetalle;
 DROP TABLE IF EXISTS ConceptoPago;
 DROP TABLE IF EXISTS CajaMov;
@@ -44,11 +44,11 @@ create table CajaMov(
 		FOREIGN KEY(CajaDiarioId) REFERENCES CajaDiario(CajaDiarioId) on DELETE no action on UPDATE CASCADE,
 	PersonaId int(11) not null,
 		FOREIGN KEY(PersonaId) REFERENCES Persona(PersonaId) on DELETE no action on UPDATE CASCADE,
-	Operacion char(3) not null,
+	Operacion char(3) not null, -- TRA tranferencia, INI Saldo Inicial
 	Monto decimal(15,2) not null,
 	Glosa VARCHAR(100) not null,
 	IndEntrada bit(1) not null,
-	Estado char(1) not null,
+	Estado char(1) not null, -- P Pendiente, C Cobrado, T terminado, X anulado
 	UsuarioRegId int(11) not null,
 		FOREIGN KEY(UsuarioRegId) REFERENCES Usuario(UsuarioId) on DELETE no action on UPDATE CASCADE,
 	FechaReg DateTime not null,
@@ -69,7 +69,7 @@ create table CajaMovDetalle(
 	PU decimal(15,2) not null,
 	Monto decimal(15,2) not null
 );
-
+/*
 create table CajaTransferencia(
 	Id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	OrigenCajaDiarioId int(11) not null,
@@ -80,7 +80,7 @@ create table CajaTransferencia(
 	Fecha DateTime not null,
     Estado CHAR(1) not NULL,
     IndSaldoInicial bit(1) not NULL
-);
+);*/
 
 -- carga inicial
 insert into caja(Denominacion,IndAbierto,IndBoveda,Estado)

@@ -25,6 +25,8 @@ namespace BE
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<caja> caja { get; set; }
+        public virtual DbSet<cajadiario> cajadiario { get; set; }
         public virtual DbSet<cajamov> cajamov { get; set; }
         public virtual DbSet<cajamovdetalle> cajamovdetalle { get; set; }
         public virtual DbSet<cargo> cargo { get; set; }
@@ -39,10 +41,9 @@ namespace BE
         public virtual DbSet<oficina> oficina { get; set; }
         public virtual DbSet<persona> persona { get; set; }
         public virtual DbSet<rol> rol { get; set; }
+        public virtual DbSet<rol_menu> rol_menu { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<usuario_rol> usuario_rol { get; set; }
         public virtual DbSet<uvw_menus> uvw_menus { get; set; }
-        public virtual DbSet<cajatransferencia> cajatransferencia { get; set; }
-        public virtual DbSet<cajadiario> cajadiario { get; set; }
-        public virtual DbSet<caja> caja { get; set; }
     }
 }
