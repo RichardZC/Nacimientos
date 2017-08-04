@@ -1,5 +1,10 @@
 var fn = {
     //url: function (s) { return baseUrl + s; },
+    resetForm: function () {
+        $('.validar').each(function () {
+            $(this).validate().resetForm();
+        });
+    },
     mensaje: function (p) { Materialize.toast(p, 4000); },
     notificar: function (o) {
         switch (o) {
@@ -10,7 +15,7 @@ var fn = {
             default: Materialize.toast('SE GRABARON LOS DATOS CORRECTAMENTE!', 4000);
         }
     },
-    prompt: function (titulo, control, valor, mcallback) { 
+    prompt: function (titulo, control, valor, mcallback) {
         swal({
             title: titulo,
             input: control,
@@ -23,11 +28,11 @@ var fn = {
             inputValidator: function (value) {
                 return new Promise(function (resolve, reject) {
                     if (value) {
-                        resolve()
+                        resolve();
                     } else {
-                        reject('Tu necesitas ingresar un dato válido!')
+                        reject('Tu necesitas ingresar un dato válido!');
                     }
-                })
+                });
             }
         }).then(function (result) {
             if (typeof mcallback === 'function') { mcallback(result); swal.close(); }
@@ -57,7 +62,7 @@ var tabla = {
         var txt = "";
         if (id > 0) txt = $("#" + t + id).text();
 
-        fn.prompt("CREAR " + t,'text', txt, function (valor) {
+        fn.prompt("CREAR " + t, 'text', txt, function (valor) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -80,9 +85,22 @@ var tabla = {
             });
         });
     }
-}
+};
 $(document).ready(function () {
-
+    $('.validar').each(function () {
+        $(this).validate({
+            errorElement: 'div',
+            errorPlacement: function (error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    });
+    
     //https://github.com/devbridge/jQuery-Autocomplete
     if ($('#autocompletar').data('url') !== null) {
         var txt = $('#autocompletar');
@@ -106,10 +124,10 @@ $(document).ready(function () {
                     if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', true);
                 },
                 showNoSuggestionNotice: true,
-                noSuggestionNotice: 'Lo siento, no hay resultados',
+                noSuggestionNotice: 'Lo siento, no hay resultados'
             });
         });
-    };
+    }
 
 
     $("body").on('click', 'button', function () {
@@ -196,7 +214,7 @@ $(document).ready(function () {
         });
 
         return false;
-    })
+    });
 });
 
 jQuery.fn.reset = function () {
@@ -204,7 +222,7 @@ jQuery.fn.reset = function () {
     $("input:checkbox:checked", $(this)).click();
     $("select").each(function () {
         $(this).val($("option:first", $(this)).val());
-    })
+    });
 };
 
 /*

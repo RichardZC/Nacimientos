@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="BDModel.defuncion_anexo" Width="1.5" PointX="8" PointY="8.5" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.matrimonio" Width="1.5" PointX="7.75" PointY="6.5" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.matrimonio_anexo" Width="1.5" PointX="10" PointY="6.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="3" PointY="7.875" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.nacimiento" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.nacimiento_anexo" Width="1.5" PointX="10" PointY="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="BDModel.oficina" Width="1.5" PointX="5.25" PointY="5" IsExpanded="false" />
@@ -35,13 +34,14 @@
         <AssociationConnector Association="BDModel.conceptopago_ibfk_1" />
         <AssociationConnector Association="BDModel.defuncion_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.matrimonio_anexo_ibfk_1" />
-        <AssociationConnector Association="BDModel.rol_menu_ibfk_2" />
         <AssociationConnector Association="BDModel.nacimiento_anexo_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_ibfk_1" />
         <AssociationConnector Association="BDModel.rol_menu_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_rol_ibfk_2" />
         <AssociationConnector Association="BDModel.usuario_rol_ibfk_1" />
         <AssociationConnector Association="BDModel.usuario_oficina" />
+        <EntityTypeShape EntityType="BDModel.menu" Width="1.5" PointX="3.5" PointY="7.625" IsExpanded="false" />
+        <AssociationConnector Association="BDModel.rol_menu_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

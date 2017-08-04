@@ -54,27 +54,26 @@ CREATE TABLE menu (
   Denominacion varchar(50) DEFAULT NULL,
   Modulo varchar(50) DEFAULT NULL,
   Icono varchar(200) DEFAULT NULL,
-  IndPadre bit(1) DEFAULT NULL,
-  Orden int(11) DEFAULT NULL,
+  IndPadre bit(1) DEFAULT NULL,  
   Referencia int(11) DEFAULT NULL
 );
-INSERT INTO menu VALUES (1, 'Mantenimientos', 'Oficina', 'mdi-action-settings', 1, 1, null);
-INSERT INTO menu VALUES (2, 'Persona', 'Persona', 			null, 0, 2, 1);
-INSERT INTO menu VALUES (3, 'Mantenimiento', 'Mantenimiento',null, 0, 3, 1);
+INSERT INTO menu VALUES (1, 'Mantenimientos', 'Oficina', 'mdi-action-settings', 1, null);
+INSERT INTO menu VALUES (2, 'Persona', 'Persona', 			null, 0, 1);
+INSERT INTO menu VALUES (3, 'Mantenimiento', 'Mantenimiento',null, 0, 1);
 
-INSERT INTO menu VALUES (10, 'Seguridad', 'Usuario','mdi-hardware-security', 1, 10, null);
-INSERT INTO menu VALUES (11, 'Roles', 'Rol', 			null,0, 11, 10);
-INSERT INTO menu VALUES (12, 'Usuarios', 'Usuario', 	null,0, 12, 10);
+INSERT INTO menu VALUES (10, 'Seguridad', 'Usuario','mdi-hardware-security', 1, null);
+INSERT INTO menu VALUES (11, 'Roles', 'Rol', 			null,0, 10);
+INSERT INTO menu VALUES (12, 'Usuarios', 'Usuario', 	null,0, 10);
 
-INSERT INTO menu VALUES (20, 'Registro civil', 'Nacimiento', 'mdi-action-book', 1, 20, null);
-INSERT INTO menu VALUES (21, 'Nacimientos', 'Nacimiento', null, 0, 21, 20);
-INSERT INTO menu VALUES (22, 'Matrimonios', 'Matrimonio', null, 0, 22, 20);
-INSERT INTO menu VALUES (23, 'Defunciones', 'Defuncion', 	null, 0, 23, 20);
-INSERT INTO menu VALUES (24, 'Reportes', 'Informe', 		null, 0, 24, 20);
+INSERT INTO menu VALUES (20, 'Registro civil', 'Nacimiento', 'mdi-action-book', 1, null);
+INSERT INTO menu VALUES (21, 'Nacimientos', 'Nacimiento', null, 0, 20);
+INSERT INTO menu VALUES (22, 'Matrimonios', 'Matrimonio', null, 0, 20);
+INSERT INTO menu VALUES (23, 'Defunciones', 'Defuncion', 	null, 0, 20);
+INSERT INTO menu VALUES (24, 'Reportes', 'Informe', 		null, 0, 20);
 
-INSERT INTO menu VALUES (30, 'Caja', 		'Cajadiario', 	'mdi-action-book', 	1, 30, null);
-INSERT INTO menu VALUES (31, 'Diario', 		'Diario', 		null, 0, 31, 30);
-INSERT INTO menu VALUES (32, 'Caja Diario', 'Cajadiario', 	null, 0, 32, 30);
+INSERT INTO menu VALUES (30, 'Caja', 		'Cajadiario', 	'mdi-action-book', 	1, null);
+INSERT INTO menu VALUES (31, 'Diario', 		'Diario', 		null, 0, 30);
+INSERT INTO menu VALUES (32, 'Caja Diario', 'Cajadiario', 	null, 0, 30);
 
 DROP TABLE IF EXISTS rol_menu;
 CREATE TABLE rol_menu(

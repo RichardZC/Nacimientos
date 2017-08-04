@@ -25,7 +25,6 @@ namespace BE
         public string Modulo { get; set; }
         public string Icono { get; set; }
         public Nullable<bool> IndPadre { get; set; }
-        public Nullable<int> Orden { get; set; }
         public Nullable<int> Referencia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

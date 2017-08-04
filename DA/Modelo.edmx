@@ -128,7 +128,6 @@
           <Property Name="Modulo" Type="varchar" MaxLength="50" />
           <Property Name="Icono" Type="varchar" MaxLength="200" />
           <Property Name="IndPadre" Type="bit" />
-          <Property Name="Orden" Type="int" />
           <Property Name="Referencia" Type="int" />
         </EntityType>
         <EntityType Name="nacimiento">
@@ -202,11 +201,11 @@
         </EntityType>
         <EntityType Name="usuario_oficina">
           <Key>
-            <PropertyRef Name="UsuarioId" />
             <PropertyRef Name="OficinaId" />
+            <PropertyRef Name="UsuarioId" />
           </Key>
-          <Property Name="UsuarioId" Type="int" Nullable="false" />
           <Property Name="OficinaId" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="usuario_rol">
           <Key>
@@ -216,8 +215,6 @@
           <Property Name="UsuarioId" Type="int" Nullable="false" />
           <Property Name="RolId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <Association Name="cajadiario_ibfk_1">
           <End Role="caja" Type="Self.caja" Multiplicity="1" />
           <End Role="cajadiario" Type="Self.cajadiario" Multiplicity="*" />
@@ -405,18 +402,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           </ReferentialConstraint>
         </Association>
         <Association Name="usuario_oficina_ibfk_1">
-          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
-          <End Role="usuario_oficina" Type="Self.usuario_oficina" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuario">
-              <PropertyRef Name="UsuarioId" />
-            </Principal>
-            <Dependent Role="usuario_oficina">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="usuario_oficina_ibfk_2">
           <End Role="oficina" Type="Self.oficina" Multiplicity="1" />
           <End Role="usuario_oficina" Type="Self.usuario_oficina" Multiplicity="*" />
           <ReferentialConstraint>
@@ -425,6 +410,18 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
             </Principal>
             <Dependent Role="usuario_oficina">
               <PropertyRef Name="OficinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_oficina_ibfk_2">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="usuario_oficina" Type="Self.usuario_oficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="usuario_oficina">
+              <PropertyRef Name="UsuarioId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -534,11 +531,11 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
           <AssociationSet Name="usuario_oficina_ibfk_1" Association="Self.usuario_oficina_ibfk_1">
-            <End Role="usuario" EntitySet="usuario" />
+            <End Role="oficina" EntitySet="oficina" />
             <End Role="usuario_oficina" EntitySet="usuario_oficina" />
           </AssociationSet>
           <AssociationSet Name="usuario_oficina_ibfk_2" Association="Self.usuario_oficina_ibfk_2">
-            <End Role="oficina" EntitySet="oficina" />
+            <End Role="usuario" EntitySet="usuario" />
             <End Role="usuario_oficina" EntitySet="usuario_oficina" />
           </AssociationSet>
           <AssociationSet Name="usuario_rol_ibfk_1" Association="Self.usuario_rol_ibfk_1">
@@ -565,7 +562,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           <EntitySet Name="defuncion_anexo" EntityType="BDModel.defuncion_anexo" />
           <EntitySet Name="matrimonio" EntityType="BDModel.matrimonio" />
           <EntitySet Name="matrimonio_anexo" EntityType="BDModel.matrimonio_anexo" />
-          <EntitySet Name="menu" EntityType="BDModel.menu" />
           <EntitySet Name="nacimiento" EntityType="BDModel.nacimiento" />
           <EntitySet Name="nacimiento_anexo" EntityType="BDModel.nacimiento_anexo" />
           <EntitySet Name="oficina" EntityType="BDModel.oficina" />
@@ -618,10 +614,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
             <End Role="matrimonio" EntitySet="matrimonio" />
             <End Role="matrimonio_anexo" EntitySet="matrimonio_anexo" />
           </AssociationSet>
-          <AssociationSet Name="rol_menu_ibfk_2" Association="BDModel.rol_menu_ibfk_2">
-            <End Role="menu" EntitySet="menu" />
-            <End Role="rol_menu" EntitySet="rol_menu" />
-          </AssociationSet>
           <AssociationSet Name="nacimiento_anexo_ibfk_1" Association="BDModel.nacimiento_anexo_ibfk_1">
             <End Role="nacimiento" EntitySet="nacimiento" />
             <End Role="nacimiento_anexo" EntitySet="nacimiento_anexo" />
@@ -645,6 +637,11 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           <AssociationSet Name="usuario_oficina" Association="BDModel.usuario_oficina">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="oficina" EntitySet="oficina" />
+          </AssociationSet>
+          <EntitySet Name="menu" EntityType="BDModel.menu" />
+          <AssociationSet Name="rol_menu_ibfk_2" Association="BDModel.rol_menu_ibfk_2">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="rol_menu" EntitySet="rol_menu" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="caja">
@@ -778,19 +775,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           <Property Name="url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="matrimonio" Relationship="BDModel.matrimonio_anexo_ibfk_1" FromRole="matrimonio_anexo" ToRole="matrimonio" />
         </EntityType>
-        <EntityType Name="menu">
-          <Key>
-            <PropertyRef Name="MenuId" />
-          </Key>
-          <Property Name="MenuId" Type="Int32" Nullable="false" />
-          <Property Name="Denominacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Icono" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="IndPadre" Type="Boolean" />
-          <Property Name="Orden" Type="Int32" />
-          <Property Name="Referencia" Type="Int32" />
-          <NavigationProperty Name="rol_menu" Relationship="BDModel.rol_menu_ibfk_2" FromRole="menu" ToRole="rol_menu" />
-        </EntityType>
         <EntityType Name="nacimiento">
           <Key>
             <PropertyRef Name="NacimientoId" />
@@ -857,8 +841,8 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RolId" Type="Int32" Nullable="false" />
           <Property Name="MenuId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="menu" Relationship="BDModel.rol_menu_ibfk_2" FromRole="rol_menu" ToRole="menu" />
           <NavigationProperty Name="rol" Relationship="BDModel.rol_menu_ibfk_1" FromRole="rol_menu" ToRole="rol" />
+          <NavigationProperty Name="menu" Relationship="BDModel.rol_menu_ibfk_2" FromRole="rol_menu" ToRole="menu" />
         </EntityType>
         <EntityType Name="usuario">
           <Key>
@@ -1022,18 +1006,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="rol_menu_ibfk_2">
-          <End Type="BDModel.menu" Role="menu" Multiplicity="1" />
-          <End Type="BDModel.rol_menu" Role="rol_menu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="menu">
-              <PropertyRef Name="MenuId" />
-            </Principal>
-            <Dependent Role="rol_menu">
-              <PropertyRef Name="MenuId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="nacimiento_anexo_ibfk_1">
           <End Type="BDModel.nacimiento" Role="nacimiento" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1099,6 +1071,30 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
         <Association Name="usuario_oficina">
           <End Type="BDModel.usuario" Role="usuario" Multiplicity="*" />
           <End Type="BDModel.oficina" Role="oficina" Multiplicity="*" />
+        </Association>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="Denominacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Icono" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IndPadre" Type="Boolean" />
+          <Property Name="Referencia" Type="Int32" />
+          <NavigationProperty Name="rol_menu" Relationship="BDModel.rol_menu_ibfk_2" FromRole="menu" ToRole="rol_menu" />
+        </EntityType>
+        <Association Name="rol_menu_ibfk_2">
+          <End Type="BDModel.menu" Role="menu" Multiplicity="1" />
+          <End Type="BDModel.rol_menu" Role="rol_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="menu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="rol_menu">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1230,19 +1226,6 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="menu">
-            <EntityTypeMapping TypeName="BDModel.menu">
-              <MappingFragment StoreEntitySet="menu">
-                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
-                <ScalarProperty Name="Orden" ColumnName="Orden" />
-                <ScalarProperty Name="IndPadre" ColumnName="IndPadre" />
-                <ScalarProperty Name="Icono" ColumnName="Icono" />
-                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
-                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="nacimiento">
             <EntityTypeMapping TypeName="BDModel.nacimiento">
               <MappingFragment StoreEntitySet="nacimiento">
@@ -1336,6 +1319,18 @@ advertencia 6002: La tabla o vista 'def.nac.uvw_menus' no tiene definida ninguna
               <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="menu">
+            <EntityTypeMapping TypeName="BDModel.menu">
+              <MappingFragment StoreEntitySet="menu">
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+                <ScalarProperty Name="IndPadre" ColumnName="IndPadre" />
+                <ScalarProperty Name="Icono" ColumnName="Icono" />
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -35,7 +35,6 @@ namespace BE
         public virtual DbSet<defuncion_anexo> defuncion_anexo { get; set; }
         public virtual DbSet<matrimonio> matrimonio { get; set; }
         public virtual DbSet<matrimonio_anexo> matrimonio_anexo { get; set; }
-        public virtual DbSet<menu> menu { get; set; }
         public virtual DbSet<nacimiento> nacimiento { get; set; }
         public virtual DbSet<nacimiento_anexo> nacimiento_anexo { get; set; }
         public virtual DbSet<oficina> oficina { get; set; }
@@ -44,5 +43,6 @@ namespace BE
         public virtual DbSet<rol_menu> rol_menu { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<usuario_rol> usuario_rol { get; set; }
+        public virtual DbSet<menu> menu { get; set; }
     }
 }

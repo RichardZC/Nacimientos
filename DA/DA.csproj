@@ -87,6 +87,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BD\Maestro.sql" />
     <Content Include="BD\Caja.sql" />
     <Content Include="BD\Seguridad.sql" />
     <Content Include="Modelo.Context.tt">

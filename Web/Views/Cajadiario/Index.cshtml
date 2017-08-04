@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BE.cajadiario>
 @{
-    var c = BL.CajaBL.Listar(x => x.Estado && !x.IndAbierto);
+var c = BL.CajaBL.Listar(x => x.Estado && !x.IndAbierto);
 }
 <div class="row">
     <div class="col s12 m12 l12">
@@ -85,7 +85,7 @@
 </div>
 
 <div id="modal1" class="modal" aria-hidden=true>
-    <form id="formValidate" action='@Url.Action("Guardar","Cajadiario")' method="post">
+    <form class="validar" action='@Url.Action("Guardar","Cajadiario")' method="post">
         <input id="CajaId" name="pCajaId" type="hidden" value="0" />
         <div class="modal-content" style="padding:0">
             <nav class="red">
@@ -147,23 +147,12 @@
                     $("#txtSaldoInicial").focus();
                 }
             });
-        });
+        });        
 
-        $("#formValidate").validate({
-            errorElement: 'div',
-            errorPlacement: function (error, element) {
-                var placement = $(element).data('error');
-                if (placement) {
-                    $(placement).append(error)
-                } else {
-                    error.insertAfter(element);
-                }
-            }
-        });
-
-        function Mostrar(cajaId, CajaName) {
+        function Mostrar(cajaId, CajaName) {           
             $.get('@Url.Action("ContarUsuariosCajaAsignar", "Cajadiario")', function (r) {
                 if (r > 0) {
+                    fn.resetForm();
                     $.get('@Url.Action("ObtenerSaldoBoveda", "Cajadiario")', function (d) {
                         $("#mensajeBoveda").text('En la bóveda hay un saldo de S/. ' + d);
                         $("#txtSaldoInicial").prop('max', d);

@@ -18,7 +18,7 @@ namespace BE
         public int RolId { get; set; }
         public int MenuId { get; set; }
     
-        public virtual menu menu { get; set; }
         public virtual rol rol { get; set; }
+        public virtual menu menu { get; set; }
     }
 }
