@@ -1,6 +1,6 @@
 ﻿
 @{
-    var listamnu = BL.MenuBL.Listar(x => x.IndPadre == false, x => x.OrderBy(y => y.Orden));
+    var listamnu = BL.MenuBL.Listar(x => x.IndPadre == false, x => x.OrderBy(y => y.MenuId));
     var modelRoles = BL.RolBL.Listar();
 }
 <div class="row">    

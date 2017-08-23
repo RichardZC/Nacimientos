@@ -62,8 +62,8 @@ INSERT INTO menu VALUES (2, 'Persona', 'Persona', 			null, 0, 1);
 INSERT INTO menu VALUES (3, 'Mantenimiento', 'Mantenimiento',null, 0, 1);
 
 INSERT INTO menu VALUES (10, 'Seguridad', 'Usuario','mdi-hardware-security', 1, null);
-INSERT INTO menu VALUES (11, 'Roles', 'Rol', 			null,0, 10);
-INSERT INTO menu VALUES (12, 'Usuarios', 'Usuario', 	null,0, 10);
+INSERT INTO menu VALUES (11, 'Usuarios', 'Usuario', 	null,0, 10);
+INSERT INTO menu VALUES (12, 'Roles', 'Rol', 			null,0, 10);
 
 INSERT INTO menu VALUES (20, 'Registro civil', 'Nacimiento', 'mdi-action-book', 1, null);
 INSERT INTO menu VALUES (21, 'Nacimientos', 'Nacimiento', null, 0, 20);
