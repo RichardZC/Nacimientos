@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class MenusUsuarioBL: Repositorio<uvw_menus>
+    public class RolMenuBL:Repositorio<rol_menu>
     {
     }
 }

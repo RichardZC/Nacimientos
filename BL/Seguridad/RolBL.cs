@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace BL
 {
@@ -21,7 +22,7 @@ namespace BL
                     Denominacion = x.Denominacion,
                     Estado = false
                 }).ToList();
-                var asignados = bd.rol.Where(x => x.usuario.FirstOrDefault().UsuarioId == pUsuarioId);
+                var asignados = bd.usuario_rol.Where(x => x.UsuarioId == pUsuarioId);
 
                 foreach (var a in asignados)
                 {
@@ -48,30 +49,43 @@ namespace BL
                     Denominacion = x.Denominacion,
                     Estado = false
                 }).ToList();
-                
+
                 return roles;
             }
         }
 
         public static void GuardarRolMenu(rol r)
         {
-            using (var bd = new nacEntities())
+            using (var scope = new TransactionScope())
             {
-                bd.Configuration.ProxyCreationEnabled = false; /*integridad referencial*/
-                bd.Configuration.LazyLoadingEnabled = false;
-                bd.Configuration.ValidateOnSaveEnabled = false;
-                bd.Database.ExecuteSqlCommand("Delete from menu_rol where RolId=" + r.RolId.ToString());
-                // bd.SaveChanges();
+                try
+                {
+                    using (var bd = new nacEntities())
+                    {
+                        bd.rol_menu.RemoveRange(bd.rol_menu.Where(x => x.RolId == r.RolId));
+                        bd.rol_menu.AddRange(r.rol_menu);
+                        bd.SaveChanges();
 
-                var mnuBK = r.menu;
-                r.menu = null;
-                bd.Entry(r).State = EntityState.Unchanged; /*no modificar la base de datos rol */
-                r.menu = mnuBK;
-                foreach (var i in r.menu)
-                    bd.Entry(i).State = EntityState.Unchanged; /*no modificar la base de datos menu */
+                        var q = (from rm in bd.rol_menu
+                                 where rm.RolId == r.RolId && rm.menu.IndPadre == false
+                                 select rm.menu.Referencia)
+                                 .ToList().Distinct()
+                                 .Select(x => new rol_menu { RolId = r.RolId, MenuId = x.Value })
+                                 .ToList();
 
-                bd.SaveChanges();
+                        bd.rol_menu.AddRange(q);
+
+                        bd.SaveChanges();
+                    }
+                    scope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    scope.Dispose();
+                    throw new Exception(ex.Message);
+                }
             }
+            
         }
     }
 }

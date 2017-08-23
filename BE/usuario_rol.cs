@@ -12,16 +12,13 @@ namespace BE
     using System;
     using System.Collections.Generic;
     
-    public partial class uvw_menus
+    public partial class usuario_rol
     {
+        public int Id { get; set; }
         public int UsuarioId { get; set; }
         public int RolId { get; set; }
-        public int MenuId { get; set; }
-        public string Denominacion { get; set; }
-        public string Modulo { get; set; }
-        public string Icono { get; set; }
-        public Nullable<bool> IndPadre { get; set; }
-        public Nullable<int> Orden { get; set; }
-        public Nullable<int> Referencia { get; set; }
+    
+        public virtual rol rol { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }

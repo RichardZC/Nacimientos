@@ -29,11 +29,9 @@ namespace Web.Filters
 
             string controlador = filterContext.RouteData.Values["Controller"].ToString();
             if (controlador.ToLower() == "home") return;
+        
 
-            int userid = SessionHelper.GetUser();
-            var permiso = MenusUsuarioBL.Contar(x => x.UsuarioId == userid && x.IndPadre == false && x.Modulo == controlador);
-
-            if (permiso == 0)
+            if (!MenuBL.TienePermiso(controlador))
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                 {

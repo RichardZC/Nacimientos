@@ -1,0 +1,128 @@
+﻿
+@{
+    var listamnu = BL.MenuBL.Listar(x => x.IndPadre == false, x => x.OrderBy(y => y.Orden));
+    var modelRoles = BL.RolBL.Listar();
+}
+<div class="row">    
+    <div class="col s12 m6 l6">
+        <div class="row">
+            
+                <ul id="listaRoles" class="collection with-header">
+                    <li class="collection-header cyan">
+                        <a onclick="NuevoRol();" data-target="modal2" data-position="left" data-tooltip="NuevoRol" style="margin-top:5px"
+                           class="modal-add right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
+                        <h5 class="white-text">Roles</h5>
+                    </li>
+                    @foreach (var item in modelRoles)
+                    {
+                        <li class="collection-item">
+                            <div><span id="r_@item.RolId">@item.Denominacion</span><a href="#!" onclick="MostrarEditarRol(@item.RolId);" class="secondary-content"><i class="mdi-content-send"></i></a></div>
+                        </li>
+                    }
+                </ul>
+            
+        </div>
+
+
+
+        <div id="modal2" class="modal">
+            <form id="frmrol" action='@Url.Action("GuardarRoles","Rol")' method="post">
+                <input id="RolId" name="RolId" type="hidden" value="0" />
+                <div class="modal-content" style="padding:0">
+                    <nav class="red">
+                        <div class="nav-wrapper">
+                            <div class="left col s12 m5 l5">
+                                <ul>
+                                    <li>
+                                        <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-navigation-close"></i></a>
+                                    </li>
+                                    Rol
+                                </ul>
+                            </div>
+                            <div class="col s12 m7 l7">
+                                <ul class="right">
+                                    <li>
+                                        <button type="submit" data-ajax="true" class="btn btn-large btn-flat red white-text " style="vertical-align:baseline;height:auto;"><i class="modal-action modal-close mdi-content-save"></i></button>
+                                        @*<a onclick="GuardarR()"><i class="modal-action modal-close  mdi-content-save"></i></a>*@
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+                <div class="model-email-content" style="padding-bottom: 100px;">
+                    <div class="row">
+                        
+                            <div class="input-field col s12">
+                                <input id="txtRol" name="Denominacion" type="text" class="validate" placeholder="Denominación">
+                                <label for="txtRol">Rol</label>
+                            </div>
+
+                            <label>Lista de Permisos</label>
+                            <br />
+                            <br />
+                                
+                            @foreach (var item in listamnu)
+                            {
+                                <div class="input-field col s3">
+
+                                    <input type="checkbox" class="filled-in" id="@item.MenuId" name="mnu" value="@item.MenuId" />
+                                    <label for="@item.MenuId">@item.Denominacion</label>
+                                </div>
+                            }
+                        
+                    </div>
+
+                    @*<span class="caret"></span>*@
+                    @* @Html.DropDownList("menuid", (IEnumerable<SelectListItem>)ViewBag.cboMenu, new { @id = "menurolid", @class = "initialized", @multiple = "" })*@
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+    @section scripts{
+        <script>
+            $(function () {
+                $('.modal-add').leanModal({
+                    ready: function () { $("#txtOficina").focus(); }
+                });
+            });
+            
+            function MostrarEditarRol(Rolid) {
+                $.get("@Url.Action("ListarMenus", "Rol")", { rolId: Rolid }, function (d) {    
+                    $('#modal2').openModal();
+                    $("#RolId").val(Rolid);
+                    $("#txtRol").val($("#r_" + Rolid).text()).focus();
+                    
+                    $(".filled-in").prop("checked", false);                   
+                    for (var i = 0; i < d.length; i++) {
+                        $("#" + d[i].id).prop("checked", true);
+                    }                
+                });  
+            }
+
+           
+            function NuevoRol() {
+                $("#RolId").val(0);
+                $("#txtRol").val("").focus();
+            }
+           
+            function AddRowOfR(id, denominacion) {
+                $("#listaRoles").append("<li class='collection-item'>" +
+                          "<div><span id='r_" + id + "'>" + denominacion + "</span><a href='#!' onclick='MostrarEditarRol(" + id + ");' class='secondary-content'><i class='mdi-content-send'></i></a></div>" +
+                        "</li>");
+                $('#modal2').closeModal();
+            }
+            
+            function RefreshRowOfR(id, denominacion) {
+                $("#r_" + id).text(denominacion);
+                $('#modal2').closeModal();
+            }
+            
+
+
+        </script>
+    }

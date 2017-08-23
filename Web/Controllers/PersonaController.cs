@@ -27,16 +27,8 @@ namespace Web.Controllers
 
         public ActionResult Mantener(int id = 0)
         {
-            var per = new persona();
-            if (id == 0)
-            {
-                //var max = NacimientoBL.ObtenerUltimoLibro();
-                //nac.NroLibro = max[0];
-                //nac.NroActa = max[1] + 1;
-                //nac.Fecha = DateTime.Now;
-                //nac.Sexo = "M";
-            }
-            else
+            var per = new persona() { Sexo="M"};
+            if (id > 0)
                 per = PersonaBL.Obtener(id);
 
             return View(per);
@@ -50,23 +42,18 @@ namespace Web.Controllers
             per.Paterno = per.Paterno.ToUpper();
             per.Materno = per.Materno.ToUpper();
             per.NombreCompleto = per.Nombres + " " + per.Paterno + " " + per.Materno;
-
-            if (per.PersonaId == 0)
+            try
             {
-                //nac.Url = string.Empty;
-                PersonaBL.Crear(per);
-
+                PersonaBL.Guardar(per);                
+                rm.SetResponse(true);
+                rm.href = Url.Action("Index", "Persona");
             }
-            else
+            catch (Exception ex)
             {
-
-                PersonaBL.Actualizar(per);
+                rm.SetResponse(false);
+                rm.function = "fn.mensaje('" + ex.Message + "')";
             }
 
-            rm.SetResponse(true);
-            rm.function = "fn.notificar()";
-            rm.result = per.PersonaId.ToString();
-            
             return Json(rm);
         }
     }

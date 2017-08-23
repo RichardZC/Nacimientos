@@ -22,9 +22,9 @@ namespace BE
     
         public int ConceptoPagoId { get; set; }
         public string Denominacion { get; set; }
-        public Nullable<decimal> Importe { get; set; }
+        public decimal Importe { get; set; }
         public Nullable<int> OficinaId { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public bool Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamovdetalle> cajamovdetalle { get; set; }
