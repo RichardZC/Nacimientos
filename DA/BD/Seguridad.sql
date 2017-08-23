@@ -75,6 +75,9 @@ INSERT INTO menu VALUES (30, 'Caja', 		'Cajadiario', 	'mdi-action-book', 	1, nul
 INSERT INTO menu VALUES (31, 'Diario', 		'Diario', 		null, 0, 30);
 INSERT INTO menu VALUES (32, 'Caja Diario', 'Cajadiario', 	null, 0, 30);
 
+INSERT INTO menu VALUES (40, 'Oficina', 		'Oficina', 	'mdi-action-book', 	1, null);
+INSERT INTO menu VALUES (41, 'Bandeja', 		'Bandeja', 		null, 0, 40);
+
 DROP TABLE IF EXISTS rol_menu;
 CREATE TABLE rol_menu(
 	Id int(11) primary key AUTO_INCREMENT,	
@@ -100,3 +103,6 @@ INSERT INTO rol_menu(MenuId,RolId) VALUES (24, 1);
 INSERT INTO rol_menu(MenuId,RolId) VALUES (30, 1);
 INSERT INTO rol_menu(MenuId,RolId) VALUES (31, 1);
 INSERT INTO rol_menu(MenuId,RolId) VALUES (32, 1);
+
+INSERT INTO rol_menu(MenuId,RolId) VALUES (40, 1);
+INSERT INTO rol_menu(MenuId,RolId) VALUES (41, 1);
