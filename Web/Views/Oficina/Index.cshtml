@@ -1,26 +1,27 @@
 ﻿@model List<BE.oficina>
 @{
     var listamnu = BL.MenuBL.Listar(x => x.IndPadre == false, x => x.OrderBy(y => y.Orden));
+    var listamnup = BL.MenuBL.Listar(x => x.IndPadre == true);
     var modelRoles = BL.RolBL.Listar();
 }
 <div class="row">
     <div class="col s12 m6 l6">
         <div class="row">
-         
-                <ul id="lista" class="collection with-header">
-                    <li class="collection-header cyan">
-                        <a onclick="Nuevo();" data-target="modal1" data-position="left" data-tooltip="Nuevo" style="margin-top:5px"
-                           class="modal-add right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
-                        <h5 class="white-text">OFICINAS</h5>
+
+            <ul id="lista" class="collection with-header">
+                <li class="collection-header cyan">
+                    <a onclick="Nuevo();" data-target="modal1" data-position="left" data-tooltip="Nuevo" style="margin-top:5px"
+                       class="modal-add right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
+                    <h5 class="white-text">OFICINAS</h5>
+                </li>
+                @foreach (var item in Model)
+                {
+                    <li class="collection-item">
+                        <div><span id="o_@item.OficinaId">@item.Denominacion</span><a href="#!" onclick="MostrarEditar(@item.OficinaId);" class="secondary-content"><i class="mdi-content-send"></i></a></div>
                     </li>
-                    @foreach (var item in Model)
-                    {
-                        <li class="collection-item">
-                            <div><span id="o_@item.OficinaId">@item.Denominacion</span><a href="#!" onclick="MostrarEditar(@item.OficinaId);" class="secondary-content"><i class="mdi-content-send"></i></a></div>
-                        </li>
-                    }
-                </ul>
-            
+                }
+            </ul>
+
         </div>
         <div id="modal1" class="modal">
             <form action='@Url.Action("Guardar","Oficina")' method="post">
@@ -68,21 +69,21 @@
 
     <div class="col s12 m6 l6">
         <div class="row">
-            
-                <ul id="listaRoles" class="collection with-header">
-                    <li class="collection-header cyan">
-                        <a onclick="NuevoRol();" data-target="modal2" data-position="left" data-tooltip="NuevoRol" style="margin-top:5px"
-                           class="modal-add right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
-                        <h5 class="white-text">Roles</h5>
+
+            <ul id="listaRoles" class="collection with-header">
+                <li class="collection-header cyan">
+                    <a onclick="NuevoRol();" data-target="modal2" data-position="left" data-tooltip="NuevoRol" style="margin-top:5px"
+                       class="modal-add right btn btn-floating pink accent-2 white-text tooltipped"><i class="mdi-content-add"></i></a>
+                    <h5 class="white-text">Roles</h5>
+                </li>
+                @foreach (var item in modelRoles)
+                {
+                    <li class="collection-item">
+                        <div><span id="r_@item.RolId">@item.Denominacion</span><a href="#!" onclick="MostrarEditarRol(@item.RolId);" class="secondary-content"><i class="mdi-content-send"></i></a></div>
                     </li>
-                    @foreach (var item in modelRoles)
-                    {
-                        <li class="collection-item">
-                            <div><span id="r_@item.RolId">@item.Denominacion</span><a href="#!" onclick="MostrarEditarRol(@item.RolId);" class="secondary-content"><i class="mdi-content-send"></i></a></div>
-                        </li>
-                    }
-                </ul>
-            
+                }
+            </ul>
+
         </div>
 
 
@@ -115,16 +116,29 @@
                 </div>
                 <div class="model-email-content" style="padding-bottom: 100px;">
                     <div class="row">
-                        
-                            <div class="input-field col s12">
-                                <input id="txtRol" name="Denominacion" type="text" class="validate" placeholder="Denominación">
-                                <label for="txtRol">Rol</label>
+
+                        <div class="input-field col s12">
+                            <input id="txtRol" name="Denominacion" type="text" class="validate" placeholder="Denominación">
+                            <label for="txtRol">Rol</label>
+                        </div>
+
+                        <label>Lista de Permisos</label>
+                        <br />
+                        <div class="row">
+
+                            <div class="col s2 grey-text darken-1">
+                                @foreach (var item in listamnup)
+                                {
+
+                                    <div class="input-field col s12">
+                                        <br />
+                                        <label for="@item.MenuId">@item.Denominacion</label>
+                                    </div>
+                                }
+
                             </div>
 
-                            <label>Lista de Permisos</label>
-                            <br />
-                            <br />
-                                
+                            @*<div class="col s7 grey-text text-darken-4 right-align">*@
                             @foreach (var item in listamnu)
                             {
                                 <div class="input-field col s3">
@@ -133,20 +147,23 @@
                                     <label for="@item.MenuId">@item.Denominacion</label>
                                 </div>
                             }
-                        
-                    </div>
+                            @*</div>*@
 
-                    @*<span class="caret"></span>*@
-                    @* @Html.DropDownList("menuid", (IEnumerable<SelectListItem>)ViewBag.cboMenu, new { @id = "menurolid", @class = "initialized", @multiple = "" })*@
-                </div>
+                        </div>
+
+
+
+                        @*<span class="caret"></span>*@
+                        @* @Html.DropDownList("menuid", (IEnumerable<SelectListItem>)ViewBag.cboMenu, new { @id = "menurolid", @class = "initialized", @multiple = "" })*@
+                    </div>
 
             </form>
         </div>
     </div>
 </div>
 
-    @section scripts{
-        <script>
+@section scripts{
+    <script>
             $(function () {
                 $('.modal-add').leanModal({
                     ready: function () { $("#txtOficina").focus(); }
@@ -158,16 +175,16 @@
                 $("#txtOficina").val($("#o_" + oficinaid).text()).focus();
             }
             function MostrarEditarRol(Rolid) {
-                $.get("@Url.Action("ListarMenus", "Oficina")", { rolId: Rolid }, function (d) {    
+                $.get("@Url.Action("ListarMenus", "Oficina")", { rolId: Rolid }, function (d) {
                     $('#modal2').openModal();
                     $("#RolId").val(Rolid);
                     $("#txtRol").val($("#r_" + Rolid).text()).focus();
-                    
-                    $(".filled-in").prop("checked", false);                   
+
+                    $(".filled-in").prop("checked", false);
                     for (var i = 0; i < d.length; i++) {
                         $("#" + d[i].id).prop("checked", true);
-                    }                
-                });  
+                    }
+                });
             }
 
             function Nuevo() {
@@ -217,5 +234,5 @@
             }
 
 
-        </script>
-    }
+    </script>
+}
