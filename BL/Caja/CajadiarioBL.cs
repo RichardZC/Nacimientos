@@ -111,6 +111,7 @@ namespace BL
 
         public static bool CrearSaldoInicial(int cajaDiarioId, decimal saldoInicial)
         {
+            
             using (var scope = new TransactionScope())
             {
                 try
