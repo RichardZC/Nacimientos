@@ -9,7 +9,11 @@ namespace BL
 {
     public class CajaBL: Repositorio<caja>
     {
+
+        
     }
 
+
+    
 
 }
