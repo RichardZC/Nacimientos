@@ -70,8 +70,11 @@
     <None Include="mCSharp\metodoTX.snippet" />
     <None Include="mCSharp\metodobd.snippet" />
     <None Include="mCSharp\transaccion.snippet" />
+    <None Include="mHTML\boton.snippet" />
     <None Include="mHTML\botonf.snippet" />
+    <None Include="mHTML\formulario.snippet" />
     <None Include="mHTML\tabla.snippet" />
+    <None Include="mHTML\texto.snippet" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">

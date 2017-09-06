@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>formulario</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>A description for snippet1</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>formulario</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>titulo</ID>
+          <ToolTip>titulo</ToolTip>
+          <Default>titulo</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="html" Delimiter="$"><![CDATA[<div class="row">
+    <div class="col s12 m12 l12">
+        <h5 class="breadcrumbs-title">$titulo$ </h5>
+        <div class="card-panel row">
+            <form id="formValidate" class="validar" method="post" action=''>
+                <div class="row">                    
+                    <div class="input-field col s12 m4 l4">
+                        <i class="mdi-action-account-circle prefix"></i>
+                        <label for="txt1">Texto1*</label>
+                        <input id="txt1" name="txt1" type="text" required>
+                    </div>
+                                  
+                    
+                    <div class="input-field col s12 m12 l12">
+                        <button class="btn waves-effect waves-light right" type="submit">
+                            <i class="mdi-action-done left"></i>Guardar                            
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

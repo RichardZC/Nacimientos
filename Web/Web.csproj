@@ -265,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BandejaController.cs" />
     <Compile Include="Controllers\CajadiarioController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\Acta\DefuncionController.cs" />
@@ -376,6 +377,7 @@
     <Content Include="Views\Mantenimiento\Index.cshtml" />
     <Content Include="Views\Mantenimiento\_Tabla.cshtml" />
     <Content Include="Views\Diario\Index.cshtml" />
+    <Content Include="Views\Bandeja\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
