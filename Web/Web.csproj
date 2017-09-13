@@ -16,7 +16,7 @@
     <RootNamespace>Web</RootNamespace>
     <AssemblyName>Web</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -378,6 +378,7 @@
     <Content Include="Views\Mantenimiento\_Tabla.cshtml" />
     <Content Include="Views\Diario\Index.cshtml" />
     <Content Include="Views\Bandeja\Index.cshtml" />
+    <Content Include="Views\Bandeja\Mantener.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
