@@ -1,237 +1,96 @@
-﻿@model IEnumerable<BE.conceptopago>
-<div id="default-validation" class="section">
-    <div class="row">
-
-
-        <div class="col s12 m12 l12">
-            <div class="card-panel">
-                <h4 class="header2">Datos personales</h4>
+﻿<div class="row">
+    <div class="col s12 m12 l12">
+        <h5 class="breadcrumbs-title">Nuevo Pago </h5>
+        <div class="card-panel row">
+            <form id="formValidate" class="validar right-alert" method="post" action=''>
                 <div class="row">
-                    @*<form id="formValidate" class="validar" method="post" action='@Url.Action("Guardar","Persona")'>
-                        <input type="hidden" name="PersonaId" value="@Model.PersonaId" />*@
-                    <div class="row">
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-picture-in-picture prefix"></i>
-                            <label for="DNI">DNI*</label>
-                            <input id="DNI" name="DNI" type="number" required minlength="8" value="">
-
-                        </div>
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <label for="Nombres">Nombres*</label>
-                            <input id="Nombres" name="Nombres" type="text" required value="">
-
-                        </div>
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <label for="Paterno">Ape. Paterno*</label>
-                            <input id="Paterno" name="Paterno" type="text" required value="">
-
-                        </div>
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <label for="Materno">Ape. Materno*</label>
-                            <input id="Materno" name="Materno" type="text" required value="">
-
-                        </div>
-
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-settings-cell prefix"></i>
-                            <label for="Celular">Conceptos</label>
-                            <input id="Celular" name="Conceptos" type="text" minlength="9" value="">
-
-                        </div>
-
-                        @*<div class="col s12 m5 l6">
-                            <label for="genter_select">Sexo</label>
-                            <p>
-                                @*<input name="Sexo" type="radio" id="rbsexom" value="M" @if (Model.Sexo == "M") {  <text> checked</text> } />*@
-                        @*<label for="rbsexom">Masculino </label>*@
-
-                        @*<input name="Sexo" type="radio" id="rbsexof" value="F" @if (Model.Sexo == "F") {  <text> checked</text> } />*@
-                        @*<label for="rbsexof">Femenino </label>
-                                </p>
-                            </div>*@
-                        <b />
-
-
-                        <div class="input-field col s12 m3 l6">
-                            <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
-                                Guardar
-                                <i class="mdi-action-done right"></i>
-                            </button>
-                        </div>
+                    <div class="input-field col s11">
+                        <input type="hidden" id="txtPersonaId" name="pPersonaId" value="0" />
+                        <i class="mdi-action-search prefix"></i>
+                        <input id="autocompletar" type="text" placeholder="DNI/Apellidos" required autofocus
+                               data-url='@Url.Action("ListarPersonas","Comun")'
+                               data-seleccion="txtPersonaId">
+                        <label for="autocompletar" data-error="No existe la persona." data-success="Excelente!!! Persona encontrada.">Buscar Persona</label>
                     </div>
-                    @*</form>*@
-                </div>
-            </div>
-        </div>
-
-          <div class="col s12 m12 l12">
-            <div class="card-panel">
-                <h4 class="header2">  </h4>
-                <div class="row">
-                    @*<form id="formValidate" class="validar" method="post" action='@Url.Action("Guardar","Persona")'>
-                        <input type="hidden" name="PersonaId" value="@Model.PersonaId" />*@
-                    @*<div class="row">
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-picture-in-picture prefix"></i>
-                            <label for="DNI">DNI*</label>
-                            <input id="DNI" name="DNI" type="number" required minlength="8" value="">
-
-                        </div>
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <label for="Nombres">Nombres*</label>
-                            <input id="Nombres" name="Nombres" type="text" required value="">
-
-                        </div>
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <label for="Paterno">Ape. Paterno*</label>
-                            <input id="Paterno" name="Paterno" type="text" required value="">
-
-                        </div>
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-account-circle prefix"></i>
-                            <label for="Materno">Ape. Materno*</label>
-                            <input id="Materno" name="Materno" type="text" required value="">
-
-                        </div>
-
-                        <div class="input-field col s12 m4 l3">
-                            <i class="mdi-action-settings-cell prefix"></i>
-                            <label for="Celular">Conceptos</label>
-                            <input id="Celular" name="Conceptos" type="text" minlength="9" value="">
-
-                        </div>
-
-                        @*<div class="col s12 m5 l6">
-                        <label for="genter_select">Sexo</label>
-                        <p>
-                            @*<input name="Sexo" type="radio" id="rbsexom" value="M" @if (Model.Sexo == "M") {  <text> checked</text> } />*@
-                    @*<label for="rbsexom">Masculino </label>*@
-
-                    @*<input name="Sexo" type="radio" id="rbsexof" value="F" @if (Model.Sexo == "F") {  <text> checked</text> } />*@
-                    @*<label for="rbsexof">Femenino </label>
-                            </p>
-                        </div>*@
-
-                    <div class="input-field col s12 m4 l3">
-                        <div class="select-wrapper">
-                            @*<span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" value="Conceptos"><ul id="select-options-f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" class="dropdown-content select-dropdown" style="width: 358.391px; position: absolute; top: 0px; left: 0px; display: none; opacity: 1;"><li class="disabled"><span>Choose your option</span></li><li class=""><span>Option 1</span></li><li class="active"><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select data-select-id="f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" class="initialized">
-                                    <option value="" disabled="" selected="">Conceptos</option>
-                                    <option value="1">Partida Nacimiento</option>
-                                    <option value="2">Partida Defuncion</option>
-                                    <option value="3">Partida Matrimonio</option>
-                                </select>*@
-                            @*@using (Html.BeginForm())
-                                {
-                                          @Html.DropDownList("model" ,ViewBag.)
-                                }*@
-
-
-
-
-                        </div>
-                        <div class="col s12 m8 l12">
-                            <div class="input-field col s12">
-                                <select name="pPersonaId" id="drpUsuario">  </select>
-                                @*@Html.DropDownList("ddlVendor",Model. , "Select Manufacurer")*@
-                                @*@using (Html.BeginForm())
-                                    {
-                                     @Html.DropDownList()
-                                    }*@
-                            </div>
-
-                        </div>
-
+                    <div class="input-field col s1 valign-wrapper">
+                        <a class="btn btn-floating tooltipped" data-tooltip="Crear Persona" data-position="left" href='@Url.Action("Mantener","Persona",new { id=0,href=Url.Action("Index","Home") })'>
+                            <i class="mdi-social-person-add"></i>
+                        </a>
                     </div>
 
-                    <div class="input-field col s12 m4 l3">
-                        <i class=""></i>
-                        <label for="Cantidad">Cantidad</label>
-                        <input id="Materno" name="Cantidad" type="text" required value="">
-
+                    <div class="input-field col s12 m4 l4">
+                        @*<i class="mdi-file-file-download prefix"></i>*@
+                        @Html.DropDownList("drpConcepto", (IEnumerable<SelectListItem>)ViewBag.drpConcepto)
                     </div>
-                    <div class="input-field col s12 m4 l3  left">
-                        <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
-                            Agregar
-                            <i class="mdi-action-done right"></i>
+
+                    <div class="input-field col s12 m4 l4">
+                        <select>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>                       
+                    </div>
+                    <div class="input-field col s12 m4 l4">
+                        <button class="btn waves-effect waves-light blue right" type="submit">
+                            <i class="mdi-file-file-download left"></i>Agregar
                         </button>
                     </div>
-
-
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Cantidad</th>
+                                <th>Monto Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alvin</td>
+                                <td>Eclair</td>
+                                <td>$0.87</td>
+                            </tr>
+                            <tr>
+                                <td>Alan</td>
+                                <td>Jellybean</td>
+                                <td>$3.76</td>
+                            </tr>
+                            <tr>
+                                <td>Jonathan</td>
+                                <td>Lollipop</td>
+                                <td>$7.00</td>
+                            </tr>
+                            <tr>
+                                <td>Shannon</td>
+                                <td>KitKat</td>
+                                <td>$9.99</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="input-field col s12 m12 l12">
+                        <button class="btn waves-effect waves-light right" type="submit">
+                            <i class="mdi-content-send left"></i>Crear Pago
+                        </button>
+                    </div>
                 </div>
+                
 
-                @*</form>*@
-            </div>
+            </form>
+
+            
         </div>
-        
-        @*<div class="card-panel">
-            <div class="col s12">
-               
-                <table class="striped">
-                    <thead>
-                        <tr>
-                            <th>Concepto</th>
-                            <th>Cantidad</th>
-                            <th>Monto Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                        </tr>
-                        <tr>
-                            <td>Shannon</td>
-                            <td>KitKat</td>
-                            <td>$9.99</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-
-                <div class="input-field col s12 m4 l3 right">
-                    <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
-                        Enviar
-                        <i class="mdi-action-done right"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>*@
-
     </div>
 </div>
+
+
 @section scripts{
-    <script>
-        $(function () {
-            $('.modal-add').leanModal({
-                ready: function () {
-                    $("#txtSaldoInicial").focus();
-                }
-            });
-        });
-
-        function Mostrar() {
-
-            fn.CargarCombo("@Url.Action("ComboUsuariosCajaAsignar", "CajaDiario")", "drpUsuario");
-
-        }
+    <script>   
 
 
 

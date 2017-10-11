@@ -18,17 +18,11 @@ namespace Web.Controllers
 
         public ActionResult Mantener()
         {
-           
+            ViewBag.drpConcepto = new SelectList(BL.ConceptopagoBL.Listar(x => x.Estado), "ConceptoPagoId", "Denominacion");
             return View();
 
         }
 
-        public JsonResult ComboConceptopago()
-        {
-            return Json(BL.UsuarioBL.ListarUsuariosSinCaja()
-                .Select(x => new { Id = x.PersonaId, Valor = x.NombreCompleto })
-                , JsonRequestBehavior.AllowGet);
-        }
-
+       
     }
 }
