@@ -19,7 +19,7 @@ namespace Web.Controllers
         public JsonResult ListarPersonas()
         {
             return Json(PersonaBL.Listar()
-                          .Select(x => new { value = x.NombreCompleto, data = x.PersonaId })
+                          .Select(x => new { value = x.DNI + " - " + x.NombreCompleto, data = x.PersonaId })
                           .ToList()
             , JsonRequestBehavior.AllowGet);
         }

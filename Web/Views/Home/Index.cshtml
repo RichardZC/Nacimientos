@@ -61,13 +61,45 @@
     </div>
 </div>
 
- 
-<button onclick="ingresa();">ingrese un dato</button>
+
+
+<div class="row" style="margin-bottom:0;">   
+
+    <div class="col s12 m12 l12">
+        <div class="card-panel">
+            <div class="row" style="margin-bottom:0;">
+                <form class="right-alert validar" >
+                    <div class="input-field col s11">
+                        <input type="hidden" id="txtPersonaId" name="pPersonaId" value="0" />
+                        <i class="mdi-action-search prefix"></i>
+                        <input id="autocompletar" type="text" placeholder="DNI/Apellidos" required 
+                               data-url='@Url.Action("ListarPersonas","Comun")'
+                               data-seleccion="txtPersonaId">
+                        <label for="autocompletar" data-error="No existe la persona." data-success="Excelente!!! Persona encontrada.">Buscar Persona</label>
+                    </div>
+                    <div class="input-field col s1 valign-wrapper">
+                        <a class="btn btn-floating tooltipped" data-tooltip="Crear Persona" data-position="left" href='@Url.Action("Mantener","Persona",new { id=0,href=Url.Action("Index","Home") })'>
+                            <i class="mdi-social-person-add"></i>
+                        </a>
+                    </div>
+                    <div class="input-field col s6 valign-wrapper">
+                        <input type="submit" class="btn" value="enviar"  />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 
 @section scripts{
     
     <script>
-        
+        function metodo(v) {
+            console.log(v);
+        }
 
         
     </script>
