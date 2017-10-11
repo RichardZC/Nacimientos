@@ -1,100 +1,78 @@
-﻿
-<!--breadcrumbs start-->
-<div id="breadcrumbs-wrapper">
-    <!-- Search for small screen -->
-    <div class="header-search-wrapper grey hide-on-large-only">
-        <i class="mdi-action-search active"></i>
-        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <h5 class="breadcrumbs-title">GESTIÓN DE PAGOS</h5>
-                <ol class="breadcrumbs">
-                    @*<li><a href='@Url.Action("Index","Home")'>Inicio</a></li>
-                    <li><a href="@Url.Action("Index","Persona")">Personas</a></li>*@
-                    <li class="active">  </li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-<!--breadcrumbs end-->
-
+﻿@model IEnumerable<BE.conceptopago>
 <div id="default-validation" class="section">
     <div class="row">
+
+
         <div class="col s12 m12 l12">
             <div class="card-panel">
                 <h4 class="header2">Datos personales</h4>
                 <div class="row">
                     @*<form id="formValidate" class="validar" method="post" action='@Url.Action("Guardar","Persona")'>
                         <input type="hidden" name="PersonaId" value="@Model.PersonaId" />*@
-                        <div class="row">
-                            <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-picture-in-picture prefix"></i>
-                                <label for="DNI">DNI*</label>
-                                <input id="DNI" name="DNI" type="number" required minlength="8" value="">
+                    <div class="row">
+                        <div class="input-field col s12 m4 l3">
+                            <i class="mdi-action-picture-in-picture prefix"></i>
+                            <label for="DNI">DNI*</label>
+                            <input id="DNI" name="DNI" type="number" required minlength="8" value="">
 
-                            </div>
-                            <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-account-circle prefix"></i>
-                                <label for="Nombres">Nombres*</label>
-                                <input id="Nombres" name="Nombres" type="text" required value="">
+                        </div>
+                        <div class="input-field col s12 m4 l3">
+                            <i class="mdi-action-account-circle prefix"></i>
+                            <label for="Nombres">Nombres*</label>
+                            <input id="Nombres" name="Nombres" type="text" required value="">
 
-                            </div>
-                            <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-account-circle prefix"></i>
-                                <label for="Paterno">Ape. Paterno*</label>
-                                <input id="Paterno" name="Paterno" type="text" required value="">
+                        </div>
+                        <div class="input-field col s12 m4 l3">
+                            <i class="mdi-action-account-circle prefix"></i>
+                            <label for="Paterno">Ape. Paterno*</label>
+                            <input id="Paterno" name="Paterno" type="text" required value="">
 
-                            </div>
-                            <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-account-circle prefix"></i>
-                                <label for="Materno">Ape. Materno*</label>
-                                <input id="Materno" name="Materno" type="text" required value="">
+                        </div>
+                        <div class="input-field col s12 m4 l3">
+                            <i class="mdi-action-account-circle prefix"></i>
+                            <label for="Materno">Ape. Materno*</label>
+                            <input id="Materno" name="Materno" type="text" required value="">
 
-                            </div>
+                        </div>
 
-                            <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-settings-cell prefix"></i>
-                                <label for="Celular">Conceptos</label>
-                                <input id="Celular" name="Conceptos" type="text" minlength="9" value="">
+                        <div class="input-field col s12 m4 l3">
+                            <i class="mdi-action-settings-cell prefix"></i>
+                            <label for="Celular">Conceptos</label>
+                            <input id="Celular" name="Conceptos" type="text" minlength="9" value="">
 
-                            </div>
-                           
-                            @*<div class="col s12 m5 l6">
-                                <label for="genter_select">Sexo</label>
-                                <p>
-                                    @*<input name="Sexo" type="radio" id="rbsexom" value="M" @if (Model.Sexo == "M") {  <text> checked</text> } />*@
-                                    @*<label for="rbsexom">Masculino </label>*@
+                        </div>
 
-                                    @*<input name="Sexo" type="radio" id="rbsexof" value="F" @if (Model.Sexo == "F") {  <text> checked</text> } />*@
-                                    @*<label for="rbsexof">Femenino </label>
+                        @*<div class="col s12 m5 l6">
+                            <label for="genter_select">Sexo</label>
+                            <p>
+                                @*<input name="Sexo" type="radio" id="rbsexom" value="M" @if (Model.Sexo == "M") {  <text> checked</text> } />*@
+                        @*<label for="rbsexom">Masculino </label>*@
+
+                        @*<input name="Sexo" type="radio" id="rbsexof" value="F" @if (Model.Sexo == "F") {  <text> checked</text> } />*@
+                        @*<label for="rbsexof">Femenino </label>
                                 </p>
                             </div>*@
-                            <b/>
+                        <b />
 
-                            
-                            <div class="input-field col s12 m3 l6">
-                                <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
-                                    Guardar
-                                    <i class="mdi-action-done right"></i>
-                                </button>
-                            </div>
+
+                        <div class="input-field col s12 m3 l6">
+                            <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
+                                Guardar
+                                <i class="mdi-action-done right"></i>
+                            </button>
                         </div>
-                    </form>
+                    </div>
+                    @*</form>*@
                 </div>
             </div>
         </div>
 
-
-
-        <div class="col s12 m12 l12">
+          <div class="col s12 m12 l12">
             <div class="card-panel">
                 <h4 class="header2">  </h4>
                 <div class="row">
                     @*<form id="formValidate" class="validar" method="post" action='@Url.Action("Guardar","Persona")'>
-                    <input type="hidden" name="PersonaId" value="@Model.PersonaId" />*@
+                        <input type="hidden" name="PersonaId" value="@Model.PersonaId" />*@
                     @*<div class="row">
                         <div class="input-field col s12 m4 l3">
                             <i class="mdi-action-picture-in-picture prefix"></i>
@@ -132,30 +110,49 @@
                         <label for="genter_select">Sexo</label>
                         <p>
                             @*<input name="Sexo" type="radio" id="rbsexom" value="M" @if (Model.Sexo == "M") {  <text> checked</text> } />*@
-                        @*<label for="rbsexom">Masculino </label>*@
+                    @*<label for="rbsexom">Masculino </label>*@
 
-                        @*<input name="Sexo" type="radio" id="rbsexof" value="F" @if (Model.Sexo == "F") {  <text> checked</text> } />*@
-                        @*<label for="rbsexof">Femenino </label>
+                    @*<input name="Sexo" type="radio" id="rbsexof" value="F" @if (Model.Sexo == "F") {  <text> checked</text> } />*@
+                    @*<label for="rbsexof">Femenino </label>
                             </p>
                         </div>*@
-                     
-                      <div class="input-field col s12 m4 l3">
+
+                    <div class="input-field col s12 m4 l3">
                         <div class="select-wrapper">
-                            <span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" value="Conceptos"><ul id="select-options-f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" class="dropdown-content select-dropdown" style="width: 358.391px; position: absolute; top: 0px; left: 0px; display: none; opacity: 1;"><li class="disabled"><span>Choose your option</span></li><li class=""><span>Option 1</span></li><li class="active"><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select data-select-id="f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" class="initialized">
-                                <option value="" disabled="" selected="">Conceptos</option>
-                                <option value="1">Partida Nacimiento</option>
-                                <option value="2">Partida Defuncion</option>
-                                <option value="3">Partida Matrimonio</option>
-                            </select>
+                            @*<span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" value="Conceptos"><ul id="select-options-f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" class="dropdown-content select-dropdown" style="width: 358.391px; position: absolute; top: 0px; left: 0px; display: none; opacity: 1;"><li class="disabled"><span>Choose your option</span></li><li class=""><span>Option 1</span></li><li class="active"><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select data-select-id="f3884db5-b1d5-fdc3-ec71-dff8d7baf8e9" class="initialized">
+                                    <option value="" disabled="" selected="">Conceptos</option>
+                                    <option value="1">Partida Nacimiento</option>
+                                    <option value="2">Partida Defuncion</option>
+                                    <option value="3">Partida Matrimonio</option>
+                                </select>*@
+                            @*@using (Html.BeginForm())
+                                {
+                                          @Html.DropDownList("model" ,ViewBag.)
+                                }*@
+
+
+
+
                         </div>
-                       
+                        <div class="col s12 m8 l12">
+                            <div class="input-field col s12">
+                                <select name="pPersonaId" id="drpUsuario">  </select>
+                                @*@Html.DropDownList("ddlVendor",Model. , "Select Manufacurer")*@
+                                @*@using (Html.BeginForm())
+                                    {
+                                     @Html.DropDownList()
+                                    }*@
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="input-field col s12 m4 l3">
                         <i class=""></i>
                         <label for="Cantidad">Cantidad</label>
                         <input id="Materno" name="Cantidad" type="text" required value="">
-                                               
+
                     </div>
                     <div class="input-field col s12 m4 l3  left">
                         <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
@@ -165,15 +162,15 @@
                     </div>
 
 
-                    </div>
-                     
-                    @*</form>*@
                 </div>
-            </div>
-        <div class="card-panel">
-            <div class="col s12">
-                @*<p>Add <code class=" language-markup">class="striped"</code> to the table tag for a striped table</p>*@
 
+                @*</form>*@
+            </div>
+        </div>
+        
+        @*<div class="card-panel">
+            <div class="col s12">
+               
                 <table class="striped">
                     <thead>
                         <tr>
@@ -216,7 +213,27 @@
                 </div>
             </div>
 
-        </div>
-         
- 
+        </div>*@
 
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $('.modal-add').leanModal({
+                ready: function () {
+                    $("#txtSaldoInicial").focus();
+                }
+            });
+        });
+
+        function Mostrar() {
+
+            fn.CargarCombo("@Url.Action("ComboUsuariosCajaAsignar", "CajaDiario")", "drpUsuario");
+
+        }
+
+
+
+    </script>
+}  

@@ -58,6 +58,7 @@
     <Compile Include="Caja\CajaBL.cs" />
     <Compile Include="Caja\CajadiarioBL.cs" />
     <Compile Include="Caja\CajaMovBL.cs" />
+    <Compile Include="ConceptopagoBL.cs" />
     <Compile Include="Maestro\CargoBL.cs" />
     <Compile Include="ComunBL.cs" />
     <Compile Include="Actas\DefuncionAnexoBL.cs" />

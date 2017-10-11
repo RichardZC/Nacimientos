@@ -1,4 +1,8 @@
-﻿
+﻿@model IEnumerable<BE.conceptopago>
+@{ 
+    var modelopersona = BL.PersonaBL.Listar();
+   
+}
 
 <section id="content">
 
@@ -65,35 +69,32 @@
                     </div>
                     <div id="email-list" class="">
                         <ul class="collection">
-                            <li class="collection-item avatar email-unread">
-                                <i class="mdi-social-group icon blue-text"></i>
-                                <span class="email-title">David sulca</span>
-                                <p class="truncate grey-text ultra-small" >concepto: certificado</p>
-                                <p class="truncate grey-text ultra-small">Monto: S/. 15</p>
-                                <a href="#!" class="secondary-content email-time"><p class="grey-text ultra-small">Estado</p> <span class="blue-text ultra-small">12:10 am</span></a>
-                                
-                                
-                            </li>
-                            
-                            <li class="collection-item avatar email-unread">
-                                <i class="mdi-social-group icon blue-text"></i>
-                                <span class="email-title">Elizabeth sulca</span>
-                                <p class="truncate grey-text ultra-small">concepto: certificado</p>
-                                <p class="truncate grey-text ultra-small">Monto: S/. 15</p>
-                                <a href="#!" class="secondary-content email-time"><p class="grey-text ultra-small">Estado</p><span class="blue-text ultra-small">12:10 am</span></a>
-                                
-
-                            </li>
-
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                            @{ int i = 0;}
+                            @*@foreach (var iter in Model)
+                            {*@ 
+                            @foreach (var item in modelopersona)
+                            {
+                                i++;
+                                <li class="collection-item avatar @if (i == 1) {<text>selected</text>}"
+                                    ondblclick="MostrarEditar(@item.PersonaId);"
+                                    onclick="$(this).addClass('selected').siblings().removeClass('selected');">
+                                    <span class="circle light-blue">@item.NombreCompleto.Substring(0, 1)</span>
+                                    <span class="email-title">@item.NombreCompleto</span>
+                                   
+                                        @*<p class="truncate grey-text ultra-small">@iter.Denominacion</p>
+                                        <p class="truncate grey-text ultra-small">@iter.Importe</p>*@
+                                                                       
+                                    <a class="secondary-content email-time"><span class="blue-text ultra-small">DNI @item.DNI</span></a>
+                                </li>
+                            }
+                           @*}*@
                         </ul>
+
+
+
+
+
+                        
                     </div>
                     
                 </div>
@@ -101,77 +102,15 @@
 
             <!-- Compose Email Trigger -->
             <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-                <a class="btn-floating btn-large red modal-trigger" href="#modal1">
-                    <i class="mdi-editor-border-color"></i>
+                <a class="btn btn-floating btn-large red" href='@Url.Action("Mantener","Bandeja",new { id=0 })'>
+                    <i class="mdi-social-person-add"></i>
                 </a>
             </div>
 
 
 
             <!-- Compose Email Structure -->
-            <div id="modal1" class="modal" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 483.478px;">
-                <div class="modal-content">
-                    <nav class="red">
-                        <div class="nav-wrapper">
-                            <div class="left col s12 m5 l5">
-                                <ul>
-                                    <li>
-                                        <a href="#!" class="email-menu"><i class="modal-action modal-close  mdi-hardware-keyboard-backspace"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!" class="email-type">Compose</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col s12 m7 l7 hide-on-med-and-down">
-                                <ul class="right">
-                                    <li>
-                                        <a href="#!"><i class="mdi-editor-attach-file"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="modal-action modal-close  mdi-content-send"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="mdi-navigation-more-vert"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </nav>
-                </div>
-                <div class="model-email-content">
-                    <div class="row">
-                        <form class="col s12">
-                            <!--<div class="row">
-                              <div class="input-field col s12">
-                                <input id="from_email" type="email" class="validate">
-                                <label for="from_email">From</label>
-                              </div>
-                            </div> -->
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="to_email" type="email" class="validate">
-                                    <label for="to_email">To</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="subject" type="text" class="validate">
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea id="compose" class="materialize-textarea" length="500"></textarea>
-                                    <label for="compose">Compose email</label>
-                                    <span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
     </div>
