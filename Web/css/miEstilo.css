@@ -1,4 +1,7 @@
-﻿
+﻿input {
+    text-transform: uppercase;
+}
+
 .bannerUsuario {
     padding-left: 55px;
 }

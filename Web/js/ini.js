@@ -100,11 +100,18 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('input').blur(function () {
+        this.value = this.value.toUpperCase();
+    });
+
     
     //https://github.com/devbridge/jQuery-Autocomplete
     if ($('#autocompletar').data('url') !== null) {
         var txt = $('#autocompletar');
-        if (txt.data('boton') !== null) $("#" + txt.data('boton')).attr('disabled', true);
+        if (txt.data('boton') !== null) $("#" + txt.data('boton')).attr('disabled', true);        
+        txt.data('idx', 0);
+        txt.blur(function () { if ($(this).data('idx') == 0) $(this).val(""); });
 
         $.get(txt.data('url'), function (res) {
             txt.autocomplete({
@@ -112,16 +119,27 @@ $(document).ready(function () {
                 lookup: res,
                 minChars: 2,
                 onSelect: function (suggestion) {
-                    if ($(this).data('seleccion') !== null) $("#" + $(this).data('seleccion')).val(suggestion.data);
-                    if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', false);
-                    if ($(this).data('funcion') !== null) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+
+                    if ($(this).data('seleccion') != null) $("#" + $(this).data('seleccion')).val(suggestion.data);
+                    if ($(this).data('boton') != null) $("#" + $(this).data('boton')).attr('disabled', false);
+                    if ($(this).data('funcion') != null) {                        
                         var funcion = $(this).data('funcion') + '(' + suggestion.data + ');';
                         setTimeout(funcion, 0);
                     }
+                    $(this).data('idx', suggestion.data)
+                    
                 },
                 onInvalidateSelection: function () {
-                    if ($(this).data('seleccion') !== null) $("#" + $(this).data('seleccion')).val(0);
-                    if ($(this).data('boton') !== null) $("#" + $(this).data('boton')).attr('disabled', true);
+                   
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                    
+                    if ($(this).data('seleccion') != null) $("#" + $(this).data('seleccion')).val(0);
+                    if ($(this).data('boton') != null) $("#" + $(this).data('boton')).attr('disabled', true);
+
+                    $(this).data('idx', 0)
                 },
                 showNoSuggestionNotice: true,
                 noSuggestionNotice: 'Lo siento, no hay resultados'
@@ -198,11 +216,11 @@ $(document).ready(function () {
                 }
 
                 // Ejecutar funciones
-                if (r.function !== null) {
+                if (r.function != null) {
                     setTimeout(r.function, 0);
                 }
                 // Redireccionar
-                if (r.href !== null) {
+                if (r.href != null) {
                     if (r.href === 'self') window.location.reload(true);
                     else window.location.href = r.href;
                 }

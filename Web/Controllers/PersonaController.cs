@@ -25,17 +25,20 @@ namespace Web.Controllers
             return PartialView(PersonaBL.ListarPersonas(clave.Trim()));
         }
 
-        public ActionResult Mantener(int id = 0)
+        public ActionResult Mantener(int id ,string href)
         {
             var per = new persona() { Sexo="M"};
             if (id > 0)
                 per = PersonaBL.Obtener(id);
 
+            if (string.IsNullOrEmpty(href)) href = string.Empty;
+            ViewBag.href = href ;
+
             return View(per);
         }
 
         [HttpPost]
-        public JsonResult Guardar(persona per)
+        public JsonResult Guardar(persona per,string href)
         {
             var rm = new ResponseModel();
             per.Nombres = per.Nombres.ToUpper();
@@ -46,7 +49,10 @@ namespace Web.Controllers
             {
                 PersonaBL.Guardar(per);                
                 rm.SetResponse(true);
-                rm.href = Url.Action("Index", "Persona");
+                if (string.IsNullOrEmpty(href))
+                    rm.href = Url.Action("Index", "Persona");
+                else
+                    rm.href = href;
             }
             catch (Exception ex)
             {

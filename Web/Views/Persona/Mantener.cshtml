@@ -27,29 +27,27 @@
             <div class="card-panel">
                 <h4 class="header2">Datos personales</h4>
                 <div class="row">
-                    <form id="formValidate" class="validar" method="post" action='@Url.Action("Guardar","Persona")'>
+                    <form id="formValidate" class="validar" method="post" action='@Url.Action("Guardar","Persona",new { href = ViewBag.href })'>
                         <input type="hidden" name="PersonaId" value="@Model.PersonaId" />
                         <div class="row">
                             <div class="input-field col s12 m4 l3">
                                 <i class="mdi-action-picture-in-picture prefix"></i>
                                 <label for="DNI">DNI*</label>
-                                <input id="DNI" name="DNI" type="number"  required minlength="8" value="@Model.DNI">
-                                
+                                <input id="DNI" name="DNI" type="number" required minlength="8" maxlength="8" value="@Model.DNI">                                
                             </div>
                             <div class="input-field col s12 m4 l3">
                                 <i class="mdi-action-account-circle prefix"></i>
                                 <label for="Nombres">Nombres*</label>
-                                <input id="Nombres" name="Nombres" type="text"  required value="@Model.Nombres">
-                               
+                                <input id="Nombres" name="Nombres" type="text"  required value="@Model.Nombres">                               
                             </div>
                             <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-account-circle prefix"></i>
+                                @*<i class="mdi-action-account-circle prefix"></i>*@
                                 <label for="Paterno">Ape. Paterno*</label>
                                 <input id="Paterno" name="Paterno" type="text"  required value="@Model.Paterno">
                                 
                             </div>
                             <div class="input-field col s12 m4 l3">
-                                <i class="mdi-action-account-circle prefix"></i>
+                                @*<i class="mdi-action-account-circle prefix"></i>*@
                                 <label for="Materno">Ape. Materno*</label>
                                 <input id="Materno" name="Materno" type="text" required value="@Model.Materno">
                                 
@@ -84,7 +82,7 @@
                                 </p>
                             </div>                           
                             <div class="input-field col s12 m3 l6">
-                                <button class="btn waves-effect waves-light right" type="submit" data-ajax="true">
+                                <button class="btn waves-effect waves-light right" type="submit" data-ajax="true" >
                                     Guardar
                                     <i class="mdi-action-done right"></i>
                                 </button>
