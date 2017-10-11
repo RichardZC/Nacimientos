@@ -73,6 +73,7 @@
     <None Include="mHTML\boton.snippet" />
     <None Include="mHTML\botonf.snippet" />
     <None Include="mHTML\formulario.snippet" />
+    <None Include="mHTML\tarjeta.snippet" />
     <None Include="mHTML\tabla.snippet" />
     <None Include="mHTML\texto.snippet" />
   </ItemGroup>
