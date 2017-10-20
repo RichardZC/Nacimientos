@@ -13,7 +13,8 @@ namespace Web.Controllers
         
         public ActionResult Index()
         {
-            return View();
+           
+            return View(BL.CajaMovBL.Listar(includeProperties:"persona"));
         }
 
         public ActionResult Mantener()
