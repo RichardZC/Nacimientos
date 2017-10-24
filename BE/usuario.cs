@@ -20,7 +20,6 @@ namespace BE
             this.cajamov = new HashSet<cajamov>();
             this.cajamov1 = new HashSet<cajamov>();
             this.usuario_rol = new HashSet<usuario_rol>();
-            this.oficina = new HashSet<oficina>();
         }
     
         public int UsuarioId { get; set; }
@@ -29,15 +28,17 @@ namespace BE
         public string Clave { get; set; }
         public bool Activo { get; set; }
         public bool IndCambio { get; set; }
+        public int CargoId { get; set; }
+        public int OficinaId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamov> cajamov1 { get; set; }
+        public virtual cargo cargo { get; set; }
+        public virtual oficina oficina { get; set; }
         public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario_rol> usuario_rol { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<oficina> oficina { get; set; }
     }
 }

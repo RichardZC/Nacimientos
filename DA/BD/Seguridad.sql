@@ -15,6 +15,7 @@ CREATE TABLE Persona (
 );
 INSERT INTO persona VALUES ('1', 'Administrador', 'Administrador', 'Administrador', 'Administrador', '99999999', null, null, 'M', null);
 
+
 DROP TABLE IF EXISTS Usuario;
 create table Usuario(
 	UsuarioId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -23,9 +24,13 @@ create table Usuario(
 	Clave varchar(60) NOT NULL,
 	Activo bit(1) NOT NULL DEFAULT b'1',
     IndCambio bit(1) NOT NULL DEFAULT b'1',
-	FOREIGN KEY(PersonaId) REFERENCES Persona(PersonaId) on DELETE no action on UPDATE CASCADE
+	FOREIGN KEY(PersonaId) REFERENCES Persona(PersonaId) on DELETE no action on UPDATE CASCADE,
+    CargoId int(11) NOT NULL,
+    FOREIGN KEY(CargoId) REFERENCES Cargo(CargoId) on DELETE no action on UPDATE CASCADE,
+    OficinaId int(11) NOT NULL,
+    FOREIGN KEY(OficinaId) REFERENCES Oficina(OficinaId) on DELETE no action on UPDATE CASCADE
 );
-INSERT INTO usuario VALUES ('1', '1', 'ADMIN', '202cb962ac59075b964b07152d234b70', 1, 0);
+INSERT INTO usuario VALUES ('1', '1', 'ADMIN', '202cb962ac59075b964b07152d234b70', 1, 0,1,2);
 
 DROP TABLE IF EXISTS rol;
 create table rol(

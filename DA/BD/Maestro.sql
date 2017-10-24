@@ -11,8 +11,9 @@ INSERT INTO `oficina` VALUES ('3', 'ABASTECIMIENTO');
 INSERT INTO `oficina` VALUES ('4', 'ALMACEN');
 INSERT INTO `oficina` VALUES ('5', 'PERSONAL');
 
+
 DROP TABLE IF EXISTS usuario_oficina;
-CREATE TABLE usuario_oficina (  
+/*CREATE TABLE usuario_oficina (  
   OficinaId int(11) NOT NULL,
 		FOREIGN KEY(OficinaId) REFERENCES Oficina(OficinaId) on DELETE no action on UPDATE CASCADE,
   UsuarioId int(11) NOT NULL,
@@ -20,7 +21,7 @@ CREATE TABLE usuario_oficina (
   PRIMARY KEY (`UsuarioId`,`OficinaId`)
 ); 
 INSERT INTO `usuario_oficina` VALUES ('1', '1');
-
+*/
 DROP TABLE IF EXISTS Cargo;
 Create table Cargo(
 	CargoId int(11) PRIMARY KEY auto_increment not NULL,

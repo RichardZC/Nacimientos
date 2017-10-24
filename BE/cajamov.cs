@@ -37,9 +37,9 @@ namespace BE
     
         public virtual cajadiario cajadiario { get; set; }
         public virtual persona persona { get; set; }
-        public virtual usuario usuario { get; set; }
-        public virtual usuario usuario1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cajamovdetalle> cajamovdetalle { get; set; }
+        public virtual usuario usuario { get; set; }
+        public virtual usuario usuario1 { get; set; }
     }
 }
