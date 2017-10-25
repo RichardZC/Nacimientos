@@ -23,8 +23,8 @@
                         @Html.DropDownList("drpConcepto", (IEnumerable<SelectListItem>)ViewBag.drpConcepto)
                     </div>
 
-                    <div class="input-field col s12 m4 l4">
-                        <select>
+                    <div  class="input-field col s12 m4 l4" >
+                        <select id="cantidad">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -38,11 +38,11 @@
                         </select>                       
                     </div>
                     <div class="input-field col s12 m4 l4">
-                        <button class="btn waves-effect waves-light blue right" type="submit">
+                        <button onclick="guardar(); return false;" class="btn waves-effect waves-light blue right" type="submit">
                             <i class="mdi-file-file-download left"></i>Agregar
                         </button>
                     </div>
-                    <table class="striped">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Concepto</th>
@@ -50,31 +50,12 @@
                                 <th>Monto Total</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alvin</td>
-                                <td>Eclair</td>
-                                <td>$0.87</td>
-                            </tr>
-                            <tr>
-                                <td>Alan</td>
-                                <td>Jellybean</td>
-                                <td>$3.76</td>
-                            </tr>
-                            <tr>
-                                <td>Jonathan</td>
-                                <td>Lollipop</td>
-                                <td>$7.00</td>
-                            </tr>
-                            <tr>
-                                <td>Shannon</td>
-                                <td>KitKat</td>
-                                <td>$9.99</td>
-                            </tr>
+                        <tbody id="tabla">
+                           
                         </tbody>
                     </table>
                     <div class="input-field col s12 m12 l12">
-                        <button class="btn waves-effect waves-light right" type="submit">
+                        <button  class="btn waves-effect waves-light right" type="submit" >
                             <i class="mdi-content-send left"></i>Crear Pago
                         </button>
                     </div>
@@ -91,8 +72,16 @@
 
 @section scripts{
     <script>   
-
-
-
-    </script>
+        function guardar() {
+            var _num = document.getElementById("drpConcepto");
+            var _nom = _num.options[_num.selectedIndex].text;
+            var _can = document.getElementById("cantidad").value;
+            var fila = "<tr><td>" + _nom + "</td><td>" + _can + "</td><td>";
+            var btn = document.createElement("TR");
+            btn.innerHTML = fila;
+            document.getElementById("tabla").appendChild(btn);
+            return false;
+            //var _nom = document.getElementById("drpConcepto").value; (el numero)
+        }
+     </script>
 }  
