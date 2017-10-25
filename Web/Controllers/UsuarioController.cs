@@ -62,7 +62,8 @@ namespace Web.Controllers
             {
                 Usuario = UsuarioBL.Obtener(x => x.UsuarioId == id, "persona"),
                 Roles = RolBL.ListarRoles(id),
-                Oficinas = OficinaBL.ListarOficinas(id)
+                Oficinas = OficinaBL.ListarOficinas(),
+                Cargos = CargoBL.Listar()
             });
         }
 
@@ -103,33 +104,34 @@ namespace Web.Controllers
             public usuario Usuario { get; set; }
             public List<Roles> Roles { get; set; }
             public List<Oficinas> Oficinas { get; set; }
+            public List<cargo> Cargos { get; set; }
         }
 
 
-        [HttpPost]
-        public JsonResult GuardarOficinas(usuario u, int[] o = null)
-        {
-            var rm = new ResponseModel();
-            if (o != null)
-            {
-                foreach (var i in o)
-                    u.oficina.Add(new oficina { OficinaId = i });
-            }
+        //[HttpPost]
+        //public JsonResult GuardarOficinas(usuario u, int[] o = null)
+        //{
+        //    var rm = new ResponseModel();
+        //    if (o != null)
+        //    {
+        //        foreach (var i in o)
+        //            u.oficina.Add(new oficina { OficinaId = i });
+        //    }
 
-            try
-            {
-                UsuarioBL.GuardarUsuarioOficinas(u);
-                rm.SetResponse(true);
-                rm.function = "fn.notificar()";
-            }
-            catch (Exception ex)
-            {
-                rm.SetResponse(false);
-                rm.function = "fn.mensaje('" + ex.Message + "')";
-            }
+        //    try
+        //    {
+        //        UsuarioBL.GuardarUsuarioOficinas(u);
+        //        rm.SetResponse(true);
+        //        rm.function = "fn.notificar()";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rm.SetResponse(false);
+        //        rm.function = "fn.mensaje('" + ex.Message + "')";
+        //    }
 
-            return Json(rm);
-        }
+        //    return Json(rm);
+        //}
 
         [HttpPost]
         public JsonResult GuardarRoles(usuario u, int[] r = null)
@@ -157,25 +159,23 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarUsuario(usuario u, string pActivo)
+        public JsonResult GuardarUsuario(usuario Usuario, string pActivo)
         {
             var rm = new ResponseModel();
             try
             {
-                usuario u2 = UsuarioBL.Obtener(x => x.UsuarioId == u.UsuarioId);
-                bool mismoUsuario = u2.Nombre.Equals(u.Nombre);
-                bool yaExiste = UsuarioBL.Contar(x => x.Nombre == u.Nombre) > 0;
+                usuario u2 = UsuarioBL.Obtener(x => x.UsuarioId == Usuario.UsuarioId);
+                bool mismoUsuario = u2.Nombre.Equals(Usuario.Nombre);
+                bool yaExiste = UsuarioBL.Contar(x => x.Nombre == Usuario.Nombre) > 0;
                 if (!mismoUsuario&&yaExiste )
                 {
                     rm.SetResponse(false);
                     rm.function = "fn.mensaje('El nombre de usuario ya existe.')";
                     return Json(rm); 
                 }
-                
 
-                if (!string.IsNullOrEmpty(pActivo)) u.Activo = true;
-                u.Nombre = u.Nombre.Trim().ToUpper();
-                UsuarioBL.ActualizarParcial(u, x => x.Nombre, x => x.Activo);
+                if (!string.IsNullOrEmpty(pActivo)) Usuario.Activo = true;
+                UsuarioBL.ActualizarParcial(Usuario, x => x.Nombre, x => x.Activo,x=>x.OficinaId, x => x.CargoId);
                 rm.SetResponse(true);
                 rm.function = "fn.notificar()";
             }

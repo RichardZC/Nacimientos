@@ -56,12 +56,11 @@
             <form action='@Url.Action("GuardarUsuario","Usuario")' method="post">
                 <ul id="task-card" class="collection with-header">
                     <li class="collection-header cyan ">
-
                         <button data-ajax="true" type="submit" data-position="left" data-tooltip="Guardar Usuario"
                                 class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
                             <i class="mdi-content-save"></i>
                         </button>
-                        <input type="hidden" name="UsuarioId" value="@Model.Usuario.UsuarioId" />
+                        <input type="hidden" name="Usuario.UsuarioId" value="@Model.Usuario.UsuarioId" />
                         <div class="bannerUsuario">
                             <h5 class="task-card-title ">
                                 @Model.Usuario.persona.NombreCompleto
@@ -99,16 +98,22 @@
                             </div>
                         </li>
                     </ul>
-
-
                     <div class="input-field col s6">
                         <i class="mdi-social-person-outline prefix"></i>
-                        <input id="txtUsuario" name="Nombre" type="text" class="validate valid" value="@Model.Usuario.Nombre">
+                        <input id="txtUsuario" name="Usuario.Nombre" type="text" class="validate valid" value="@Model.Usuario.Nombre">
                         <label class="active" for="txtUsuario">Usuario</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.DropDownListFor(x => x.Usuario.OficinaId, Model.Oficinas.Select(x => new SelectListItem { Value = x.OficinaId.ToString(), Text = x.Denominacion }))
+                        <label for="Usuario_OficinaId">Oficina</label>
                     </div>
                     <div class="input-field col s6 ">
                         <input type="checkbox" name="pActivo" class="filled-in" id="chkActivo" @if (Model.Usuario.Activo) { <text> checked</text>} />
                         <label for="chkActivo">Usuario activo</label>
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.DropDownListFor(x => x.Usuario.CargoId, Model.Cargos.Select(x => new SelectListItem { Value = x.CargoId.ToString(), Text = x.Denominacion }))
+                        <label for="Usuario_CargoId">Cargo</label>
                     </div>
 
                     <div class="row">
@@ -118,6 +123,14 @@
                         </div>
                     </div>
 
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />                    
+                    <br />
+                    <br />
                 </div>
             </form>
         </div>
@@ -148,30 +161,30 @@
         </form>
     </div>
 
-    <div class="col s12 m6 l6">
-        <form method="post" action='@Url.Action("GuardarOficinas","Usuario")'>
-            <ul id="task-card" class="collection with-header">
-                <li class="collection-header cyan">
-                    <button type="submit" data-ajax="true" data-position="left" data-tooltip="Guardar Oficinas"
-                            class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
-                        <i class="mdi-content-save"></i>
-                    </button>
+    @*<div class="col s12 m6 l6">
+            <form method="post" action='@Url.Action("GuardarOficinas","Usuario")'>
+                <ul id="task-card" class="collection with-header">
+                    <li class="collection-header cyan">
+                        <button type="submit" data-ajax="true" data-position="left" data-tooltip="Guardar Oficinas"
+                                class="right btn btn-floating btn-flat waves-effect waves-light pink accent-2 white-text tooltipped">
+                            <i class="mdi-content-save"></i>
+                        </button>
 
-                    <h5 class="task-card-title">OFICINAS</h5>
-                    <input type="hidden" name="u.UsuarioId" value="@Model.Usuario.UsuarioId" />
-                </li>
-                @foreach (var item in Model.Oficinas)
-            {
-                    <li class="collection-item dismissable">
-                        <input type="checkbox" id="o_@item.OficinaId" name="o" value="@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
-                        <label for="o_@item.OficinaId" style="text-decoration: none;">
-                            @item.Denominacion
-                        </label>
+                        <h5 class="task-card-title">OFICINAS</h5>
+                        <input type="hidden" name="u.UsuarioId" value="@Model.Usuario.UsuarioId" />
                     </li>
-                }
-            </ul>
-        </form>
-    </div>
+                    @foreach (var item in Model.Oficinas)
+                {
+                        <li class="collection-item dismissable">
+                            <input type="checkbox" id="o_@item.OficinaId" name="o" value="@item.OficinaId" @if (item.Estado) { <text> checked</text>}>
+                            <label for="o_@item.OficinaId" style="text-decoration: none;">
+                                @item.Denominacion
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </form>
+        </div>*@
 </div>
 
 @section scripts{
