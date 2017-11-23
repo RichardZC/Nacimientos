@@ -88,8 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BD\Maestro.sql" />
-    <Content Include="BD\Caja.sql" />
-    <Content Include="BD\Seguridad.sql" />
     <Content Include="Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>
